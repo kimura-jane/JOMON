@@ -10,9 +10,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Yuji+Syuku&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=7">
+  <link rel="stylesheet" href="style.css?v=8">
   <style>
-    /* ヒーロー可読性強化 */
+    /* ヒーロー可読性とレイアウト */
     .hero{position:relative;min-height:68vh;display:grid;align-items:end;border-bottom:1px solid var(--line)}
     .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(105%) brightness(.8)}
     .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.55) 100%)}
@@ -20,19 +20,18 @@
     .tag{position:absolute;left:6vw;margin:0;font-family:"Yuji Syuku","Noto Sans JP",serif;letter-spacing:.02em;text-shadow:0 2px 2px rgba(0,0,0,.35)}
     .tag.top{top:6vh;font-size:clamp(22px,5.5vw,40px)}
     .tag.bottom{bottom:8vh;font-size:clamp(34px,8vw,72px)}
-    /* Aboutの情報を縦に */
-    .info{list-style:none;padding:0;margin:14px 0;display:flex;flex-direction:column;gap:8px}
+    @media(min-width:900px){.tag.top{top:8vh}.tag.bottom{bottom:10vh}}
+
+    /* Aboutの情報を縦並びで読みやすく */
+    .info{list-style:none;padding:0;margin:14px 0;display:flex;flex-direction:column;gap:10px}
     .info strong{display:block;color:#d7d7d7;font-size:12px;margin-bottom:2px}
     .info a{overflow-wrap:anywhere}
-    /* タイムラインをシンプルにお洒落に */
-    .vline{list-style:none;margin:0;padding:0 0 0 18px;border-left:2px solid #222}
-    .vline li{position:relative;margin:14px 0}
-    .vline li::before{content:"";position:absolute;left:-9px;top:.42em;width:10px;height:10px;border-radius:50%;background:#d6b36a;box-shadow:0 0 0 2px #0b0b0b,0 0 0 4px #2a2a2a}
-    .date{color:#aaa;margin-right:10px;font-feature-settings:"tnum"}
-    @media(min-width:900px){
-      .tag.top{top:8vh}
-      .tag.bottom{bottom:10vh}
-    }
+
+    /* タイムライン（ピンと日付の重なり解消） */
+    .vline{list-style:none;margin:0;padding:0 0 0 32px;border-left:2px solid #222}
+    .vline li{position:relative;margin:14px 0;padding-left:8px}
+    .vline li::before{content:"";position:absolute;left:-18px;top:.55em;width:10px;height:10px;border-radius:50%;background:#d6b36a;box-shadow:0 0 0 2px #0b0b0b,0 0 0 4px #2a2a2a}
+    .date{display:inline-block;width:9.6em;color:#aaa;font-feature-settings:"tnum"}
   </style>
 </head>
 <body>
@@ -50,7 +49,7 @@
 <main>
   <!-- HERO -->
   <section class="hero">
-    <img src="hero.jpg?v=7" alt="Key Visual">
+    <img src="hero.jpg?v=8" alt="Key Visual">
     <p class="tag top">まだ現代で消耗してるの？</p>
     <p class="tag bottom">縄文しようぜ！</p>
     <div class="hero-text" aria-hidden="true"></div>
@@ -61,7 +60,7 @@
     <h2>JOMON Collection</h2>
     <div class="grid">
       <a class="card large" href="nft/taf-dog.html">
-        <img src="taf_dog.jpg?v=7" alt="TAF DOG">
+        <img src="taf_dog.jpg?v=8" alt="TAF DOG">
         <div class="meta"><h3>TAF DOG</h3><p>Collection #1</p></div>
       </a>
     </div>
@@ -72,7 +71,7 @@
     <h2>Works</h2>
     <div class="grid">
       <div class="card large">
-        <img src="sen_no_taiiho.jpg?v=7" alt="線の対位法">
+        <img src="sen_no_taiiho.jpg?v=8" alt="線の対位法">
         <div class="meta"><h3>線の対位法</h3><p>2025・Digital / Mixed</p></div>
       </div>
     </div>
@@ -82,9 +81,10 @@
   <section class="block" id="timeline">
     <h2>Timeline</h2>
     <ol class="vline">
-      <li><span class="date">2025-09-14</span> nomaps2025</li>
+      <li><span class="date">2025-09-14</span> NO MAPS2025「線の対位法」展示</li>
+      <li><span class="date">2025-10-10</span> JOMON COIN 発行</li>
       <li><span class="date">2025-12-16</span> TAF DOG（AL）</li>
-      <li><span class="date">2026-01 mid</span> TAF DOG（一般）</li>
+      <li><span class="date">2026-01 mid</span> TAF DOG（PUBLIC）</li>
     </ol>
   </section>
 
