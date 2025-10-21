@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>JOMON — Artist / Creator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Portfolio and NFT launch info. Polygon ERC-721A.">
+  <meta property="og:title" content="JOMON — Artist / Creator">
+  <meta property="og:description" content="JOMON Collection #1 — TAF DOG. AL starts 2025-12-16 20:00 JST.">
+  <meta property="og:image" content="assets/og.jpg">
+  <meta name="theme-color" content="#0b0b0b">
+  <link rel="icon" href="assets/icon.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="nav">
+  <div class="brand">
+    <img src="assets/icon.png" alt="icon">
+    <span>JOMON</span>
+  </div>
+  <nav>
+    <a href="#works">Works</a>
+    <a href="#next">Next NFT</a>
+    <a href="#howto">How to Buy</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#about">About</a>
+    <a href="index.html">JA</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero k-grid">
+    <img src="assets/hero.jpg" alt="Key Visual">
+    <div class="hero-text">
+      <h1>JOMON</h1>
+      <p class="sub">Tired of modern life? Go Jōmon.</p>
+      <div class="cta">
+        <a class="btn primary" href="#next">Next NFT</a>
+        <a class="btn" href="#works">See works</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="works">
+    <div class="block-head">
+      <h2>Works</h2>
+      <p>Selected pieces. Some will be tokenized.</p>
+    </div>
+    <div id="filters" class="filters" aria-label="filters"></div>
+    <div class="grid" id="worksGrid" aria-live="polite"></div>
+  </section>
+
+  <section class="block accent" id="next">
+    <h2>Next NFT</h2>
+    <div class="next-grid">
+      <div>
+        <h3>JOMON Collection #1 — TAF DOG</h3>
+        <p>A small collection exploring the edge between dissonance and humor through a polygonal dog figure.</p>
+        <ul class="spec">
+          <li><span>Chain</span><strong>Polygon / ERC-721A</strong></li>
+          <li><span>Supply</span><strong>100 (Team 40 | AL 30 | Public rest)</strong></li>
+          <li><span>Allowlist</span><strong>2025-12-16 20:00 JST | 500 JPY (JPYC)</strong></li>
+          <li><span>Public</span><strong>Mid Jan 2026 | TBA</strong></li>
+          <li><span>Payments</span><strong>JPYC / MATIC / FNCT</strong></li>
+          <li><span>Limits</span><strong>AL 10 | Public 3</strong></li>
+          <li><span>Royalty</span><strong>5% → 0x8242dAe5C6fF90b03d15C54Cad95C3ed97AC0571</strong></li>
+        </ul>
+        <div class="cta">
+          <a class="btn primary" href="#" aria-disabled="true">Mint (activates at sale)</a>
+          <a class="btn" href="#" aria-disabled="true">OpenSea (to be added)</a>
+        </div>
+        <p class="note">MATIC/FNCT amounts are fixed using the 12:00 JST rate on the day.</p>
+      </div>
+      <figure class="next-art">
+        <img src="assets/taf_dog.jpg" alt="TAF DOG sample">
+        <figcaption>Sample</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="block" id="howto">
+    <h2>How to Buy</h2>
+    <ol class="timeline">
+      <li><time>JPYC</time> Connect wallet → Approve 500 JPYC (AL) → Mint</li>
+      <li><time>MATIC / FNCT</time> Auto conversion using the day's 12:00 JST rate → Mint</li>
+      <li><time>Limits</time> Per-wallet totals: AL 10, Public 3.</li>
+    </ol>
+  </section>
+
+  <section class="block" id="timeline">
+    <h2>Timeline</h2>
+    <ol class="timeline">
+      <li><time>2025-11-30</time> Teaser</li>
+      <li><time>2025-12-16 20:00</time> AL Sale (until sold out)</li>
+      <li><time>Mid Jan 2026</time> Public Sale</li>
+    </ol>
+  </section>
+
+  <section class="block" id="about">
+    <h2>About</h2>
+    <div class="about">
+      <img class="avatar" src="assets/icon.png" alt="Artist icon">
+      <div>
+        <p>Reframing contemporary symbols with a Jōmon sensibility. Working at the boundary of digital and material.</p>
+        <ul class="split">
+          <li><strong>X</strong> <a href="https://x.com/kimura_jane" target="_blank" rel="noopener">@kimura_jane</a></li>
+          <li><strong>Contact</strong> <a href="mailto:where.is.my.oasis1216@gmail.com">where.is.my.oasis1216@gmail.com</a></li>
+          <li><strong>Wallet</strong> <a href="https://polygonscan.com/address/0x8242dAe5C6fF90b03d15C54Cad95C3ed97AC0571" target="_blank" rel="noopener">0x8242dAe5…AC0571</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Notes</h2>
+    <ul class="timeline">
+      <li>No refunds. Buyer pays gas/fees.</li>
+      <li>Metadata pinned on IPFS. Instant reveal.</li>
+      <li>Market royalty enforcement may vary by platform.</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="footer">
+  <small>© <span id="year"></span> JOMON</small>
+</footer>
+
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"Person",
+ "name":"JOMON",
+ "url":"https://your-domain.example",
+ "jobTitle":"Artist",
+ "sameAs":["https://x.com/kimura_jane"]
+}
+</script>
+<script src="app.js"></script>
+</body>
+</html>
