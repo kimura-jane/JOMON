@@ -2,21 +2,24 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <title>草間縄文 | JOMON</title>
+  <title>JOMON</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="JOMON Collection と作品アーカイブ。">
   <meta property="og:image" content="og.jpg">
   <link rel="icon" href="icon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Noto+Sans+JP:wght@300;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=5">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Yuji+Syuku&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=6">
+  <style>
+    .tagline{font-family:"Yuji Syuku","Noto Sans JP",serif;font-size:clamp(28px,6vw,56px);line-height:1.12;margin:0;transform:rotate(-0.5deg)}
+    .split{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;list-style:none;padding:0;margin:14px 0}
+    .split a{overflow-wrap:anywhere}
+  </style>
 </head>
 <body>
 <header class="nav">
-  <div class="brand">
-    <img src="icon.png" alt="icon" width="28" height="28"><span>JOMON</span>
-  </div>
+  <div class="brand"><img src="icon.png" alt="" width="28" height="28"><span>JOMON</span></div>
   <nav>
     <a href="#collection">JOMON Collection</a>
     <a href="#works">Works</a>
@@ -29,23 +32,19 @@
 <main>
   <!-- HERO -->
   <section class="hero">
-    <img src="hero.jpg?v=5" alt="Key Visual">
+    <img src="hero.jpg?v=6" alt="Key Visual">
     <div class="hero-text">
-      <h1>草間縄文</h1>
-      <p class="sub">まだ現代で消耗してるの？縄文しようぜ！</p>
+      <p class="tagline">まだ現代で消耗してるの？<br>縄文しようぜ！</p>
     </div>
   </section>
 
-  <!-- JOMON Collection -->
+  <!-- JOMON COLLECTION -->
   <section class="block" id="collection">
     <h2>JOMON Collection</h2>
     <div class="grid">
-      <a class="card large" href="/nft/taf-dog.html">
-        <img src="taf_dog.jpg?v=5" alt="TAF DOG">
-        <div class="meta">
-          <h3>TAF DOG</h3>
-          <p>Collection #1</p>
-        </div>
+      <a class="card large" href="nft/taf-dog.html">
+        <img src="taf_dog.jpg?v=6" alt="TAF DOG">
+        <div class="meta"><h3>TAF DOG</h3><p>Collection #1</p></div>
       </a>
     </div>
   </section>
@@ -53,7 +52,12 @@
   <!-- WORKS -->
   <section class="block" id="works">
     <h2>Works</h2>
-    <div class="grid" id="worksGrid" aria-live="polite"></div>
+    <div class="grid">
+      <div class="card large">
+        <img src="sen_no_taiiho.jpg?v=6" alt="線の対位法">
+        <div class="meta"><h3>線の対位法</h3><p>2025・Digital / Mixed</p></div>
+      </div>
+    </div>
   </section>
 
   <!-- TIMELINE -->
@@ -69,7 +73,7 @@
   <section class="block" id="about">
     <h2>About</h2>
     <div class="about">
-      <img class="avatar" src="icon.png" alt="Artist icon" width="120" height="120">
+      <img class="avatar" src="icon.png" alt="" width="120" height="120">
       <div>
         <p>現代の記号を縄文的感性で再編する。</p>
         <ul class="split">
@@ -83,6 +87,6 @@
 </main>
 
 <footer class="footer"><small>© <span id="year"></span> JOMON</small></footer>
-<script src="app.js?v=5"></script>
+<script>document.getElementById("year").textContent=new Date().getFullYear();</script>
 </body>
 </html>
