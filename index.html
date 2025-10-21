@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>草間縄文 | JOMON — Artist / Creator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="草間縄文のポートフォリオとNFT告知。JOMON Collection #1 — TAF DOG。">
+  <meta property="og:title" content="草間縄文 | JOMON">
+  <meta property="og:description" content="TAF DOGの販売情報、作品、購入方法。">
+  <meta property="og:image" content="assets/og.jpg">
+  <meta name="theme-color" content="#0b0b0b">
+  <link rel="icon" href="assets/icon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Noto+Sans+JP:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+<header class="nav">
+  <div class="brand">
+    <img src="assets/icon.png" alt="icon">
+    <span>JOMON</span>
+  </div>
+  <nav>
+    <a href="#works">Works</a>
+    <a href="#next">Next NFT</a>
+    <a href="#buy">How to Buy</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#about">About</a>
+    <a href="en/index.html">EN</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <img src="assets/hero.jpg?v=3" alt="Key Visual">
+    <div class="hero-text">
+      <h1>草間縄文</h1>
+      <p class="sub">まだ現代で消耗してるの？縄文しようぜ！</p>
+      <div class="cta">
+        <a class="btn primary" href="https://x.com/kimura_jane" target="_blank" rel="noopener">Follow on X</a>
+        <a class="btn" href="#works">作品を見る</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="works">
+    <div class="block-head">
+      <h2>Works</h2>
+      <p>選抜作品。NFT化予定含む。</p>
+    </div>
+    <div id="filters" class="filters" aria-label="filters"></div>
+    <div class="grid" id="worksGrid" aria-live="polite"></div>
+  </section>
+
+  <section class="block accent" id="next">
+    <h2>Next NFT</h2>
+    <div class="next-grid">
+      <div>
+        <h3>JOMON Collection #1 — TAF DOG</h3>
+        <p>ポリゴン調の犬像で、失調とユーモアの狭間を彫り出す小規模コレクション。第1弾。</p>
+        <ul class="spec">
+          <li><span>AL</span><strong>2025-12-16 20:00 JST</strong></li>
+          <li><span>一般</span><strong>2026年1月中旬（価格未定）</strong></li>
+          <li><span>供給</span><strong>100（運営40｜AL30｜一般 残数）</strong></li>
+          <li><span>上限</span><strong>AL 10｜一般 3（通貨横断で合算）</strong></li>
+          <li><span>決済</span><strong>JPYC / MATIC / FNCT</strong></li>
+          <li><span>ロイヤリティ</span><strong>5% → 0x8242dAe5C6fF90b03d15C54Cad95C3ed97AC0571</strong></li>
+        </ul>
+        <div class="cta">
+          <a class="btn primary" id="mintLink" href="#" aria-disabled="true">Mint</a>
+          <a class="btn" id="marketLink" href="#" aria-disabled="true">Marketplace</a>
+        </div>
+        <p class="note">OpenSeaリンクは公開時に掲載。</p>
+      </div>
+      <figure class="next-art">
+        <img src="assets/taf_dog.jpg?v=3" alt="TAF DOG sample">
+        <figcaption>サンプル</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="block" id="buy">
+    <h2>How to Buy</h2>
+    <ol class="timeline">
+      <li><strong>JPYC（AL 500円）</strong>：ウォレット接続 → 500 JPYCを承認 → Mint。</li>
+      <li><strong>MATIC / FNCT</strong>：当日12:00 JSTのレートで自動換算 → 表示額を送付 → Mint。</li>
+      <li>上限は通貨横断で合算（AL 10／一般 3）。</li>
+    </ol>
+  </section>
+
+  <section class="block" id="timeline">
+    <h2>Timeline</h2>
+    <ol class="timeline">
+      <li><time>2025-11-30</time> ティザー</li>
+      <li><time>2025-12-16 20:00</time> AL販売（売切まで）</li>
+      <li><time>2026-01 mid</time> 一般販売（価格告知後開始）</li>
+    </ol>
+  </section>
+
+  <section class="block" id="about">
+    <h2>About</h2>
+    <div class="about">
+      <img class="avatar" src="assets/icon.png" alt="Artist icon">
+      <div>
+        <p>現代の記号を縄文的な感性で再編する。デジタルと物質の境界を扱う。</p>
+        <ul class="split">
+          <li><strong>拠点</strong> Tokyo</li>
+          <li><strong>活動</strong> 展示／NFT／コラボ</li>
+          <li><strong>連絡</strong> <a href="mailto:where.is.my.oasis1216@gmail.com">where.is.my.oasis1216@gmail.com</a></li>
+        </ul>
+        <div class="links">
+          <a href="https://x.com/kimura_jane" target="_blank" rel="noopener">X</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <small>© <span id="year"></span> JOMON</small>
+</footer>
+
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"Person",
+ "name":"草間縄文",
+ "url":"https://your-domain.example",
+ "jobTitle":"Artist",
+ "sameAs":["https://x.com/kimura_jane"]
+}
+</script>
+<script src="app.js?v=3"></script>
+</body>
+</html>
