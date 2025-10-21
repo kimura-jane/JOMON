@@ -9,33 +9,24 @@
   <link rel="icon" href="icon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Yuji+Syuku&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=10">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Yuji+Boku&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=11">
   <style>
-    /* ===== HERO 可読性強化 ===== */
+    /* ===== HERO：Yuji Boku + 対角2行 ===== */
     .hero{position:relative;min-height:68vh;display:grid;align-items:end;border-bottom:1px solid var(--line)}
-    .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(105%) brightness(.8)}
+    .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(105%) brightness(.85)}
     .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.55) 100%)}
-    .hero-text{position:relative;padding:10vh 6vw 12vh 6vw}
-    .tag{position:absolute;left:6vw;margin:0;font-family:"Yuji Syuku","Noto Sans JP",serif;letter-spacing:.02em;text-shadow:0 2px 2px rgba(0,0,0,.35)}
-    .tag.top{top:6vh;font-size:clamp(22px,5.5vw,40px)}
-    .tag.bottom{bottom:8vh;font-size:clamp(34px,8vw,72px)}
-    @media(min-width:900px){.tag.top{top:8vh}.tag.bottom{bottom:10vh}}
-
-    /* ===== Timeline 本当に一行表示 ===== */
+    .tag{position:absolute;margin:0;font-family:"Yuji Boku","Noto Sans JP",serif;color:#F3F2EF;letter-spacing:-.01em}
+    .tag span{background:rgba(0,0,0,.18);padding:.18em .48em;border-radius:4px}
+    .tag1{top:6vh;left:6vw;font-size:clamp(26px,5.4vw,64px)}
+    .tag2{right:6vw;bottom:8vh;font-size:clamp(42px,8vw,110px)}
+    @media(min-width:900px){.tag1{top:8vh}.tag2{bottom:10vh}}
+    /* ===== Timeline：1行固定 ===== */
     .vline{list-style:none;margin:0;padding:0}
-    .vline li{
-      position:relative;margin:10px 0;padding-left:1.4em;
-      display:flex;align-items:center;gap:.6em;white-space:nowrap;
-      font-size:clamp(12px,3.6vw,16px)
-    }
-    .vline li::before{
-      content:"";position:absolute;left:0;top:.55em;width:10px;height:10px;
-      border-radius:50%;background:#d6b36a;box-shadow:0 0 0 2px #0b0b0b,0 0 0 4px #2a2a2a
-    }
+    .vline li{position:relative;margin:10px 0;padding-left:1.4em;display:flex;align-items:center;gap:.6em;white-space:nowrap;font-size:clamp(12px,3.6vw,16px)}
+    .vline li::before{content:"";position:absolute;left:0;top:.55em;width:10px;height:10px;border-radius:50%;background:#d6b36a;box-shadow:0 0 0 2px #0b0b0b,0 0 0 4px #2a2a2a}
     .date{color:#aaa;font-feature-settings:"tnum";flex:none}
-
-    /* ===== About シンプル整列 ===== */
+    /* ===== About：縦並び ===== */
     .info{list-style:none;padding:0;margin:14px 0;display:flex;flex-direction:column;gap:10px}
     .info strong{display:block;color:#d7d7d7;font-size:12px;margin-bottom:2px}
     .info a{overflow-wrap:anywhere}
@@ -57,10 +48,9 @@
 <main>
   <!-- HERO -->
   <section class="hero">
-    <img src="hero.jpg?v=10" alt="Key Visual">
-    <p class="tag top">まだ現代で消耗してるの？</p>
-    <p class="tag bottom">縄文しようぜ！</p>
-    <div class="hero-text" aria-hidden="true"></div>
+    <img src="hero.jpg?v=11" alt="Key Visual">
+    <p class="tag tag1"><span>まだ令和で消耗してるの？</span></p>
+    <p class="tag tag2"><span>こっちは先に縄文行ってるね</span></p>
   </section>
 
   <!-- JOMON COLLECTION -->
@@ -68,7 +58,7 @@
     <h2>JOMON Collection</h2>
     <div class="grid">
       <a class="card large" href="nft/taf-dog.html">
-        <img src="taf_dog.jpg?v=10" alt="TAF DOG">
+        <img src="taf_dog.jpg?v=11" alt="TAF DOG">
         <div class="meta"><h3>TAF DOG</h3><p>Collection #1</p></div>
       </a>
     </div>
@@ -79,7 +69,7 @@
     <h2>Works</h2>
     <div class="grid">
       <div class="card large">
-        <img src="sen_no_taiiho.jpg?v=10" alt="線の対位法">
+        <img src="sen_no_taiiho.jpg?v=11" alt="線の対位法">
         <div class="meta"><h3>線の対位法</h3><p>2025・Digital / Mixed</p></div>
       </div>
     </div>
