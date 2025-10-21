@@ -7,40 +7,30 @@
   <meta name="description" content="JOMON Collection と作品アーカイブ。">
   <meta property="og:image" content="og.jpg">
   <link rel="icon" href="icon.png" type="image/png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- ENで使っていた見た目に合わせて Space Grotesk を採用 -->
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=16">
+  <!-- フォントは読み込まない：ENと同じ継承に揃える -->
+  <link rel="stylesheet" href="style.css?v=17">
   <style>
-    /* ===== HERO：Space Grotesk 2行・視認性強化 ===== */
+    /* ===== HERO（フォント指定なし＝ENと同じ継承） ===== */
     .hero{position:relative;min-height:68vh;display:grid;align-items:end;border-bottom:1px solid var(--line)}
     .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
       filter:grayscale(100%) contrast(110%) brightness(.9)}
-    .hero::after{content:"";position:absolute;inset:0;
-      background:linear-gradient(180deg,rgba(0,0,0,.05) 0,rgba(0,0,0,.62) 100%)}
-    .hero-copy{position:absolute;left:6vw;bottom:10vh;color:#fff;
-      font-family:"Space Grotesk",system-ui,sans-serif;line-height:1.06}
-    .hero-line1{font-weight:600;letter-spacing:.01em;
-      font-size:clamp(22px,5vw,40px);
+    .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.62))}
+
+    .hero-copy{position:absolute;left:6vw;bottom:10vh;color:#fff;line-height:1.06}
+    /* ENと同等サイズ感（小→大） */
+    .hero-line1{font-weight:600;letter-spacing:.01em;font-size:clamp(26px,5vw,40px);
       background:rgba(0,0,0,.36);padding:.28em .66em;border-radius:6px;
       display:inline-block;margin-bottom:.4em;text-shadow:0 1px 2px rgba(0,0,0,.55)}
-    .hero-line2{font-weight:700;letter-spacing:.005em;
-      font-size:clamp(40px,8vw,104px);
+    .hero-line2{font-weight:700;letter-spacing:.005em;font-size:clamp(56px,8vw,96px);
       background:rgba(0,0,0,.24);padding:.14em .5em;border-radius:6px;
       display:inline-block;text-shadow:0 2px 4px rgba(0,0,0,.65)}
     @media(min-width:900px){.hero-copy{bottom:12vh}}
 
-    /* ===== Timeline：一行固定 ===== */
+    /* Timeline / About は既存どおり */
     .vline{list-style:none;margin:0;padding:0}
-    .vline li{position:relative;margin:10px 0;padding-left:1.4em;
-      display:flex;align-items:center;gap:.6em;white-space:nowrap;
-      font-size:clamp(12px,3.6vw,16px)}
-    .vline li::before{content:"";position:absolute;left:0;top:.55em;width:10px;height:10px;
-      border-radius:50%;background:#d6b36a;box-shadow:0 0 0 2px #0b0b0b,0 0 0 4px #2a2a2a}
+    .vline li{position:relative;margin:10px 0;padding-left:1.4em;display:flex;align-items:center;gap:.6em;white-space:nowrap;font-size:clamp(12px,3.6vw,16px)}
+    .vline li::before{content:"";position:absolute;left:0;top:.55em;width:10px;height:10px;border-radius:50%;background:#d6b36a;box-shadow:0 0 0 2px #0b0b0b,0 0 0 4px #2a2a2a}
     .date{color:#aaa;font-feature-settings:"tnum";flex:none}
-
-    /* ===== About：縦並び ===== */
     .info{list-style:none;padding:0;margin:14px 0;display:flex;flex-direction:column;gap:10px}
     .info strong{display:block;color:#d7d7d7;font-size:12px;margin-bottom:2px}
     .info a{overflow-wrap:anywhere}
@@ -62,7 +52,7 @@
 <main>
   <!-- HERO -->
   <section class="hero">
-    <img src="hero.jpg?v=16" alt="Key Visual">
+    <img src="hero.jpg?v=17" alt="Key Visual">
     <div class="hero-copy">
       <span class="hero-line1">Tired of Reiwa?</span><br>
       <span class="hero-line2">Go JOMON.</span>
@@ -74,7 +64,7 @@
     <h2>JOMON Collection</h2>
     <div class="grid">
       <a class="card large" href="nft/taf-dog.html">
-        <img src="taf_dog.jpg?v=16" alt="TAF DOG">
+        <img src="taf_dog.jpg?v=17" alt="TAF DOG">
         <div class="meta"><h3>TAF DOG</h3><p>Collection #1</p></div>
       </a>
     </div>
@@ -85,7 +75,7 @@
     <h2>Works</h2>
     <div class="grid">
       <div class="card large">
-        <img src="sen_no_taiiho.jpg?v=16" alt="線の対位法">
+        <img src="sen_no_taiiho.jpg?v=17" alt="線の対位法">
         <div class="meta"><h3>線の対位法</h3><p>2025・Digital / Mixed</p></div>
       </div>
     </div>
