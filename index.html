@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>JOMON — Artist / Creator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="JOMON portfolio and NFT info. JOMON Collection #1 — TAF DOG.">
+  <meta property="og:title" content="JOMON — Artist">
+  <meta property="og:description" content="TAF DOG sale info, works, and how to buy.">
+  <meta property="og:image" content="../assets/og.jpg">
+  <meta name="theme-color" content="#0b0b0b">
+  <link rel="icon" href="../assets/icon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Noto+Sans+JP:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css?v=3">
+</head>
+<body>
+<header class="nav">
+  <div class="brand">
+    <img src="../assets/icon.png" alt="icon">
+    <span>JOMON</span>
+  </div>
+  <nav>
+    <a href="#works">Works</a>
+    <a href="#next">Next NFT</a>
+    <a href="#buy">How to Buy</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#about">About</a>
+    <a href="../index.html">JP</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <img src="../assets/hero.jpg?v=3" alt="Key Visual">
+    <div class="hero-text">
+      <h1>JOMON</h1>
+      <p class="sub">Tired of modernity? Go Jomon.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://x.com/kimura_jane" target="_blank" rel="noopener">Follow on X</a>
+        <a class="btn" href="#works">See Works</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="works">
+    <div class="block-head">
+      <h2>Works</h2>
+      <p>Selected pieces, including upcoming NFTs.</p>
+    </div>
+    <div id="filters" class="filters" aria-label="filters"></div>
+    <div class="grid" id="worksGrid" aria-live="polite"></div>
+  </section>
+
+  <section class="block accent" id="next">
+    <h2>Next NFT</h2>
+    <div class="next-grid">
+      <div>
+        <h3>JOMON Collection #1 — TAF DOG</h3>
+        <p>Polygonal dogs exploring the edge between dissonance and humor.</p>
+        <ul class="spec">
+          <li><span>Allowlist</span><strong>Dec 16, 2025 20:00 JST</strong></li>
+          <li><span>Public</span><strong>Mid Jan, 2026 (TBA)</strong></li>
+          <li><span>Supply</span><strong>100 (Team 40 | AL 30 | Public remainder)</strong></li>
+          <li><span>Limits</span><strong>AL 10 | Public 3 (combined across currencies)</strong></li>
+          <li><span>Payment</span><strong>JPYC / MATIC / FNCT</strong></li>
+          <li><span>Royalty</span><strong>5% → 0x8242dAe5C6fF90b03d15C54Cad95C3ed97AC0571</strong></li>
+        </ul>
+        <div class="cta">
+          <a class="btn primary" aria-disabled="true">Mint</a>
+          <a class="btn" aria-disabled="true">Marketplace</a>
+        </div>
+        <p class="note">OpenSea link will be added after launch.</p>
+      </div>
+      <figure class="next-art">
+        <img src="../assets/taf_dog.jpg?v=3" alt="TAF DOG sample">
+        <figcaption>Sample</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="block" id="buy">
+    <h2>How to Buy</h2>
+    <ol class="timeline">
+      <li><strong>JPYC</strong>: Connect wallet → Approve 500 JPYC (AL) → Mint.</li>
+      <li><strong>MATIC / FNCT</strong>: Converted at 12:00 JST on the day → Pay the shown amount → Mint.</li>
+      <li>Per-wallet caps apply across currencies (AL 10 / Public 3).</li>
+    </ol>
+  </section>
+
+  <section class="block" id="timeline">
+    <h2>Timeline</h2>
+    <ol class="timeline">
+      <li><time>Nov 30, 2025</time> Teaser</li>
+      <li><time>Dec 16, 2025 20:00</time> AL Sale (until sold out)</li>
+      <li><time>Mid Jan, 2026</time> Public Sale (after price announcement)</li>
+    </ol>
+  </section>
+
+  <section class="block" id="about">
+    <h2>About</h2>
+    <div class="about">
+      <img class="avatar" src="../assets/icon.png" alt="Artist icon">
+      <div>
+        <p>Reassembling contemporary signs with a Jomon sensibility, working on the boundary between digital and material.</p>
+        <ul class="split">
+          <li><strong>Base</strong> Tokyo</li>
+          <li><strong>Works</strong> Exhibitions / NFTs / Collab</li>
+          <li><strong>Contact</strong> <a href="mailto:where.is.my.oasis1216@gmail.com">where.is.my.oasis1216@gmail.com</a></li>
+        </ul>
+        <div class="links">
+          <a href="https://x.com/kimura_jane" target="_blank" rel="noopener">X</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <small>© <span id="year"></span> JOMON</small>
+</footer>
+<script src="../app.js?v=3"></script>
+</body>
+</html>
