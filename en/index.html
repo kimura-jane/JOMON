@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>JOMON — Artist</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="JOMON Collection and works.">
+  <link rel="icon" href="../icon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Noto+Sans+JP:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css?v=5">
+</head>
+<body>
+<header class="nav">
+  <div class="brand"><a href="/"><img src="../icon.png" alt="" width="28" height="28"></a><span>JOMON</span></div>
+  <nav>
+    <a href="#collection">JOMON Collection</a>
+    <a href="#works">Works</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#about">About</a>
+    <a href="../index.html">JP</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <img src="../hero.jpg?v=5" alt="Key Visual">
+    <div class="hero-text"><h1>JOMON</h1><p class="sub">Tired of modernity? Go Jomon.</p></div>
+  </section>
+
+  <section class="block" id="collection">
+    <h2>JOMON Collection</h2>
+    <div class="grid">
+      <a class="card large" href="/nft/taf-dog.html">
+        <img src="../taf_dog.jpg?v=5" alt="TAF DOG">
+        <div class="meta"><h3>TAF DOG</h3><p>Collection #1</p></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="block" id="works">
+    <h2>Works</h2>
+    <div class="grid">
+      <div class="card large">
+        <img src="../sen_no_taiiho.jpg?v=5" alt="Counterpoint of Lines">
+        <div class="meta"><h3>Counterpoint of Lines</h3><p>2025 · Digital / Mixed</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="timeline">
+    <h2>Timeline</h2>
+    <ol class="timeline">
+      <li><time>Dec 16, 2025 20:00 JST</time> Allowlist</li>
+      <li><time>Mid Jan, 2026</time> Public</li>
+    </ol>
+  </section>
+
+  <section class="block" id="about">
+    <h2>About</h2>
+    <div class="about">
+      <img class="avatar" src="../icon.png" alt="" width="120" height="120">
+      <div>
+        <p>Reassembling contemporary signs with a Jomon sensibility.</p>
+        <ul class="split">
+          <li><strong>Base</strong> Tokyo</li>
+          <li><strong>Contact</strong> <a href="mailto:where.is.my.oasis1216@gmail.com">where.is.my.oasis1216@gmail.com</a></li>
+          <li><strong>X</strong> <a href="https://x.com/kimura_jane" target="_blank" rel="noopener">@kimura_jane</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer"><small>© <span id="year"></span> JOMON</small></footer>
+<script>document.getElementById("year").textContent=new Date().getFullYear();</script>
+</body>
+</html>
