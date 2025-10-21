@@ -9,40 +9,51 @@
   <link rel="icon" href="icon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- 上=ゴシック、下=最初の筆文字 -->
+  <!-- 上段=ゴシック / 下段=筆文字 -->
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Zen+Kaku+Gothic+New:wght@700;900&family=Yuji+Syuku&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=13">
+  <link rel="stylesheet" href="style.css?v=14">
   <style>
-    /* ===== HERO：上＝真面目ゴシック / 下＝筆文字・一行フル幅 ===== */
+    /* ===== HERO：明るい文字・はみ出し防止 ===== */
     .hero{position:relative;min-height:68vh;display:grid;align-items:end;border-bottom:1px solid var(--line)}
-    .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(108%) brightness(.9)}
-    .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.58))}
+    .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+      filter:grayscale(100%) contrast(110%) brightness(.88)}
+    .hero::after{content:"";position:absolute;inset:0;
+      background:linear-gradient(180deg,rgba(0,0,0,.10) 0,rgba(0,0,0,.62) 100%)}
 
-    .tag{position:absolute;margin:0;color:#F2F2F2;line-height:1.06}
-    /* 上段：ゴシック体で端正に */
+    /* 上段＝ゴシック（真面目） */
     .tag--small{
-      top:7vh;left:6vw;
+      position:absolute;top:7vh;left:6vw;margin:0;
       font-family:"Zen Kaku Gothic New","Noto Sans JP",system-ui,sans-serif;
-      font-weight:900;letter-spacing:.01em;
-      font-size:clamp(22px,4.8vw,40px);
-      background:rgba(0,0,0,.30);padding:.26em .62em;border-radius:4px
+      font-weight:900;letter-spacing:.01em;line-height:1.06;
+      font-size:clamp(22px,4.6vw,40px);
+      color:#fff;background:rgba(0,0,0,.36);
+      padding:.28em .66em;border-radius:6px;text-shadow:0 1px 2px rgba(0,0,0,.6)
     }
-    /* 下段：最初の筆文字（Yuji Syuku）で一行ぴったり */
-    .tag--wide{
-      left:6vw;right:6vw;bottom:8vh;text-align:center;white-space:nowrap;
-      font-family:"Yuji Syuku","Noto Sans JP",serif;font-weight:400;letter-spacing:.02em;
-      font-size:clamp(40px,7.8vw,96px);
-      background:rgba(0,0,0,.22);padding:.12em .5em;border-radius:4px
-    }
-    @media(min-width:900px){.tag--small{top:9vh}.tag--wide{bottom:10vh}}
+    @media(min-width:900px){.tag--small{top:9vh}}
 
-    /* ===== Timeline：一行固定（現状踏襲） ===== */
+    /* 下段＝筆文字（1行フル幅） */
+    .tag--wide{
+      position:absolute;left:4.5vw;right:4.5vw;bottom:9vh;margin:0;
+      text-align:center;white-space:nowrap;
+      font-family:"Yuji Syuku","Noto Sans JP",serif;font-weight:400;line-height:1.04;
+      font-size:clamp(36px,6.1vw,88px); /* 横幅基準で安全なサイズ */
+      letter-spacing:.01em;color:#fff;
+      background:rgba(0,0,0,.24);padding:.14em .5em;border-radius:6px;
+      text-shadow:0 2px 4px rgba(0,0,0,.65)
+    }
+    @media(max-width:360px){ .tag--wide{font-size:5.7vw} }
+    @media(min-width:900px){ .tag--wide{bottom:11vh} }
+
+    /* ===== Timeline：一行固定 ===== */
     .vline{list-style:none;margin:0;padding:0}
-    .vline li{position:relative;margin:10px 0;padding-left:1.4em;display:flex;align-items:center;gap:.6em;white-space:nowrap;font-size:clamp(12px,3.6vw,16px)}
-    .vline li::before{content:"";position:absolute;left:0;top:.55em;width:10px;height:10px;border-radius:50%;background:#d6b36a;box-shadow:0 0 0 2px #0b0b0b,0 0 0 4px #2a2a2a}
+    .vline li{position:relative;margin:10px 0;padding-left:1.4em;
+      display:flex;align-items:center;gap:.6em;white-space:nowrap;
+      font-size:clamp(12px,3.6vw,16px)}
+    .vline li::before{content:"";position:absolute;left:0;top:.55em;width:10px;height:10px;
+      border-radius:50%;background:#d6b36a;box-shadow:0 0 0 2px #0b0b0b,0 0 0 4px #2a2a2a}
     .date{color:#aaa;font-feature-settings:"tnum";flex:none}
 
-    /* ===== About：縦並び（現状踏襲） ===== */
+    /* ===== About：縦並び ===== */
     .info{list-style:none;padding:0;margin:14px 0;display:flex;flex-direction:column;gap:10px}
     .info strong{display:block;color:#d7d7d7;font-size:12px;margin-bottom:2px}
     .info a{overflow-wrap:anywhere}
@@ -64,9 +75,9 @@
 <main>
   <!-- HERO -->
   <section class="hero">
-    <img src="hero.jpg?v=13" alt="Key Visual">
-    <p class="tag tag--small">まだ令和で消耗してるの？</p>
-    <p class="tag tag--wide">先にJOMON行ってるね</p>
+    <img src="hero.jpg?v=14" alt="Key Visual">
+    <p class="tag--small">まだ令和で消耗してるの？</p>
+    <p class="tag--wide">先にJOMON行ってるね</p>
   </section>
 
   <!-- JOMON COLLECTION -->
@@ -74,7 +85,7 @@
     <h2>JOMON Collection</h2>
     <div class="grid">
       <a class="card large" href="nft/taf-dog.html">
-        <img src="taf_dog.jpg?v=13" alt="TAF DOG">
+        <img src="taf_dog.jpg?v=14" alt="TAF DOG">
         <div class="meta"><h3>TAF DOG</h3><p>Collection #1</p></div>
       </a>
     </div>
@@ -85,7 +96,7 @@
     <h2>Works</h2>
     <div class="grid">
       <div class="card large">
-        <img src="sen_no_taiiho.jpg?v=13" alt="線の対位法">
+        <img src="sen_no_taiiho.jpg?v=14" alt="線の対位法">
         <div class="meta"><h3>線の対位法</h3><p>2025・Digital / Mixed</p></div>
       </div>
     </div>
