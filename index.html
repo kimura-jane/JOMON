@@ -7,18 +7,19 @@
   <meta name="description" content="JOMON Collection と作品アーカイブ。">
   <meta property="og:image" content="og.jpg">
   <link rel="icon" href="icon.png" type="image/png">
-  <!-- 本文用 -->
+  <!-- 本文 -->
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap" rel="stylesheet">
-  <!-- ヒーロー用（ENと同じ） -->
+  <!-- ヒーロー／ナビ（ENと同じ） -->
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=28">
   <style>
     :root{
       --bg:#0b0b0b;--fg:#e9e9e9;--muted:#cfcfcf;--line:#222;
-      --card:#141414;--card2:#111;
+      --card:#141414;
     }
     html,body{margin:0;background:var(--bg);color:var(--fg);font-family:"Zen Kaku Gothic New",system-ui,sans-serif}
     img{max-width:100%;display:block}
+    a{color:inherit}
+
     .block{padding:42px 6vw;border-top:1px solid var(--line)}
     h2{margin:0 0 18px 0;font-size:clamp(20px,3.6vw,28px)}
     .grid{display:grid;gap:18px}
@@ -26,37 +27,34 @@
     .card .meta{padding:14px 14px 16px 14px}
     .card h3{margin:0 0 6px 0;font-size:clamp(16px,3.2vw,22px)}
     .card p{margin:0;color:#b8b8b8}
-    .avatar{border-radius:12px;border:1px solid var(--line);background:#fff}
 
-    /* ===== NAV: 2行レイアウト ===== */
-    header.nav{position:sticky;top:0;z-index:50;background:rgba(0,0,0,.42);backdrop-filter:blur(8px)}
-    header.nav .brand{display:flex;align-items:center;gap:8px;padding:10px 6vw 8px}
-    header.nav .brand span{font-weight:900;letter-spacing:.04em}
-    header.nav nav{
-      display:flex;align-items:center;flex-wrap:wrap;
-      gap:clamp(8px,2.4vw,20px);row-gap:6px;white-space:nowrap;
-      justify-content:space-between;padding:0 6vw 10px;
-      border-bottom:1px solid var(--line)
-    }
-    header.nav nav a{color:var(--fg);text-decoration:none;opacity:.9}
-    header.nav nav a:hover{opacity:1}
-    header.nav nav a{font-size:clamp(12px,2.9vw,16px)}
-    .break{flex-basis:100%;height:0}
-    .nowrap{white-space:nowrap}
-    @media(min-width:900px){
-      .break{display:none}
-      header.nav nav{justify-content:flex-start}
-    }
-
-    /* ===== HERO（上下同サイズ・小さめ） ===== */
-    .hero{position:relative;min-height:68vh;display:grid;align-items:end;border-bottom:1px solid var(--line)}
+    /* ===== HERO ===== */
+    .hero{position:relative;min-height:72vh;display:grid;align-items:end;border-bottom:1px solid var(--line)}
     .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(110%) brightness(.9)}
     .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.62))}
-    .hero-copy{position:absolute;left:6vw;bottom:10vh;color:#fff;line-height:1.06}
+    /* 左上ブランド */
+    .brand{
+      position:absolute;top:14px;left:6vw;display:flex;align-items:center;gap:8px;
+      padding:6px 10px;border-radius:10px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.55);
+      backdrop-filter:blur(6px);background:rgba(0,0,0,.18)
+    }
+    .brand span{font-weight:900;letter-spacing:.04em}
+    /* 右上ナビ：右揃え・縦積み */
+    .hero-nav{
+      position:absolute;top:14px;right:6vw;display:flex;flex-direction:column;align-items:flex-end;gap:8px;
+      font-family:"Space Grotesk",system-ui,sans-serif
+    }
+    .hero-nav a{
+      text-decoration:none;color:#fff;font-weight:600;
+      font-size:clamp(12px,2.8vw,15px);line-height:1;
+      padding:8px 12px;border-radius:10px;
+      background:rgba(0,0,0,.28);backdrop-filter:blur(6px);
+      text-shadow:0 1px 2px rgba(0,0,0,.55)
+    }
+    .hero-copy{position:absolute;left:6vw;bottom:12vh;color:#fff;line-height:1.06}
     .hero-line1,.hero-line2{font-family:"Space Grotesk",system-ui,sans-serif;letter-spacing:.01em;font-size:clamp(24px,5.6vw,44px);text-shadow:0 1px 2px rgba(0,0,0,.55);display:inline-block}
     .hero-line1{font-weight:600;margin-bottom:.3em}
     .hero-line2{font-weight:700}
-    @media(min-width:900px){.hero-copy{bottom:12vh}}
 
     /* ===== Works CTA ===== */
     .buy{margin-top:8px;color:#cfcfcf;font-size:14px}
@@ -65,18 +63,12 @@
 
     /* ===== JOMON COIN ===== */
     #coin .spec{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:14px}
-    #coin .spec li{display:block}
     #coin .spec strong{display:block;color:#cfcfcf;font-size:13px;margin-bottom:6px}
-
-    /* ラベル1行 → 次行で「アドレス | コピー」横並び */
     .addrrow{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:2px}
     .addr{
-      flex:1;
-      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-      white-space:nowrap;letter-spacing:0;text-align:left;
-      background:#111;border:1px solid #2a2a2a;border-radius:6px;
-      padding:.4em .6em;
-      font-size:min(12px,2.7vw,calc((100vw - 160px)/42)); /* 1行収め */
+      flex:1;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+      white-space:nowrap;letter-spacing:0;text-align:left;background:#111;border:1px solid #2a2a2a;border-radius:6px;
+      padding:.4em .6em;font-size:min(12px,2.7vw,calc((100vw - 160px)/42))
     }
     .copybtn{flex:none;background:#272727;border:1px solid #3a3a3a;border-radius:6px;padding:.45em .9em;color:#fff;cursor:pointer}
     .copybtn:active{transform:translateY(1px)}
@@ -97,23 +89,20 @@
   </style>
 </head>
 <body>
-<header class="nav">
-  <div class="brand"><img src="icon.png" alt="" width="28" height="28"><span>JOMON</span></div>
-  <nav>
-    <a href="#collection">JOMON Collection</a>
-    <a href="#works">Works</a>
-    <a href="#timeline">Timeline</a>
-    <span class="break"></span>
-    <a href="#coin"><span class="nowrap">JOMON&nbsp;COIN</span></a>
-    <a href="#about">About</a>
-    <a href="en/index.html">EN</a>
-  </nav>
-</header>
 
 <main>
   <!-- HERO -->
-  <section class="hero">
-    <img src="hero.jpg?v=28" alt="Key Visual">
+  <section class="hero" id="home">
+    <img src="hero.jpg?v=29" alt="Key Visual">
+    <div class="brand"><img src="icon.png" alt="" width="24" height="24"><span>JOMON</span></div>
+    <nav class="hero-nav" aria-label="Primary">
+      <a href="#collection">JOMON Collection</a>
+      <a href="#works">Works</a>
+      <a href="#coin">JOMON COIN</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#about">About</a>
+      <a href="en/index.html">EN</a>
+    </nav>
     <div class="hero-copy">
       <span class="hero-line1">Tired of Reiwa?</span><br>
       <span class="hero-line2">Go JOMON.</span>
@@ -125,7 +114,7 @@
     <h2>JOMON Collection</h2>
     <div class="grid">
       <a class="card large" href="nft/taf-dog.html">
-        <img src="taf_dog.jpg?v=28" alt="TAF DOG">
+        <img src="taf_dog.jpg?v=29" alt="TAF DOG">
         <div class="meta"><h3>TAF DOG</h3><p>Collection #1</p></div>
       </a>
     </div>
@@ -136,7 +125,7 @@
     <h2>Works</h2>
     <div class="grid">
       <div class="card large">
-        <img src="sen_no_taiiho.jpg?v=28" alt="線の対位法">
+        <img src="sen_no_taiiho.jpg?v=29" alt="線の対位法">
         <div class="meta">
           <h3>線の対位法</h3>
           <p>2025・Digital / Mixed</p>
