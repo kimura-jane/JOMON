@@ -9,22 +9,18 @@
   <link rel="icon" href="icon.png" type="image/png">
   <!-- 本文 -->
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap" rel="stylesheet">
-  <!-- ヒーロー／ナビ（ENと同じ） -->
+  <!-- 見出し／ナビ（ENと同じ） -->
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#0b0b0b;--fg:#e9e9e9;--muted:#cfcfcf;--line:#222;
-      --card:#141414;
-    }
+    :root{--bg:#0b0b0b;--fg:#e9e9e9;--muted:#cfcfcf;--line:#222;--card:#141414}
     html,body{margin:0;background:var(--bg);color:var(--fg);font-family:"Zen Kaku Gothic New",system-ui,sans-serif}
-    img{max-width:100%;display:block}
-    a{color:inherit}
+    img{max-width:100%;display:block} a{color:inherit;text-decoration:none}
 
     .block{padding:42px 6vw;border-top:1px solid var(--line)}
     h2{margin:0 0 18px 0;font-size:clamp(20px,3.6vw,28px)}
     .grid{display:grid;gap:18px}
     .card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-    .card .meta{padding:14px 14px 16px 14px}
+    .card .meta{padding:14px 14px 16px}
     .card h3{margin:0 0 6px 0;font-size:clamp(16px,3.2vw,22px)}
     .card p{margin:0;color:#b8b8b8}
 
@@ -32,25 +28,17 @@
     .hero{position:relative;min-height:72vh;display:grid;align-items:end;border-bottom:1px solid var(--line)}
     .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(110%) brightness(.9)}
     .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.62))}
-    /* 左上ブランド */
-    .brand{
-      position:absolute;top:14px;left:6vw;display:flex;align-items:center;gap:8px;
-      padding:6px 10px;border-radius:10px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.55);
-      backdrop-filter:blur(6px);background:rgba(0,0,0,.18)
-    }
-    .brand span{font-weight:900;letter-spacing:.04em}
-    /* 右上ナビ：右揃え・縦積み */
+    /* 右上ナビ：文字のみ右揃え */
     .hero-nav{
-      position:absolute;top:14px;right:6vw;display:flex;flex-direction:column;align-items:flex-end;gap:8px;
+      position:absolute;top:16px;right:6vw;display:flex;flex-direction:column;align-items:flex-end;gap:10px;
       font-family:"Space Grotesk",system-ui,sans-serif
     }
     .hero-nav a{
-      text-decoration:none;color:#fff;font-weight:600;
-      font-size:clamp(12px,2.8vw,15px);line-height:1;
-      padding:8px 12px;border-radius:10px;
-      background:rgba(0,0,0,.28);backdrop-filter:blur(6px);
+      color:#fff;font-weight:600;font-size:clamp(12px,2.8vw,15px);line-height:1;
       text-shadow:0 1px 2px rgba(0,0,0,.55)
     }
+    .hero-nav a:hover{text-decoration:underline}
+
     .hero-copy{position:absolute;left:6vw;bottom:12vh;color:#fff;line-height:1.06}
     .hero-line1,.hero-line2{font-family:"Space Grotesk",system-ui,sans-serif;letter-spacing:.01em;font-size:clamp(24px,5.6vw,44px);text-shadow:0 1px 2px rgba(0,0,0,.55);display:inline-block}
     .hero-line1{font-weight:600;margin-bottom:.3em}
@@ -58,8 +46,7 @@
 
     /* ===== Works CTA ===== */
     .buy{margin-top:8px;color:#cfcfcf;font-size:14px}
-    .accent{color:#8ec5ff;text-decoration:none}
-    .accent:hover{color:#bfe2ff;text-decoration:underline}
+    .accent{color:#8ec5ff} .accent:hover{color:#bfe2ff;text-decoration:underline}
 
     /* ===== JOMON COIN ===== */
     #coin .spec{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:14px}
@@ -67,7 +54,7 @@
     .addrrow{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:2px}
     .addr{
       flex:1;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-      white-space:nowrap;letter-spacing:0;text-align:left;background:#111;border:1px solid #2a2a2a;border-radius:6px;
+      white-space:nowrap;text-align:left;background:#111;border:1px solid #2a2a2a;border-radius:6px;
       padding:.4em .6em;font-size:min(12px,2.7vw,calc((100vw - 160px)/42))
     }
     .copybtn{flex:none;background:#272727;border:1px solid #3a3a3a;border-radius:6px;padding:.45em .9em;color:#fff;cursor:pointer}
@@ -80,6 +67,7 @@
     .vline li::before{content:"";position:absolute;left:0;top:.55em;width:10px;height:10px;border-radius:50%;background:#d6b36a;box-shadow:0 0 0 2px #0b0b0b,0 0 0 4px #2a2a2a}
     .date{color:#aaa;font-feature-settings:"tnum";flex:none}
     .about{display:flex;gap:16px;align-items:flex-start}
+    .avatar{border-radius:12px;border:1px solid var(--line);background:#fff}
     .info{list-style:none;padding:0;margin:6px 0;display:flex;flex-direction:column;gap:10px}
     .info strong{display:block;color:#d7d7d7;font-size:12px;margin-bottom:2px}
     .info a{overflow-wrap:anywhere}
@@ -93,8 +81,7 @@
 <main>
   <!-- HERO -->
   <section class="hero" id="home">
-    <img src="hero.jpg?v=29" alt="Key Visual">
-    <div class="brand"><img src="icon.png" alt="" width="24" height="24"><span>JOMON</span></div>
+    <img src="hero.jpg?v=30" alt="Key Visual">
     <nav class="hero-nav" aria-label="Primary">
       <a href="#collection">JOMON Collection</a>
       <a href="#works">Works</a>
@@ -114,7 +101,7 @@
     <h2>JOMON Collection</h2>
     <div class="grid">
       <a class="card large" href="nft/taf-dog.html">
-        <img src="taf_dog.jpg?v=29" alt="TAF DOG">
+        <img src="taf_dog.jpg?v=30" alt="TAF DOG">
         <div class="meta"><h3>TAF DOG</h3><p>Collection #1</p></div>
       </a>
     </div>
@@ -125,7 +112,7 @@
     <h2>Works</h2>
     <div class="grid">
       <div class="card large">
-        <img src="sen_no_taiiho.jpg?v=29" alt="線の対位法">
+        <img src="sen_no_taiiho.jpg?v=30" alt="線の対位法">
         <div class="meta">
           <h3>線の対位法</h3>
           <p>2025・Digital / Mixed</p>
@@ -193,24 +180,15 @@
     const value=el.textContent.trim();
 
     async function copyText(txt){
-      if(navigator.clipboard && window.isSecureContext){
-        return navigator.clipboard.writeText(txt);
-      }
+      if(navigator.clipboard && window.isSecureContext){return navigator.clipboard.writeText(txt);}
       const ta=document.createElement('textarea');
       ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0';
       document.body.appendChild(ta); ta.focus(); ta.select();
       try{ document.execCommand('copy'); } finally{ document.body.removeChild(ta); }
     }
-
     btn.addEventListener('click',async ()=>{
-      try{
-        await copyText(value);
-        msg.textContent='Copied';
-        setTimeout(()=>{msg.textContent='';},1800);
-      }catch(e){
-        msg.textContent='Copy failed';
-        setTimeout(()=>{msg.textContent='';},1800);
-      }
+      try{ await copyText(value); msg.textContent='Copied'; setTimeout(()=>msg.textContent='',1800); }
+      catch(e){ msg.textContent='Copy failed'; setTimeout(()=>msg.textContent='',1800); }
     });
   })();
 </script>
