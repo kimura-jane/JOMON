@@ -10,6 +10,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../style.css?v=7">
+  <style>
+    /* 余白の微調整だけ上書き */
+    .spec.tight{ margin-top: 8px; }
+    .spec.tight li{ padding: 10px 0; }
+    .spec.tight + .cta{ margin-top: 14px; }
+  </style>
 </head>
 <body>
   <header class="nav">
@@ -20,6 +26,7 @@
   </header>
 
   <main>
+    <!-- ここだけの単一ブロックに統合 -->
     <section class="block">
       <div class="next-grid">
         <figure class="card">
@@ -30,36 +37,27 @@
           <h1 style="margin-top:0">TAF DOG — Collection #1</h1>
           <p class="muted">Polygon / ERC-721A</p>
 
-          <ul class="spec">
+          <!-- 上下分割をやめ、一覧を一箇所に集約 -->
+          <ul class="spec tight">
             <li><span>Allowlist</span><strong>2025-12-16 20:00 JST</strong></li>
             <li><span>Public</span><strong>1月中旬</strong></li>
+            <li><span>チェーン</span><strong>Polygon</strong></li>
+            <li><span>規格</span><strong>ERC-721A</strong></li>
+            <li><span>総発行数</span><strong>100</strong></li>
+            <li><span>価格</span><strong>AL 500円 / Public 未定</strong></li>
             <li><span>決済</span><strong>JPYC(仮) / MATIC(仮) / FNCT(仮)</strong></li>
-            <li><span>上限</span><strong>AL 未定 | 一般 未定</strong></li>
+            <li><span>レート基準</span><strong>販売当日12:00（JST）</strong></li>
+            <li><span>上限</span><strong>AL 未定 / 一般 未定</strong></li>
+            <li><span>供給内訳</span><strong>AL 40 / Public 未定</strong></li>
           </ul>
 
+          <!-- CTAはこの位置に固定。OpenSeaリンクは1箇所のみ -->
           <div class="cta">
             <a class="btn primary" aria-disabled="true">Mint（準備中）</a>
-            <!-- OpenSeaリンクはこの1箇所のみ -->
             <a class="btn" href="https://opensea.io/ja/collection/taf-dog" target="_blank" rel="noopener">Marketplace</a>
           </div>
         </div>
       </div>
-    </section>
-
-    <section class="block">
-      <h2>詳細</h2>
-      <!-- 見やすい一覧（サイト既存の .spec を再利用） -->
-      <ul class="spec">
-        <li><span>チェーン</span><strong>Polygon</strong></li>
-        <li><span>規格</span><strong>ERC-721A</strong></li>
-        <li><span>総発行数</span><strong>100</strong></li>
-        <li><span>価格</span><strong>AL 500円 / Public 未定</strong></li>
-        <li><span>決済方法</span><strong>JPYC(仮) / Polygon(MATIC)(仮) / FNCT(仮)</strong></li>
-        <li><span>レート基準</span><strong>販売当日12:00（JST）</strong></li>
-        <li><span>販売開始</span><strong>AL 2025/12/16 20:00（JST） / Public 1月中旬</strong></li>
-        <li><span>購入上限</span><strong>AL 未定 / Public 未定</strong></li>
-        <li><span>供給内訳</span><strong>AL 40 / Public 未定</strong></li>
-      </ul>
     </section>
   </main>
 
