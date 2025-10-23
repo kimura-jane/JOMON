@@ -10,7 +10,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../style.css?v=7">
-  <style>.spec.tight{margin-top:8px}.spec.tight li{padding:10px 0}.spec.tight+.cta{margin-top:14px}</style>
+  <style>
+    /* 一覧の余白を少しタイトに */
+    .spec.tight{margin-top:8px}
+    .spec.tight li{padding:10px 0}
+    .spec.tight + .cta{margin-top:14px}
+    /* 「販売開始」を上下揃えで表示 */
+    .spec .stack > span{display:block}
+    .spec .subkey{display:inline-block;width:3.2em}
+  </style>
 </head>
 <body>
   <header class="nav">
@@ -32,7 +40,13 @@
           <p class="muted">Polygon / ERC-721A</p>
 
           <ul class="spec tight">
-            <li><span>販売開始</span><strong>AL 2025-12-16 20:00（JST） / 一般 1月中旬予定</strong></li>
+            <li>
+              <span>販売開始</span>
+              <strong class="stack">
+                <span><span class="subkey">AL</span> 2025-12-16 20:00（JST）</span>
+                <span><span class="subkey">一般</span> 1月中旬予定</span>
+              </strong>
+            </li>
             <li><span>チェーン</span><strong>Polygon</strong></li>
             <li><span>規格</span><strong>ERC-721A</strong></li>
             <li><span>総発行数</span><strong>100</strong></li>
@@ -45,6 +59,7 @@
 
           <div class="cta">
             <a class="btn primary" aria-disabled="true">Mint（準備中）</a>
+            <!-- OpenSeaリンクは1箇所のみ -->
             <a class="btn" href="https://opensea.io/ja/collection/taf-dog" target="_blank" rel="noopener">Marketplace</a>
           </div>
         </div>
