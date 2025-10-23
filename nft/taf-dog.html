@@ -2,125 +2,76 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <title>TAF DOG | JOMON</title>
+  <title>TAF DOG | JOMON Collection</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b0b0b">
-  <!-- ここをサイトのグローバルCSSに合わせて変更。例: /JOMON/style.css -->
-  <link rel="stylesheet" href="../style.css">
-  <style>
-    :root{--bg:#0b0b0b;--panel:#121212;--fg:#eaeaea;--muted:#9aa0a6;--line:#2a2a2a;--radius:14px}
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--fg)} /* フォント指定なし=既定に戻す */
-    a{color:inherit;text-decoration:none}
-    .container{max-width:960px;margin:0 auto;padding:0 16px}
-    header{padding:16px 0;border-bottom:1px solid var(--line)}
-    header h1{margin:0;font-size:18px;font-weight:600}
-    main{padding:24px 0 64px}
-
-    .hero{padding:28px 0;border-bottom:1px solid var(--line)}
-    .hero h2{margin:0 0 6px;font-size:28px;line-height:1.2}
-    .hero p{margin:0;color:var(--muted)}
-    .cta{margin-top:14px}
-    .btn{display:inline-block;padding:.6rem 1rem;border:1.5px solid var(--fg);border-radius:8px}
-    .btn:active{transform:translateY(1px)}
-
-    .art{margin-top:20px}
-    .art .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:0;overflow:hidden}
-    .art img{display:block;width:100%;height:auto}
-
-    .details{padding:24px 0}
-    .details .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
-    .details h3{margin:0 0 12px;font-size:20px}
-    dl{display:grid;grid-template-columns:160px 1fr;gap:10px 16px;margin:0}
-    dt{font-weight:600;color:var(--muted)}
-    dd{margin:0}
-    .link-external::after{content:"↗";font-size:.9em;margin-left:.25em;opacity:.9}
-
-    footer{padding:24px 0;border-top:1px solid var(--line);color:var(--muted)}
-    @media (max-width:560px){
-      dl{grid-template-columns:120px 1fr}
-      .hero h2{font-size:24px}
-    }
-  </style>
+  <meta name="description" content="JOMON Collection #1 — TAF DOG">
+  <link rel="icon" href="../icon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css?v=7">
 </head>
 <body>
-  <header>
-    <div class="container">
-      <h1>JOMON コレクション</h1>
+  <header class="nav">
+    <div class="brand">
+      <a href="../index.html"><img src="../icon.png" alt="JOMON" width="24" height="24">JOMON</a>
     </div>
+    <nav><a href="../index.html">Home</a></nav>
   </header>
 
   <main>
-    <section class="hero">
-      <div class="container">
-        <h2>TAF DOG</h2>
-        <p>Polygon / ERC-721A</p>
-        <div class="cta">
-          <a href="https://opensea.io/ja/collection/taf-dog" target="_blank" rel="noopener" class="btn" aria-label="OpenSeaでTAF DOGコレクションを見る">
-            OpenSeaで見る
-          </a>
-        </div>
+    <section class="block">
+      <div class="next-grid">
+        <figure class="card">
+          <!-- 画像はリポジトリ直下の taf_dog.jpg を使用 -->
+          <img src="../taf_dog.jpg" alt="TAF DOG" loading="eager" decoding="async">
+        </figure>
 
-        <!-- Artwork -->
-        <div class="art">
-          <div class="card">
-            <img id="artImg" src="" alt="TAF DOG のアートワーク">
+        <div>
+          <h1 style="margin-top:0">TAF DOG — Collection #1</h1>
+          <p class="muted">Polygon / ERC-721A</p>
+
+          <p class="cta">
+            <a class="btn" href="https://opensea.io/ja/collection/taf-dog" target="_blank" rel="noopener">OpenSeaで見る</a>
+          </p>
+
+          <ul class="spec">
+            <li><span>Allowlist</span><strong>2025-12-16 20:00 JST</strong></li>
+            <li><span>Public</span><strong>1月中旬</strong></li>
+            <li><span>決済</span><strong>JPYC(仮) / MATIC(仮) / FNCT(仮)</strong></li>
+            <li><span>上限</span><strong>AL 未定 | 一般 未定</strong></li>
+          </ul>
+
+          <div class="cta">
+            <a class="btn primary" aria-disabled="true">Mint（準備中）</a>
+            <a class="btn" href="https://opensea.io/ja/collection/taf-dog" target="_blank" rel="noopener">Marketplace</a>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="details">
-      <div class="container">
-        <div class="card">
-          <h3>詳細</h3>
-          <dl>
-            <dt>チェーン</dt><dd>Polygon</dd>
-            <dt>規格</dt><dd>ERC-721A</dd>
-            <dt>総発行数</dt><dd>100</dd>
-            <dt>価格</dt><dd>AL 500円／Public 未定</dd>
-            <dt>決済方法</dt><dd>JPYC(仮)／Polygon(MATIC)(仮)／FNCT(仮)</dd>
-            <dt>レート基準</dt><dd>販売当日12:00（JST）</dd>
-            <dt>販売開始</dt><dd>AL 2025/12/16 20:00（JST）／Public 1月中旬</dd>
-            <dt>購入上限</dt><dd>AL 未定／Public 未定</dd>
-            <dt>供給内訳</dt><dd>AL 40／Public 未定</dd>
-            <dt>OpenSea</dt>
-            <dd><a href="https://opensea.io/ja/collection/taf-dog" target="_blank" rel="noopener" class="link-external">OpenSeaでコレクションを見る</a></dd>
-          </dl>
-        </div>
-      </div>
+    <section class="block">
+      <h2>詳細</h2>
+      <dl class="plain">
+        <dt>チェーン</dt><dd>Polygon</dd>
+        <dt>規格</dt><dd>ERC-721A</dd>
+        <dt>総発行数</dt><dd>100</dd>
+        <dt>価格</dt><dd>AL 500円／Public 未定</dd>
+        <dt>決済方法</dt><dd>JPYC(仮)／Polygon(MATIC)(仮)／FNCT(仮)</dd>
+        <dt>レート基準</dt><dd>販売当日12:00（JST）</dd>
+        <dt>販売開始</dt><dd>AL 2025/12/16 20:00（JST）／Public 1月中旬</dd>
+        <dt>購入上限</dt><dd>AL 未定／Public 未定</dd>
+        <dt>供給内訳</dt><dd>AL 40／Public 未定</dd>
+        <dt>OpenSea</dt>
+        <dd><a href="https://opensea.io/ja/collection/taf-dog" target="_blank" rel="noopener">OpenSeaでコレクションを見る</a></dd>
+      </dl>
     </section>
   </main>
 
-  <footer>
+  <footer class="footer">
     <div class="container">
-      <p><a href="https://opensea.io/ja/collection/taf-dog" target="_blank" rel="noopener" class="link-external">OpenSea（TAF DOG）</a></p>
+      <a href="https://opensea.io/ja/collection/taf-dog" target="_blank" rel="noopener">OpenSea（TAF DOG）</a>
     </div>
   </footer>
-
-  <script>
-    // 画像の候補パス。存在する最初のものを採用。
-    const candidates = [
-      './taf-dog-hero.jpg',
-      '../images/taf-dog-hero.jpg',
-      '../img/taf-dog-hero.jpg',
-      '../assets/taf-dog-hero.jpg',
-      '../assets/img/taf-dog-hero.jpg',
-      '../images/taf-dog-01.jpg',
-      '../img/taf-dog-01.jpg'
-    ];
-    (async () => {
-      const imgEl = document.getElementById('artImg');
-      for (const p of candidates) {
-        try {
-          const r = await fetch(p, { method: 'HEAD', cache: 'no-store' });
-          if (r.ok) { imgEl.src = p; return; }
-        } catch(e) {}
-      }
-      // 最後の手段: 非表示
-      imgEl.alt = '画像が見つかりません';
-      imgEl.style.display = 'none';
-    })();
-  </script>
 </body>
 </html>
