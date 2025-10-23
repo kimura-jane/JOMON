@@ -2,44 +2,99 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <title>TAF DOG | JOMON Collection</title>
+  <title>TAF DOG | JOMON</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="JOMON Collection #1 — TAF DOG">
-  <link rel="icon" href="../icon.png" type="image/png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Yuji+Syuku&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../style.css?v=7">
+  <meta name="description" content="JOMON コレクション『TAF DOG』NFT 詳細ページ。Polygon / ERC-721A。AL価格 500円。">
+  <style>
+    :root{
+      --maxw: 960px;
+      --pad: 16px;
+      --fg: #111;
+      --bg: #fff;
+      --muted:#666;
+      --border:#111;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif}
+    a{color:inherit;text-decoration:underline}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+    header{padding:20px 0}
+    header h1{margin:0;font-size:18px;font-weight:600}
+    main{padding:24px 0 64px}
+    /* Hero */
+    .hero{padding:40px 0 24px;border-bottom:1px solid var(--border)}
+    .hero h2{margin:0 0 8px;font-size:32px;line-height:1.2}
+    .hero p{margin:0;color:var(--muted)}
+    .cta{margin-top:16px}
+    .btn{display:inline-block;padding:.65rem 1rem;border:1px solid var(--border);text-decoration:none}
+    .btn-opensea{border-width:2px}
+    /* Details */
+    .details{padding:28px 0}
+    .details h3{margin:0 0 12px;font-size:20px}
+    dl{display:grid;grid-template-columns:160px 1fr;gap:10px 16px;margin:0}
+    dt{font-weight:600}
+    dd{margin:0}
+    .link-external::after{content:"↗";font-size:.9em;margin-left:.25em}
+    /* Footer */
+    footer{padding:24px 0;border-top:1px solid var(--border);color:var(--muted)}
+    @media (max-width:560px){
+      dl{grid-template-columns:120px 1fr}
+      .hero h2{font-size:28px}
+    }
+  </style>
 </head>
 <body>
-<header class="nav">
-  <div class="brand"><a href="../index.html"><img src="../icon.png" alt="" width="28" height="28"></a><span>JOMON</span></div>
-  <nav><a href="../index.html">Home</a></nav>
-</header>
-
-<main>
-  <section class="block">
-    <div class="next-grid">
-      <figure class="next-art"><img src="../taf_dog.jpg?v=7" alt="TAF DOG"></figure>
-      <div>
-        <h1 style="margin-top:0">TAF DOG — Collection #1</h1>
-        <ul class="spec">
-          <li><span>Allowlist</span><strong>2025-12-16 20:00 JST</strong></li>
-          <li><span>Public</span><strong>2026-01 中旬</strong></li>
-          <li><span>決済</span><strong>JPYC / MATIC / FNCT</strong></li>
-          <li><span>上限</span><strong>AL 10｜一般 3</strong></li>
-        </ul>
-        <div class="cta">
-          <a class="btn primary" aria-disabled="true">Mint（準備中）</a>
-          <a class="btn" aria-disabled="true">Marketplace</a>
-        </div>
-        <p class="note">価格とリンクは確定後に有効化。</p>
-      </div>
+  <header>
+    <div class="container">
+      <h1>JOMON コレクション</h1>
     </div>
-  </section>
-</main>
+  </header>
 
-<footer class="footer"><small>© <span id="year"></span> JOMON</small></footer>
-<script>document.getElementById("year").textContent=new Date().getFullYear();</script>
+  <main>
+    <section id="hero" class="hero">
+      <div class="container">
+        <h2>TAF DOG</h2>
+        <p>Polygon / ERC-721A</p>
+        <div class="cta">
+          <a href="https://opensea.io/ja/collection/taf-dog" target="_blank" rel="noopener" class="btn btn-opensea" aria-label="OpenSeaでTAF DOGコレクションを見る">
+            OpenSeaで見る
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="nft-details" class="details">
+      <div class="container">
+        <h3>詳細</h3>
+        <dl>
+          <dt>チェーン</dt><dd>Polygon</dd>
+          <dt>規格</dt><dd>ERC-721A</dd>
+          <dt>総発行数</dt><dd>100</dd>
+          <dt>価格</dt><dd>AL 500円／Public 未定</dd>
+          <dt>決済方法</dt><dd>JPYC(仮)／Polygon(MATIC)(仮)／FNCT(仮)</dd>
+          <dt>レート基準</dt><dd>販売当日12:00（JST）</dd>
+          <dt>販売開始</dt><dd>AL 2025/12/16 20:00（JST）／Public 1月中旬</dd>
+          <dt>購入上限</dt><dd>AL 未定/ウォレット／Public 未定</dd>
+          <dt>供給内訳</dt><dd>AL 40／Public 未定</dd>
+          <dt>OpenSea</dt>
+          <dd>
+            <a href="https://opensea.io/ja/collection/taf-dog" target="_blank" rel="noopener" class="link-external">
+              OpenSeaでコレクションを見る
+            </a>
+          </dd>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>
+        <a href="https://opensea.io/ja/collection/taf-dog" target="_blank" rel="noopener" class="link-external">
+          OpenSea（TAF DOG コレクション）
+        </a>
+      </p>
+    </div>
+  </footer>
 </body>
 </html>
