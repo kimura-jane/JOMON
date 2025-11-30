@@ -15,11 +15,21 @@
     .spec.tight{margin-top:8px}
     .spec.tight li{padding:10px 0}
     .spec.tight + .cta{margin-top:14px}
-    /* 「販売開始」「価格」などを上下揃えで表示 */
+    /* 「販売開始」など複数行の右側 */
     .spec .stack > span{display:block}
     .spec .subkey{display:inline-block;width:3.2em}
-    /* ラベル（左の日本語）が途中で折り返されないようにする */
+    /* 左ラベルを途中で折り返さない */
     .spec.tight > li > span{white-space:nowrap}
+    /* サブ行インデント（ALの2行目以降に使用） */
+    .spec .indent{
+      display:block;
+      padding-left:3.2em; /* subkeyと揃える */
+    }
+    /* ALと一般のあいだのスペース */
+    .spec .stack-gap{
+      display:block;
+      height:0.6em;
+    }
   </style>
 </head>
 <body>
@@ -53,11 +63,14 @@
             <li><span>規格</span><strong>ERC-721A</strong></li>
             <li><span>総発行数</span><strong>100枚（うちレア20枚）</strong></li>
 
-            <!-- 価格：ALと一般を分けて表示 -->
+            <!-- 価格 -->
             <li>
               <span>価格</span>
               <strong class="stack">
-                <span><span class="subkey">AL</span> 1 MATIC（Polygon） / 34 JPYC / 340 FNCT（予定）</span>
+                <span><span class="subkey">AL</span> 1 MATIC（Polygon）</span>
+                <span class="indent">34 JPYC</span>
+                <span class="indent">340 FNCT（予定）</span>
+                <span class="stack-gap"></span>
                 <span><span class="subkey">一般</span> 未定</span>
               </strong>
             </li>
@@ -68,9 +81,13 @@
 
             <li><span>上限</span><strong>AL / 一般 各決済2枚まで</strong></li>
 
+            <!-- 供給内訳 -->
             <li>
               <span>供給内訳</span>
-              <strong>初期ミント32枚 / AL販売18枚 / 一般販売10枚 / 運営保有40枚</strong>
+              <strong class="stack">
+                <span>運営保有40枚 / 初期ミント32枚</span>
+                <span>AL販売18枚 / 一般販売10枚</span>
+              </strong>
             </li>
           </ul>
 
