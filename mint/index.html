@@ -308,7 +308,7 @@
         <section class="section">
           <h2 class="section-title">Allowlist Mint（AL）</h2>
           <p class="section-caption">
-            1ウォレット <strong>6枚まで</strong>。価格はコントラクトの <code>alPrice</code> をそのまま表示します。
+            1ウォレット <strong>6枚まで</strong>。価格はコントラクトの <code>alPrice</code> をそのまま使用します。
           </p>
 
           <div class="field-row">
@@ -320,7 +320,7 @@
           <button class="btn btn-primary" id="alMintButton">AL Mint</button>
           <p class="note">
             ※ あなたのウォレットがAL登録されている必要があります。<br>
-            ※ まずコントラクトに対して <code>call()</code> で事前チェックを行い、エラー時はガスを使わず理由だけ表示します。
+            ※ まず <code>call()</code> で事前チェックし、エラー時はガスを使わず理由だけ表示します。
           </p>
         </section>
 
@@ -365,7 +365,6 @@
   const CONTRACT_ADDRESS = "0x0195dA0D3e285f7A58582F4A18A12C8a168f5849"; // ★テスト用
   const MAX_SUPPLY = 100;
 
-  // 必要最小限のABI
   const CONTRACT_ABI = [
     {"inputs":[],"name":"totalMinted","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
     {"inputs":[],"name":"alPrice","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
@@ -416,6 +415,59 @@
       year:'numeric',month:'2-digit',day:'2-digit',
       hour:'2-digit',minute:'2-digit'
     });
+  }
+
+  // エラーオブジェクトから「生のメッセージ」を抜き出す
+  function extractRawError(e){
+    try{
+      if(e && e.data){
+        const d = e.data;
+        if(typeof d === 'string') return d;
+        if(d.message) return d.message;
+        if(d.originalError && d.originalError.message) return d.originalError.message;
+        if(Array.isArray(d) && d[0] && d[0].message) return d[0].message;
+      }
+      if(e && e.error && e.error.message) return e.error.message;
+      if(e && e.message) return e.message;
+      return String(e);
+    }catch(_){
+      return e && e.message ? e.message : String(e);
+    }
+  }
+
+  function parseRevertMessage(prefix, e){
+    const raw = extractRawError(e);
+    setDebug('raw error: ' + (raw || '').slice(0,180));
+
+    let msg = prefix;
+    const m = raw || '';
+
+    if(m.includes('AL sale not started')){
+      msg += 'AL販売はまだ開始されていません。';
+    }else if(m.includes('public sale not started')){
+      msg += 'Public販売はまだ開始されていません。';
+    }else if(m.includes('not allowlisted')){
+      msg += 'このウォレットはALに登録されていません。';
+    }else if(m.includes('wallet AL limit')){
+      msg += 'このウォレットのAL上限枚数を超えています。';
+    }else if(m.includes('AL sold out')){
+      msg += 'AL枠が売り切れています。';
+    }else if(m.includes('public sold out')){
+      msg += 'Public枠が売り切れています。';
+    }else if(m.includes('max supply')){
+      msg += 'コレクションの最大供給数を超えています。';
+    }else if(m.includes('insufficient MATIC') || m.includes('insufficient funds')){
+      msg += '残高不足です。（送金額 + ガス代 をカバーできません）';
+    }else if(m.includes('nonce too low')){
+      msg += 'nonce が低すぎます。（MetaMaskの「アカウントをリセット」を試してください）';
+    }else if(m.toLowerCase().includes('json-rpc') || m.includes('-32603')){
+      msg += 'RPCノード側の内部エラーです。数分待つか、他のRPCに切り替えてください。';
+    }else if(m){
+      msg += m;
+    }else{
+      msg += '原因不明のエラーです。';
+    }
+    return msg;
   }
 
   async function init(){
@@ -482,7 +534,9 @@
             ? "Public: 開始時刻 未設定"
             : `Public: まだ開始前（開始: ${publicStartText} JST）`);
 
-      setDebug('コントラクト情報 読み込み OK');
+      if(!messageEl.textContent){
+        setDebug('コントラクト情報 読み込み OK');
+      }
     }catch(e){
       console.error(e);
       setDebug('コントラクト読み取りエラー: ' + (e && e.message ? e.message : e));
@@ -510,17 +564,12 @@
         setMessage('ウォレット接続 OK','msg-success');
       }
 
-      // ALかどうか確認（任意）
       try{
         const isAl = await contract.methods.isAllowListed(currentAccount).call();
         if(isAl){
           setMessage('このウォレットは AL 登録されています。','msg-success');
-        }else{
-          setMessage('このウォレットは AL 未登録のようです（Public か、別ウォレットでお試しください）。','');
         }
-      }catch(e){
-        // 無視
-      }
+      }catch(_){}
 
       await loadContractData();
     }catch(e){
@@ -531,35 +580,6 @@
         setMessage('ウォレット接続エラー: ' + (e && e.message ? e.message : e),'msg-error');
       }
     }
-  }
-
-  function parseRevertMessage(prefix, e){
-    let msg = prefix;
-    if(e && e.message){
-      const m = e.message;
-      if(m.includes('AL sale not started')){
-        msg += 'AL販売はまだ開始されていません。';
-      }else if(m.includes('public sale not started')){
-        msg += 'Public販売はまだ開始されていません。';
-      }else if(m.includes('not allowlisted')){
-        msg += 'このウォレットはALに登録されていません。';
-      }else if(m.includes('wallet AL limit')){
-        msg += 'このウォレットのAL上限枚数を超えています。';
-      }else if(m.includes('AL sold out')){
-        msg += 'AL枠が売り切れています。';
-      }else if(m.includes('public sold out')){
-        msg += 'Public枠が売り切れています。';
-      }else if(m.includes('max supply')){
-        msg += 'コレクションの最大供給数を超えています。';
-      }else if(m.includes('insufficient MATIC')){
-        msg += '送信予定のMATICが不足しています。';
-      }else{
-        msg += m;
-      }
-    }else{
-      msg += e;
-    }
-    return msg;
   }
 
   async function handleAlMint(){
@@ -599,7 +619,7 @@
         console.error('AL call error', e);
         const msg = parseRevertMessage('ALミント事前チェックでエラー: ', e);
         setMessage(msg, 'msg-error');
-        return; // send まで進まないのでガスは使わない
+        return;
       }
 
       // --- 実際に送信 ---
@@ -643,7 +663,6 @@
 
       const publicPriceWei = await contract.methods.publicPrice().call();
 
-      // --- 事前シミュレーション（call） ---
       try{
         await contract.methods.mintPublic().call({
           from: currentAccount,
@@ -656,7 +675,6 @@
         return;
       }
 
-      // --- 実際に送信 ---
       publicMintButton.disabled = true;
       publicMintButton.textContent = '送信中...';
 
