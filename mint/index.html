@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <title>TAF DOG Mint</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <style>
     :root {
       color-scheme: dark;
@@ -216,14 +217,12 @@
     }
   </style>
 
-  <!-- ethers.js v5（CDN） -->
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"
-          integrity="sha384-GwWYq/IBMwYyZkWSmEch0GvS4h/pNOv7VbfNhRMS1pMVH7UXlrVYb49gXtQWoaQf"
-          crossorigin="anonymous"></script>
+  <!-- ethers.js v5 UMD (グローバル変数 ethers が定義される) -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 </head>
 <body>
 <div class="page">
-  <h1>TAF DOG Mint</h1>
+  <h1>TAF DOG MINT</h1>
   <div class="subtitle small">
     Polygon / AL &amp; Public ミントサイト（テスト版）<br />
     ウォレット接続 → AL or Public を選んでミントしてください。
@@ -280,8 +279,7 @@
       <div class="total" id="al-total">合計: - POL</div>
     </div>
     <div class="note">
-      ※ 価格・上限はコントラクトから自動取得。<br />
-      &nbsp;&nbsp;手入力は不要です。
+      ※ 価格・上限はコントラクトから自動取得。手入力は不要です。
     </div>
 
     <button id="al-mint-btn" class="btn" type="button" style="margin-top:10px;">
@@ -334,116 +332,36 @@
    *************************************************/
 
   // ★ テスト用コントラクトアドレス
-  // 本番リリース時は、ここを TAF DOG 本番コントラクトのアドレスに
-  // 差し替えるだけで OK （他のコードはそのまま使えます）
+  // 本番リリース時は、この1行だけ TAF DOG 本番コントラクトに差し替え
   const CONTRACT_ADDRESS = "0x0195dA0D3e285f7A58582F4A18A12C8a168f5849";
 
   // 必要な関数だけの最小 ABI
   const CONTRACT_ABI = [
     // view
-    {
-      "inputs": [],
-      "name": "MAX_SUPPLY",
-      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "AL_MAX_PER_WALLET",
-      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "PUBLIC_MAX_PER_WALLET",
-      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "totalMinted",
-      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "alSaleActive",
-      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "publicSaleActive",
-      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "alPrice",
-      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "publicPrice",
-      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
-      "name": "isAllowListed",
-      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
-      "name": "alMintedByWallet",
-      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
-      "name": "publicMintedByWallet",
-      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-      "stateMutability": "view",
-      "type": "function"
-    },
-
+    {"inputs":[],"name":"MAX_SUPPLY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+    {"inputs":[],"name":"AL_MAX_PER_WALLET","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+    {"inputs":[],"name":"PUBLIC_MAX_PER_WALLET","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+    {"inputs":[],"name":"totalMinted","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+    {"inputs":[],"name":"alSaleActive","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},
+    {"inputs":[],"name":"publicSaleActive","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},
+    {"inputs":[],"name":"alPrice","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+    {"inputs":[],"name":"publicPrice","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+    {"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"isAllowListed","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},
+    {"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"alMintedByWallet","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+    {"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"publicMintedByWallet","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
     // mint
-    {
-      "inputs": [{ "internalType": "uint256", "name": "quantity", "type": "uint256" }],
-      "name": "mintAllowlist",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "mintPublic",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function"
-    }
+    {"inputs":[{"internalType":"uint256","name":"quantity","type":"uint256"}],"name":"mintAllowlist","outputs":[],"stateMutability":"payable","type":"function"},
+    {"inputs":[],"name":"mintPublic","outputs":[],"stateMutability":"payable","type":"function"}
   ];
 
-  // ethers 関連の変数
-  let injectedProvider = null;   // window.ethereum or window.phantom.ethereum
+  // ethers / provider
+  let injectedProvider = null;
   let provider = null;
   let signer = null;
   let contract = null;
   let currentAccount = null;
 
-  // 価格・上限（BigNumber 等）
+  // 価格・上限
   let alPriceWei = null;
   let publicPriceWei = null;
   let alMaxPerWallet = null;
@@ -496,38 +414,32 @@
   function setDebug(id, raw) {
     const el = document.getElementById(id);
     if (!el) return;
-    if (!raw) {
-      el.textContent = "";
-      return;
-    }
-    el.textContent = "debug: raw error: " + raw;
+    el.textContent = raw ? ("debug: raw error: " + raw) : "";
   }
 
   function parseError(e) {
     if (!e) return "unknown error";
-
     if (e.code === 4001) {
-      // User rejected
       return "ウォレットでトランザクションが拒否されました (code 4001)";
     }
-
     const asStr = e.message || e.toString();
-
-    // execution reverted: reason
     const m = asStr.match(/execution reverted(?:\:)?\s?(.*)$/i);
-    if (m && m[1]) {
-      return "コントラクトでリバート: " + m[1];
-    }
-
+    if (m && m[1]) return "コントラクトでリバート: " + m[1];
     return asStr;
   }
 
   /*************************************************
-   *  初期化・ウォレット接続
+   *  ウォレット接続
    *************************************************/
 
   async function connectWallet() {
     try {
+      // ethers.js ロード確認
+      if (typeof ethers === "undefined") {
+        alert("ethers.js が読み込まれていません。通信状況を確認して、ページを再読み込みしてください。");
+        return;
+      }
+
       injectedProvider = getInjectedProvider();
       if (!injectedProvider) {
         alert("EVM対応ウォレット（MetaMask / Phantom 等）が見つかりません。ウォレットアプリ内のブラウザから開いてください。");
@@ -536,7 +448,6 @@
 
       provider = new ethers.providers.Web3Provider(injectedProvider, "any");
 
-      // アカウントリクエスト
       const accounts = await injectedProvider.request({
         method: "eth_requestAccounts"
       });
@@ -546,7 +457,7 @@
       }
       currentAccount = ethers.utils.getAddress(accounts[0]);
 
-      // ネットワークチェック（Polygon へ切替）
+      // Polygon に切替
       const net = await provider.getNetwork();
       if (net.chainId !== 137) {
         try {
@@ -567,8 +478,9 @@
       setText("wallet-address", shorten(currentAccount));
       setText("contract-address", CONTRACT_ADDRESS);
 
-      document.getElementById("connect-btn").textContent = "接続済み";
-      document.getElementById("connect-btn").disabled = true;
+      const btn = document.getElementById("connect-btn");
+      btn.textContent = "接続済み";
+      btn.disabled = true;
 
       await refreshAllInfo();
     } catch (e) {
@@ -576,6 +488,10 @@
       alert("ウォレット接続中にエラーが発生しました: " + parseError(e));
     }
   }
+
+  /*************************************************
+   *  状態取得
+   *************************************************/
 
   async function refreshAllInfo() {
     if (!contract || !currentAccount) return;
@@ -614,11 +530,12 @@
       alMaxPerWallet = alMaxRaw;
       publicMaxPerWallet = publicMaxRaw;
 
-      // 全体表示
+      // Supply
       setText("supply-status",
         `Supply: ${totalMinted.toString()} / ${maxSupply.toString()}`
       );
 
+      // 価格・上限
       const alPriceStr = formatPOL(alPriceRaw);
       const publicPriceStr = formatPOL(publicPriceRaw);
       setText("price-info",
@@ -628,18 +545,21 @@
         `AL 上限: ${alMaxRaw.toString()} / Public 上限: ${publicMaxRaw.toString()}`
       );
 
-      setText("wallet-extra",
+      // ウォレット情報
+      setText(
+        "wallet-extra",
         `ネットワーク: Polygon (chainId ${net.chainId}) / AL: ${isAl ? "対象" : "対象外"}`
       );
 
-      // AL / Public セールタグ
+      // セールタグ
       const globalTag = document.getElementById("global-sale-tag");
       const alTag = document.getElementById("al-sale-tag");
       const publicTag = document.getElementById("public-sale-tag");
 
       if (alActive || publicActive) {
-        globalTag.textContent = `SALE: AL ${alActive ? "ON" : "OFF"} / Public ${publicActive ? "ON" : "OFF"}`;
-        globalTag.classList.remove("tag-error");
+        globalTag.textContent =
+          `SALE: AL ${alActive ? "ON" : "OFF"} / Public ${publicActive ? "ON" : "OFF"}`;
+        globalTag.classList.remove("tag-error", "tag-paused");
         globalTag.classList.add("tag-live");
       } else {
         globalTag.textContent = "SALE: すべて停止中";
@@ -650,31 +570,20 @@
       alTag.textContent = `AL: ${alActive ? "販売中" : "停止中"}`;
       publicTag.textContent = `Public: ${publicActive ? "販売中" : "停止中"}`;
 
-      if (alActive) {
-        alTag.classList.remove("tag-paused");
-        alTag.classList.add("tag-live");
-      } else {
-        alTag.classList.remove("tag-live");
-        alTag.classList.add("tag-paused");
-      }
+      alTag.classList.toggle("tag-live", alActive);
+      alTag.classList.toggle("tag-paused", !alActive);
+      publicTag.classList.toggle("tag-live", publicActive);
+      publicTag.classList.toggle("tag-paused", !publicActive);
 
-      if (publicActive) {
-        publicTag.classList.remove("tag-paused");
-        publicTag.classList.add("tag-live");
-      } else {
-        publicTag.classList.remove("tag-live");
-        publicTag.classList.add("tag-paused");
-      }
-
-      // 合計金額表示更新
+      // 合計金額表示
       updateAlTotal();
       updatePublicTotal();
 
-      // すでに Public ミント済みならボタンを無効化
+      // Public 既にミント済みならボタン無効化
+      const publicBtn = document.getElementById("public-mint-btn");
       if (publicMintedByMe && publicMintedByMe.toString() !== "0") {
-        const btn = document.getElementById("public-mint-btn");
-        btn.disabled = true;
-        btn.textContent = "Publicは既にミント済み";
+        publicBtn.disabled = true;
+        publicBtn.textContent = "Publicは既にミント済み";
       }
 
     } catch (e) {
@@ -733,13 +642,12 @@
 
       const btn = document.getElementById("al-mint-btn");
       btn.disabled = true;
+      const originalLabel = btn.textContent;
       btn.textContent = "送信中...";
 
-      const tx = await contract.mintAllowlist(qty, {
-        value: totalValue
-      });
+      const tx = await contract.mintAllowlist(qty, { value: totalValue });
 
-      setStatusOK("al-status", "ALミント送信成功: トランザクション送信中です。TxHash: " + tx.hash);
+      setStatusOK("al-status", "ALミント送信成功: TxHash " + tx.hash);
       setDebug("al-debug", "");
 
       const receipt = await tx.wait();
@@ -750,13 +658,15 @@
       }
 
       await refreshAllInfo();
+      btn.disabled = false;               // AL は複数回ミントできるので再度有効化
+      btn.textContent = originalLabel;
     } catch (e) {
       console.error("AL mint error", e);
       const msg = parseError(e);
       const raw = e && (e.data?.message || e.error?.message || e.message || JSON.stringify(e));
       setStatusError("al-status", "ALミント送信エラー: " + msg);
       setDebug("al-debug", raw);
-    } finally {
+
       const btn = document.getElementById("al-mint-btn");
       btn.disabled = false;
       btn.textContent = "ALミント実行";
@@ -789,16 +699,17 @@
       return;
     }
 
+    const btn = document.getElementById("public-mint-btn");
+    if (btn.disabled) return;
+
     try {
-      const btn = document.getElementById("public-mint-btn");
       btn.disabled = true;
+      const originalLabel = btn.textContent;
       btn.textContent = "送信中...";
 
-      const tx = await contract.mintPublic({
-        value: publicPriceWei
-      });
+      const tx = await contract.mintPublic({ value: publicPriceWei });
 
-      setStatusOK("public-status", "Publicミント送信成功: トランザクション送信中です。TxHash: " + tx.hash);
+      setStatusOK("public-status", "Publicミント送信成功: TxHash " + tx.hash);
       setDebug("public-debug", "");
 
       const receipt = await tx.wait();
@@ -808,17 +719,15 @@
         setStatusError("public-status", "Publicミント送信エラー: トランザクションが失敗しました。TxHash: " + tx.hash);
       }
 
-      await refreshAllInfo();
+      await refreshAllInfo(); // ここで「既にミント済み」ならボタンを無効化
     } catch (e) {
       console.error("Public mint error", e);
       const msg = parseError(e);
       const raw = e && (e.data?.message || e.error?.message || e.message || JSON.stringify(e));
       setStatusError("public-status", "Publicミント送信エラー: " + msg);
       setDebug("public-debug", raw);
-    } finally {
-      const btn = document.getElementById("public-mint-btn");
-      // 失敗した場合だけ再度押せるようにする
-      if (!btn.disabled) return;
+
+      // エラー時だけボタンを再度有効化
       btn.disabled = false;
       btn.textContent = "Publicミント実行";
     }
@@ -829,7 +738,7 @@
    *************************************************/
 
   window.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("contract-address").textContent = CONTRACT_ADDRESS;
+    setText("contract-address", CONTRACT_ADDRESS);
 
     const providerCandidate = getInjectedProvider();
     if (!providerCandidate) {
