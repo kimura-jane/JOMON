@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>TAF DOG Mint</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; background: #0b0b0f; color: #f5f5f5; }
+    button { padding: 8px 16px; margin: 4px 0; cursor: pointer; }
+    .card { border: 1px solid #333; border-radius: 8px; padding: 16px; margin-top: 16px; background: #15151f; }
+    input[type="number"] { width: 80px; }
+    .error { color: #ff6b6b; }
+    .success { color: #4caf50; }
+    .small { font-size: 12px; color: #aaa; }
+    a { color: #4fa3ff; }
+  </style>
+  <!-- ethers.js v6 CDN（SRI付きで固定バージョン） -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.2/ethers.umd.min.js"
+          integrity="sha512-NQ++8ZlHGYQAKV3wrpGb7z+7e4RuJQ0I3zu94UZJtKfIrtStDudg4XgTFaA3yPHOHPdw6PAzxSLgN8cwN3qYtQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+  <h1>TAF DOG Mint</h1>
+  <p class="small">
+    コントラクト: 
+    <a href="https://polygonscan.com/address/0xDD8aEA78eebc6b444d960A18D282F453195d55A9" target="_blank" rel="noopener">
+      0xDD8a...55A9
+    </a>
+  </p>
+
+  <div class="card">
+    <button id="connectButton">ウォレット接続</button>
+    <div id="walletInfo"></div>
+    <div id="networkInfo" class="small"></div>
+  </div>
+
+  <div class="card">
+    <h2>ステータス</h2>
+    <div id="status"></div>
+    <div class="small" id="phaseInfo"></div>
+  </div>
+
+  <div class="card">
+    <h2>AL Mint</h2>
+    <div id="alSection">
+      <p>AL販売ステータス: <span id="alStatus">読み込み中...</span></p>
+      <p>あなたのAL状態: <span id="alFlag">-</span></p>
+      <p>あなたのALミント済み枚数: <span id="alMintedByYou">-</span> / 6</p>
+      <p>価格: <span id="alPrice">-</span> MATIC / 枚</p>
+      <label>
+        ミント枚数: 
+        <input type="number" id="alQuantity" min="1" max="6" value="1">
+      </label>
+      <div>
+        合計金額: <span id="alTotalPrice">-</span> MATIC
+      </div>
+      <button id="alMintButton" disabled>AL Mint 実行</button>
+      <div id="alMessage" class="small"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Public Mint</h2>
+    <div id="publicSection">
+      <p>一般販売ステータス: <span id="publicStatus">読み込み中...</span></p>
+      <p>あなたの一般ミント済み枚数: <span id="publicMintedByYou">-</span> / 1</p>
+      <p>価格: <span id="publicPrice">-</span> MATIC / 枚</p>
+      <button id="publicMintButton" disabled>Public Mint (1枚)</button>
+      <div id="publicMessage" class="small"></div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const CONTRACT_ADDRESS = "0xDD8aEA78eebc6b444d960A18D282F453195d55A9";
+      const CHAIN_ID_HEX = "0x89"; // Polygon mainnet
+
+      // 最低限必要な ABI
+      const ABI = [
+        "function alSaleActive() view returns (bool)",
+        "function publicSaleActive() view returns (bool)",
+        "function alPrice() view returns (uint256)",
+        "function publicPrice() view returns (uint256)",
+        "function totalMinted() view returns (uint256)",
+        "function MAX_SUPPLY() view returns (uint256)",
+        "function isAllowListed(address) view returns (bool)",
+        "function alMintedByWallet(address) view returns (uint256)",
+        "function publicMintedByWallet(address) view returns (uint256)",
+        "function alStartTime() view returns (uint64)",
+        "function publicStartTime() view returns (uint64)",
+        "function mintAllowlist(uint256 quantity) payable",
+        "function mintPublic() payable"
+      ];
+
+      let provider;
+      let signer;
+      let contract;
+      let currentAccount;
+      let alPriceWei = 0n;
+      let publicPriceWei = 0n;
+
+      const connectButton = document.getElementById('connectButton');
+      const walletInfo = document.getElementById('walletInfo');
+      const networkInfo = document.getElementById('networkInfo');
+      const statusDiv = document.getElementById('status');
+      const phaseInfo = document.getElementById('phaseInfo');
+
+      const alStatusSpan = document.getElementById('alStatus');
+      const alFlagSpan = document.getElementById('alFlag');
+      const alMintedByYouSpan = document.getElementById('alMintedByYou');
+      const alPriceSpan = document.getElementById('alPrice');
+      const alTotalPriceSpan = document.getElementById('alTotalPrice');
+      const alQtyInput = document.getElementById('alQuantity');
+      const alMintButton = document.getElementById('alMintButton');
+      const alMessage = document.getElementById('alMessage');
+
+      const publicStatusSpan = document.getElementById('publicStatus');
+      const publicMintedByYouSpan = document.getElementById('publicMintedByYou');
+      const publicPriceSpan = document.getElementById('publicPrice');
+      const publicMintButton = document.getElementById('publicMintButton');
+      const publicMessage = document.getElementById('publicMessage');
+
+      async function connectWallet() {
+        if (!window.ethereum) {
+          alert("MetaMask などのウォレット拡張機能が見つかりません。");
+          return;
+        }
+
+        try {
+          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+          currentAccount = ethers.getAddress(accounts[0]);
+          walletInfo.textContent = `接続中ウォレット: ${currentAccount}`;
+
+          const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+          if (chainId !== CHAIN_ID_HEX) {
+            networkInfo.textContent = `現在のネットワーク: ${chainId}（Polygon ではありません）`;
+            await switchToPolygon();
+          } else {
+            networkInfo.textContent = "ネットワーク: Polygon mainnet";
+          }
+
+          provider = new ethers.BrowserProvider(window.ethereum);
+          signer = await provider.getSigner();
+          contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
+
+          await refreshAll();
+          setupListeners();
+        } catch (err) {
+          console.error(err);
+          alert("ウォレット接続に失敗しました");
+        }
+      }
+
+      async function switchToPolygon() {
+        try {
+          await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: CHAIN_ID_HEX }]
+          });
+        } catch (switchError) {
+          if (switchError.code === 4902) {
+            try {
+              await window.ethereum.request({
+                method: 'wallet_addEthereumChain',
+                params: [{
+                  chainId: CHAIN_ID_HEX,
+                  chainName: "Polygon Mainnet",
+                  nativeCurrency: { name: "MATIC", symbol: "MATIC", decimals: 18 },
+                  rpcUrls: ["https://polygon-rpc.com/"],
+                  blockExplorerUrls: ["https://polygonscan.com/"]
+                }]
+              });
+            } catch (addError) {
+              console.error(addError);
+            }
+          } else {
+            console.error(switchError);
+          }
+        }
+      }
+
+      async function refreshAll() {
+        if (!contract || !currentAccount) return;
+
+        try {
+          const [
+            alActive,
+            publicActive,
+            totalMinted,
+            maxSupply,
+            alStart,
+            publicStart
+          ] = await Promise.all([
+            contract.alSaleActive(),
+            contract.publicSaleActive(),
+            contract.totalMinted(),
+            contract.MAX_SUPPLY(),
+            contract.alStartTime(),
+            contract.publicStartTime()
+          ]);
+
+          statusDiv.textContent = `総ミント数: ${totalMinted.toString()} / ${maxSupply.toString()}`;
+
+          // フェーズ情報（日本時間表示）
+          const now = Date.now();
+          const alDateJp = new Date(Number(alStart) * 1000).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' });
+          const publicDateJp = new Date(Number(publicStart) * 1000).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' });
+
+          let phaseText = `AL開始: ${alDateJp} / Public開始: ${publicDateJp}`;
+          if (!alActive && now < Number(alStart) * 1000) {
+            phaseText += "（現在: プレセール前）";
+          } else if (alActive && !publicActive) {
+            phaseText += "（現在: AL販売フェーズ）";
+          } else if (publicActive) {
+            phaseText += "（現在: 一般販売フェーズ）";
+          }
+          phaseInfo.textContent = phaseText;
+
+          alStatusSpan.textContent = alActive ? "開始済み（販売中 or 販売終了）" : "まだ開始していません";
+          publicStatusSpan.textContent = publicActive ? "開始済み（販売中 or 販売終了）" : "まだ開始していません";
+
+          // 価格読み取り
+          alPriceWei = await contract.alPrice();
+          publicPriceWei = await contract.publicPrice();
+
+          alPriceSpan.textContent = ethers.formatEther(alPriceWei);
+          publicPriceSpan.textContent = ethers.formatEther(publicPriceWei);
+
+          updateAlTotalPrice();
+
+          // ウォレットごとの状態
+          const [ isAL, alMintedByYou, publicMintedByYou ] = await Promise.all([
+            contract.isAllowListed(currentAccount),
+            contract.alMintedByWallet(currentAccount),
+            contract.publicMintedByWallet(currentAccount)
+          ]);
+
+          alFlagSpan.textContent = isAL ? "AL対象" : "対象外";
+          alMintedByYouSpan.textContent = alMintedByYou.toString();
+          publicMintedByYouSpan.textContent = publicMintedByYou.toString();
+
+          // ボタンの有効・無効の基本条件
+          alMintButton.disabled = !(alActive && isAL);
+          publicMintButton.disabled = !(publicActive && publicMintedByYou.toString() === "0");
+        } catch (err) {
+          console.error("読み取りエラー:", err);
+        }
+      }
+
+      function updateAlTotalPrice() {
+        const qty = parseInt(alQtyInput.value || "1", 10);
+        if (!alPriceWei) return;
+        const total = alPriceWei * BigInt(qty);
+        alTotalPriceSpan.textContent = ethers.formatEther(total);
+      }
+
+      async function handleAlMint() {
+        if (!contract || !currentAccount) return;
+        alMessage.textContent = "";
+        alMessage.className = "small";
+
+        const qty = parseInt(alQtyInput.value || "1", 10);
+        if (qty <= 0 || qty > 6) {
+          alMessage.textContent = "ミント枚数は 1〜6 の間で指定してください。";
+          alMessage.classList.add("error");
+          return;
+        }
+
+        const value = alPriceWei * BigInt(qty);
+
+        try {
+          alMintButton.disabled = true;
+          alMessage.textContent = "トランザクション送信中...";
+          const tx = await contract.mintAllowlist(qty, { value });
+          alMessage.textContent = `送信しました。TX Hash: ${tx.hash}`;
+          const receipt = await tx.wait();
+          if (receipt.status === 1) {
+            alMessage.textContent = "ミント成功しました。";
+            alMessage.classList.add("success");
+            await refreshAll();
+          } else {
+            alMessage.textContent = "トランザクションが失敗しました。";
+            alMessage.classList.add("error");
+          }
+        } catch (err) {
+          console.error(err);
+          alMessage.textContent = parseRevertMessage(err);
+          alMessage.classList.add("error");
+        } finally {
+          alMintButton.disabled = false;
+        }
+      }
+
+      async function handlePublicMint() {
+        if (!contract || !currentAccount) return;
+        publicMessage.textContent = "";
+        publicMessage.className = "small";
+
+        try {
+          publicMintButton.disabled = true;
+          publicMessage.textContent = "トランザクション送信中...";
+          const tx = await contract.mintPublic({ value: publicPriceWei });
+          publicMessage.textContent = `送信しました。TX Hash: ${tx.hash}`;
+          const receipt = await tx.wait();
+          if (receipt.status === 1) {
+            publicMessage.textContent = "ミント成功しました。";
+            publicMessage.classList.add("success");
+            await refreshAll();
+          } else {
+            publicMessage.textContent = "トランザクションが失敗しました。";
+            publicMessage.classList.add("error");
+          }
+        } catch (err) {
+          console.error(err);
+          publicMessage.textContent = parseRevertMessage(err);
+          publicMessage.classList.add("error");
+        } finally {
+          publicMintButton.disabled = false;
+        }
+      }
+
+      function parseRevertMessage(err) {
+        try {
+          const msg = err.shortMessage || err.info?.error?.message || err.message || "";
+          if (msg.includes("AL sale not started")) return "AL販売はまだ開始されていません。";
+          if (msg.includes("public sale not started")) return "一般販売はまだ開始されていません。";
+          if (msg.includes("not allowlisted")) return "このウォレットはAL対象ではありません。";
+          if (msg.includes("wallet AL limit")) return "ウォレットごとのAL上限枚数を超えています。";
+          if (msg.includes("public sold out")) return "一般販売分は完売しました。";
+          if (msg.includes("AL sold out")) return "AL販売分は完売しました。";
+          if (msg.includes("insufficient MATIC")) return "送信されたMATICが足りません。";
+          if (msg.includes("max supply")) return "総供給枚数の上限に達しています。";
+          return "トランザクションが失敗しました: " + msg;
+        } catch (_) {
+          return "トランザクションが失敗しました。";
+        }
+      }
+
+      function setupListeners() {
+        if (!window.ethereum) return;
+        window.ethereum.on('accountsChanged', () => {
+          window.location.reload();
+        });
+        window.ethereum.on('chainChanged', () => {
+          window.location.reload();
+        });
+      }
+
+      connectButton.addEventListener('click', connectWallet);
+      alQtyInput.addEventListener('input', updateAlTotalPrice);
+      alMintButton.addEventListener('click', handleAlMint);
+      publicMintButton.addEventListener('click', handlePublicMint);
+    })();
+  </script>
+</body>
+</html>
