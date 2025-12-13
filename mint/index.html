@@ -2,720 +2,845 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>tdt TEST Mint（Polygon / MATIC）</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TAF DOG Mint</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
       color-scheme: dark;
-      --bg: #05060a;
-      --card: #12131a;
-      --accent: #3ba3ff;
-      --accent-soft: rgba(59,163,255,0.15);
-      --danger: #ff4d4f;
-      --text: #f5f5f5;
-      --muted: #888;
-      --border: #262737;
-      --radius: 10px;
-      --shadow: 0 18px 45px rgba(0,0,0,0.55);
+      --bg: #050608;
+      --panel: #11131a;
+      --panel-soft: #161827;
+      --accent: #ff7a3c;
+      --accent-soft: rgba(255, 122, 60, 0.14);
+      --danger: #ff4d6a;
+      --text: #f6f7ff;
+      --text-soft: #a8b0d0;
+      --border: #262a3c;
+      --radius: 12px;
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
     }
-    * { box-sizing: border-box; }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
     body {
       margin: 0;
+      padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
-                   "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
-      background: radial-gradient(circle at top, #222846 0, #05060a 55%, #000 100%);
+        "Helvetica Neue", Arial, "Noto Sans JP", sans-serif;
+      background: radial-gradient(circle at 0 0, #191428 0, #050608 55%);
       color: var(--text);
-      -webkit-font-smoothing: antialiased;
     }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
 
-    header {
-      max-width: 960px;
+    .page {
+      max-width: 720px;
       margin: 0 auto;
-      padding: 16px 16px 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 13px;
-      color: var(--muted);
-    }
-    header .title-left {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-    }
-    header .title-main {
-      font-weight: 600;
-      color: #fff;
-    }
-
-    main {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 10px 16px 40px;
-    }
-
-    .card {
-      background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.06));
-      border-radius: 18px;
-      padding: 18px 16px 20px;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(255,255,255,0.04);
-      backdrop-filter: blur(14px);
+      padding: 18px 14px 40px;
     }
 
     h1 {
-      font-size: 18px;
-      margin: 0 0 4px;
-    }
-    p {
-      font-size: 13px;
-      margin: 4px 0;
-      color: var(--muted);
+      margin: 4px 0 12px;
+      font-size: 26px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin: 10px 0 8px;
-      font-size: 11px;
-    }
-    .pill {
-      padding: 3px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(0,0,0,0.35);
-      color: var(--muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .pill-label {
-      font-weight: 600;
-      color: #fff;
-    }
-    .pill-contract {
-      color: var(--accent);
-      cursor: pointer;
-    }
-
-    .status-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      font-size: 11px;
-      margin-bottom: 6px;
-    }
-    .status-chip {
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(0,0,0,0.4);
-    }
-
-    .price-row {
+    .subtitle {
       font-size: 12px;
-      margin: 6px 0 14px;
+      color: var(--text-soft);
+      margin-bottom: 20px;
     }
 
-    .wallet-row {
+    .panel {
+      background: linear-gradient(135deg, #151728, #090a10);
+      border-radius: 18px;
+      padding: 16px 14px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+
+    .panel-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 10px 0 6px;
+      margin-bottom: 10px;
       gap: 8px;
-      font-size: 12px;
-    }
-    .wallet-status {
-      color: var(--muted);
-      font-size: 11px;
     }
 
-    button {
+    .tag {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .tag-live {
+      border-color: #34d399;
+      color: #bbf7d0;
+    }
+
+    .tag-paused {
+      border-color: #fbbf24;
+      color: #fef3c7;
+    }
+
+    .tag-error {
+      border-color: var(--danger);
+      color: #fecaca;
+    }
+
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .stat {
+      padding: 10px 10px 9px;
+      border-radius: 12px;
+      background: var(--panel-soft);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .stat-label {
+      margin-bottom: 4px;
+    }
+
+    .stat-value {
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 11px 14px;
       border-radius: 999px;
       border: none;
-      padding: 9px 18px;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
+      letter-spacing: 0.03em;
       cursor: pointer;
-      transition: background 0.18s, transform 0.05s, box-shadow 0.18s, opacity 0.18s;
-      font-family: inherit;
+      background: linear-gradient(135deg, #ffb347, #ff7a3c);
+      color: #111;
+      box-shadow: 0 10px 24px rgba(255, 122, 60, 0.45);
     }
-    button:active {
-      transform: translateY(1px);
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-soft);
+      border: 1px solid var(--border);
       box-shadow: none;
     }
-    .btn-primary {
-      background: linear-gradient(135deg, #3ba3ff, #5cc6ff);
-      color: #000;
-      box-shadow: 0 10px 30px rgba(59,163,255,0.55);
-    }
-    .btn-primary[disabled] {
-      opacity: 0.5;
+
+    .btn:disabled {
+      opacity: 0.55;
       cursor: default;
       box-shadow: none;
     }
-    .btn-wallet {
-      background: transparent;
-      border: 1px solid var(--accent);
-      color: #fff;
-      padding-inline: 14px;
-      box-shadow: 0 0 0 rgba(0,0,0,0);
-    }
 
-    .section {
-      margin-top: 18px;
-      padding-top: 14px;
-      border-top: 1px dashed rgba(255,255,255,0.07);
-    }
-    .section-title {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-    .section-desc {
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
-
-    .form-row {
+    .input-row {
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-bottom: 8px;
-      font-size: 12px;
+      margin: 8px 0;
     }
-    .form-row label {
-      min-width: 36px;
-    }
+
     input[type="number"] {
-      width: 70px;
-      padding: 6px 8px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: rgba(0,0,0,0.45);
-      color: #fff;
-      font-size: 14px;
-      -moz-appearance: textfield;
-    }
-    input[type="number"]::-webkit-outer-spin-button,
-    input[type="number"]::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    .helper-text {
-      font-size: 11px;
-      color: var(--muted);
-      line-height: 1.4;
-    }
-
-    .debug-box {
-      margin-top: 14px;
+      width: 92px;
       padding: 8px 10px;
-      border-radius: 10px;
-      background: rgba(0,0,0,0.55);
-      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #090a10;
+      color: var(--text);
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .note {
       font-size: 11px;
-      color: #ddd;
+      color: var(--text-soft);
+      margin-top: 4px;
+    }
+
+    .total {
+      font-size: 13px;
+      color: var(--accent);
+    }
+
+    .status-line {
+      font-size: 11px;
+      margin-top: 6px;
       white-space: pre-wrap;
+      word-break: break-all;
     }
-    .debug-title {
-      font-weight: 600;
-      margin-bottom: 3px;
-      color: var(--muted);
+
+    .status-ok {
+      color: #4ade80;
     }
-    .debug-line-error {
+
+    .status-error {
       color: var(--danger);
     }
-    .debug-line-ok {
-      color: #7bd88f;
+
+    .status-debug {
+      color: #60a5fa;
     }
 
-    .footer-note {
-      margin-top: 12px;
-      font-size: 10px;
-      color: var(--muted);
-      line-height: 1.5;
+    .small {
+      font-size: 11px;
     }
 
-    @media (min-width: 720px) {
-      .mint-columns {
-        display: grid;
-        grid-template-columns: minmax(0,1.1fr) minmax(0,1fr);
-        gap: 16px;
-        align-items: flex-start;
-        margin-top: 10px;
-      }
-      .section {
-        margin-top: 12px;
-      }
+    a {
+      color: #93c5fd;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
   </style>
+
+  <!-- ethers.js v5（CDN） -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"
+          integrity="sha384-GwWYq/IBMwYyZkWSmEch0GvS4h/pNOv7VbfNhRMS1pMVH7UXlrVYb49gXtQWoaQf"
+          crossorigin="anonymous"></script>
 </head>
 <body>
-  <header>
-    <div class="title-left">
-      <div class="title-main">JOMON COLLECTION <span style="opacity:0.7;">TDT TEST</span></div>
-      <a href="https://jomonkusama.com/" class="back-link">← JOMON トップへ戻る</a>
+<div class="page">
+  <h1>TAF DOG Mint</h1>
+  <div class="subtitle small">
+    Polygon / AL &amp; Public ミントサイト（テスト版）<br />
+    ウォレット接続 → AL or Public を選んでミントしてください。
+  </div>
+
+  <!-- ウォレット・全体ステータス -->
+  <div class="panel">
+    <div class="panel-header">
+      <div>
+        <div id="global-sale-tag" class="tag">SALE: -</div>
+        <div id="supply-status" class="small mono" style="margin-top:4px;">
+          Supply: - / -
+        </div>
+      </div>
+      <button id="connect-btn" class="btn" type="button">
+        ウォレット接続
+      </button>
     </div>
-    <div style="font-size:11px; color:var(--muted);">
-      Polygon PoS / MATIC
-    </div>
-  </header>
 
-  <main>
-    <div class="card">
-      <h1>tdt TEST Mint（Polygon / MATIC）</h1>
-      <p>これは <strong>テスト用の tdt コントラクト</strong> です。本番 TAF DOG とは別アドレスです。</p>
-
-      <div class="pill-row">
-        <div class="pill">
-          <span class="pill-label">TEST CONTRACT</span>
-          <span>Polygon PoS / MATIC</span>
-        </div>
-        <div class="pill">
-          <span>Contract:</span>
-          <a id="contractAddressLink" class="pill-contract" target="_blank" rel="noopener noreferrer">
-            読み込み中...
-          </a>
+    <div class="grid-2">
+      <div class="stat">
+        <div class="stat-label">ウォレット</div>
+        <div id="wallet-address" class="stat-value mono">未接続</div>
+        <div id="wallet-extra" class="note">
+          ネットワーク: - / AL: -
         </div>
       </div>
-
-      <div class="status-row">
-        <div class="status-chip" id="supplyInfo">Supply: 読み込み中...</div>
-        <div class="status-chip" id="alInfo">AL: 読み込み中...</div>
-        <div class="status-chip" id="publicInfo">Public: 読み込み中...</div>
-      </div>
-
-      <div class="price-row" id="priceInfo">価格情報を読み込み中...</div>
-
-      <div class="wallet-row">
-        <div class="wallet-status" id="walletStatus">未接続</div>
-        <button id="walletConnectButton" class="btn-wallet">ウォレット接続</button>
-      </div>
-
-      <div class="mint-columns">
-        <!-- AL -->
-        <div>
-          <div class="section">
-            <div class="section-title">Allowlist Mint（AL）</div>
-            <div class="section-desc">
-              1ウォレット <strong>最大6枚まで</strong>。価格はコントラクトの <code>alPrice</code> を使用します。
-            </div>
-
-            <div class="form-row">
-              <label for="alQuantity">枚数</label>
-              <input id="alQuantity" type="number" min="1" max="6" step="1" value="1" />
-              <div id="alPriceLabel">AL価格: 読み込み中</div>
-            </div>
-
-            <button id="alMintButton" class="btn-primary" style="width:100%;margin:6px 0 4px;">
-              AL Mint
-            </button>
-
-            <div class="helper-text">
-              ※ あなたのウォレットが Allowlist 登録されている必要があります。<br>
-              ※ まず <code>call()</code> で事前チェックし、エラー時はガスを使わず理由だけ表示します。
-            </div>
-          </div>
+      <div class="stat">
+        <div class="stat-label">価格 &amp; 上限</div>
+        <div id="price-info" class="stat-value small">
+          AL: - / Public: -
         </div>
-
-        <!-- Public -->
-        <div>
-          <div class="section">
-            <div class="section-title">Public Mint</div>
-            <div class="section-desc">
-              1ウォレット <strong>1枚まで</strong>。価格はコントラクトの <code>publicPrice</code> を使用します。
-            </div>
-
-            <div class="form-row">
-              <label>枚数</label>
-              <div>1 枚固定</div>
-              <div id="publicPriceLabel">Public価格: 読み込み中</div>
-            </div>
-
-            <button id="publicMintButton" class="btn-primary" style="width:100%;margin:6px 0 4px;">
-              Public Mint
-            </button>
-
-            <div class="helper-text">
-              ※ まずは AL 販売の動作確認を行ってから、必要に応じて Public もテストしてください。<br>
-              ※ AL と同様に事前に <code>call()</code> でチェックし、エラー理由を表示します。
-            </div>
-          </div>
+        <div id="limit-info" class="note">
+          AL 上限: - / Public 上限: -
         </div>
-      </div>
-
-      <div class="debug-box">
-        <div class="debug-title">ステータス / デバッグ</div>
-        <div id="debugLog">debug: 初期化中...</div>
-      </div>
-
-      <div class="footer-note">
-        テスト用コントラクト: tdt（
-        <span id="contractAddressText">0x0195dA0D3e285f7A58582F4A18A12C8a168f5849</span>）<br>
-        本番公開前に <code>CONTRACT_ADDRESS</code> を本番 TAF DOG のアドレスに戻してください。
       </div>
     </div>
-  </main>
+  </div>
 
-  <!-- web3.js & スクリプト -->
-  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.4/dist/web3.min.js"></script>
-  <script>
-    // ====== 設定 ======
-    const CONTRACT_ADDRESS = "0x0195dA0D3e285f7A58582F4A18A12C8a168f5849";
+  <!-- Allowlist Mint -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="tag">ALLOWLIST MINT</div>
+      <div id="al-sale-tag" class="tag tag-paused">AL: -</div>
+    </div>
 
-    // 必要な関数だけの最小 ABI
-    const CONTRACT_ABI = [
-      { "inputs":[{"internalType":"string","name":"baseURI_","type":"string"}], "stateMutability":"nonpayable", "type":"constructor" },
-      { "inputs":[],"name":"MAX_SUPPLY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function" },
-      { "inputs":[],"name":"MAX_AL_MINT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function" },
-      { "inputs":[],"name":"MAX_PUBLIC_MINT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function" },
-      { "inputs":[],"name":"totalMinted","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function" },
-      { "inputs":[],"name":"alPrice","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function" },
-      { "inputs":[],"name":"publicPrice","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function" },
-      { "inputs":[],"name":"alStartTime","outputs":[{"internalType":"uint64","name":"","type":"uint64"}],"stateMutability":"view","type":"function" },
-      { "inputs":[],"name":"publicStartTime","outputs":[{"internalType":"uint64","name":"","type":"uint64"}],"stateMutability":"view","type":"function" },
-      { "inputs":[],"name":"alSaleActive","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function" },
-      { "inputs":[],"name":"publicSaleActive","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function" },
-      { "inputs":[],"name":"alMinted","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function" },
-      { "inputs":[],"name":"publicMinted","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function" },
-      { "inputs":[{"internalType":"address","name":"","type":"address"}],"name":"isAllowListed","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function" },
-      { "inputs":[{"internalType":"uint256","name":"quantity","type":"uint256"}],"name":"mintAllowlist","outputs":[],"stateMutability":"payable","type":"function" },
-      { "inputs":[],"name":"mintPublic","outputs":[],"stateMutability":"payable","type":"function" }
-    ];
+    <div class="small" style="margin-bottom:6px;">
+      あなたのウォレットが AllowList 対象なら、ここからミントできます。
+    </div>
 
-    let web3;
-    let contract;
-    let currentAccount = null;
-    let cachedAlPriceWei = null;
-    let cachedPublicPriceWei = null;
+    <div class="input-row">
+      <label class="small">数量</label>
+      <input id="al-quantity" type="number" min="1" step="1" value="1" />
+      <div class="total" id="al-total">合計: - POL</div>
+    </div>
+    <div class="note">
+      ※ 価格・上限はコントラクトから自動取得。<br />
+      &nbsp;&nbsp;手入力は不要です。
+    </div>
 
-    const elSupply = document.getElementById("supplyInfo");
-    const elAlInfo = document.getElementById("alInfo");
-    const elPublicInfo = document.getElementById("publicInfo");
-    const elPriceInfo = document.getElementById("priceInfo");
-    const elWalletStatus = document.getElementById("walletStatus");
-    const elDebug = document.getElementById("debugLog");
-    const elAlQty = document.getElementById("alQuantity");
-    const elAlPriceLabel = document.getElementById("alPriceLabel");
-    const elPublicPriceLabel = document.getElementById("publicPriceLabel");
-    const elWalletBtn = document.getElementById("walletConnectButton");
-    const elAlMintBtn = document.getElementById("alMintButton");
-    const elPublicMintBtn = document.getElementById("publicMintButton");
-    const elContractAddressLink = document.getElementById("contractAddressLink");
-    const elContractAddressText = document.getElementById("contractAddressText");
+    <button id="al-mint-btn" class="btn" type="button" style="margin-top:10px;">
+      ALミント実行
+    </button>
 
-    function setDebug(msg) {
-      if (!elDebug) return;
-      elDebug.textContent = msg;
+    <div id="al-status" class="status-line"></div>
+    <div id="al-debug" class="status-line status-debug"></div>
+  </div>
+
+  <!-- Public Mint -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="tag">PUBLIC MINT</div>
+      <div id="public-sale-tag" class="tag tag-paused">Public: -</div>
+    </div>
+
+    <div class="small" style="margin-bottom:6px;">
+      誰でも 1 Wallet あたり 1 枚までミントできます。
+    </div>
+
+    <div class="input-row">
+      <label class="small">数量</label>
+      <input id="public-quantity" type="number" min="1" max="1" value="1" disabled />
+      <div class="total" id="public-total">合計: - POL</div>
+    </div>
+    <div class="note">
+      ※ コントラクト仕様上、Public は 1 Wallet = 1 枚固定です。
+    </div>
+
+    <button id="public-mint-btn" class="btn btn-secondary" type="button" style="margin-top:10px;">
+      Publicミント実行
+    </button>
+
+    <div id="public-status" class="status-line"></div>
+    <div id="public-debug" class="status-line status-debug"></div>
+  </div>
+
+  <div class="small" style="opacity:0.7; margin-top:10px;">
+    コントラクト: <span id="contract-address" class="mono"></span><br />
+    Polygon (ChainId 137) 専用。<br />
+    エラーが出た場合は、上記「ALミント送信エラー / Publicミント送信エラー」と
+    「debug: raw error」をスクショして開発者に送ってください。
+  </div>
+</div>
+
+<script>
+  /*************************************************
+   *  設定
+   *************************************************/
+
+  // ★ テスト用コントラクトアドレス
+  // 本番リリース時は、ここを TAF DOG 本番コントラクトのアドレスに
+  // 差し替えるだけで OK （他のコードはそのまま使えます）
+  const CONTRACT_ADDRESS = "0x0195dA0D3e285f7A58582F4A18A12C8a168f5849";
+
+  // 必要な関数だけの最小 ABI
+  const CONTRACT_ABI = [
+    // view
+    {
+      "inputs": [],
+      "name": "MAX_SUPPLY",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "AL_MAX_PER_WALLET",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "PUBLIC_MAX_PER_WALLET",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalMinted",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "alSaleActive",
+      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "publicSaleActive",
+      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "alPrice",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "publicPrice",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+      "name": "isAllowListed",
+      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+      "name": "alMintedByWallet",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+      "name": "publicMintedByWallet",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+
+    // mint
+    {
+      "inputs": [{ "internalType": "uint256", "name": "quantity", "type": "uint256" }],
+      "name": "mintAllowlist",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "mintPublic",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
     }
-    function appendDebug(msg) {
-      if (!elDebug) return;
-      elDebug.textContent += (elDebug.textContent ? "\n" : "") + msg;
+  ];
+
+  // ethers 関連の変数
+  let injectedProvider = null;   // window.ethereum or window.phantom.ethereum
+  let provider = null;
+  let signer = null;
+  let contract = null;
+  let currentAccount = null;
+
+  // 価格・上限（BigNumber 等）
+  let alPriceWei = null;
+  let publicPriceWei = null;
+  let alMaxPerWallet = null;
+  let publicMaxPerWallet = null;
+
+  /*************************************************
+   *  ユーティリティ
+   *************************************************/
+
+  function getInjectedProvider() {
+    if (window.ethereum) return window.ethereum;
+    if (window.phantom && window.phantom.ethereum) return window.phantom.ethereum;
+    return null;
+  }
+
+  function shorten(addr) {
+    if (!addr) return "";
+    return addr.slice(0, 6) + "..." + addr.slice(-4);
+  }
+
+  function formatPOL(weiBN) {
+    try {
+      return ethers.utils.formatEther(weiBN);
+    } catch (e) {
+      return "-";
+    }
+  }
+
+  function setText(id, text) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
+  }
+
+  function setStatusOK(id, msg) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.remove("status-error");
+    el.classList.add("status-ok");
+    el.textContent = msg;
+  }
+
+  function setStatusError(id, msg) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.remove("status-ok");
+    el.classList.add("status-error");
+    el.textContent = msg;
+  }
+
+  function setDebug(id, raw) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (!raw) {
+      el.textContent = "";
+      return;
+    }
+    el.textContent = "debug: raw error: " + raw;
+  }
+
+  function parseError(e) {
+    if (!e) return "unknown error";
+
+    if (e.code === 4001) {
+      // User rejected
+      return "ウォレットでトランザクションが拒否されました (code 4001)";
     }
 
-    function extractRawError(e) {
-      try {
-        if (!e) return "unknown error";
-        if (typeof e === "string") return e;
+    const asStr = e.message || e.toString();
 
-        if (e.data && typeof e.data === "object") {
-          if (typeof e.data.message === "string") return e.data.message;
-          if (e.data.originalError && typeof e.data.originalError.message === "string") {
-            return e.data.originalError.message;
-          }
+    // execution reverted: reason
+    const m = asStr.match(/execution reverted(?:\:)?\s?(.*)$/i);
+    if (m && m[1]) {
+      return "コントラクトでリバート: " + m[1];
+    }
+
+    return asStr;
+  }
+
+  /*************************************************
+   *  初期化・ウォレット接続
+   *************************************************/
+
+  async function connectWallet() {
+    try {
+      injectedProvider = getInjectedProvider();
+      if (!injectedProvider) {
+        alert("EVM対応ウォレット（MetaMask / Phantom 等）が見つかりません。ウォレットアプリ内のブラウザから開いてください。");
+        return;
+      }
+
+      provider = new ethers.providers.Web3Provider(injectedProvider, "any");
+
+      // アカウントリクエスト
+      const accounts = await injectedProvider.request({
+        method: "eth_requestAccounts"
+      });
+      if (!accounts || accounts.length === 0) {
+        alert("ウォレットアカウントが取得できませんでした。");
+        return;
+      }
+      currentAccount = ethers.utils.getAddress(accounts[0]);
+
+      // ネットワークチェック（Polygon へ切替）
+      const net = await provider.getNetwork();
+      if (net.chainId !== 137) {
+        try {
+          await injectedProvider.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: "0x89" }] // 137
+          });
+        } catch (switchError) {
+          alert("Polygon ネットワーク (ChainId 137) に切り替えてから再度お試しください。");
+          console.error(switchError);
+          return;
         }
-        if (typeof e.message === "string") return e.message;
-
-        return JSON.stringify(e, Object.getOwnPropertyNames(e));
-      } catch (_err) {
-        return "failed to parse error";
       }
+
+      signer = provider.getSigner();
+      contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+
+      setText("wallet-address", shorten(currentAccount));
+      setText("contract-address", CONTRACT_ADDRESS);
+
+      document.getElementById("connect-btn").textContent = "接続済み";
+      document.getElementById("connect-btn").disabled = true;
+
+      await refreshAllInfo();
+    } catch (e) {
+      console.error("connectWallet error", e);
+      alert("ウォレット接続中にエラーが発生しました: " + parseError(e));
     }
+  }
 
-    function parseRevertMessage(e) {
-      const raw = extractRawError(e);
+  async function refreshAllInfo() {
+    if (!contract || !currentAccount) return;
 
-      if (raw.includes("AL sale not started")) return "AL販売がまだ開始されていません。";
-      if (raw.includes("public sale not started")) return "Public販売がまだ開始されていません。";
-      if (raw.includes("not allowlisted")) return "このウォレットはAllowlistに登録されていません。";
-      if (raw.includes("wallet AL limit")) return "ALのウォレットごとの上限枚数を超えています。";
-      if (raw.includes("AL sold out")) return "AL販売分が完売しています。";
-      if (raw.includes("public sold out")) return "Public販売分が完売しています。";
-      if (raw.includes("max supply")) return "コレクション全体の上限に達しました。";
-      if (raw.includes("insufficient MATIC")) return "送信するMATICが足りません。";
-      if (raw.includes("already minted")) return "このウォレットは既にPublicでミント済みです。";
-      if (raw.includes("execution reverted")) return "コントラクト側でrevertしました（詳細不明）。";
+    try {
+      const [
+        maxSupply,
+        totalMinted,
+        alActive,
+        publicActive,
+        alPriceRaw,
+        publicPriceRaw,
+        alMaxRaw,
+        publicMaxRaw,
+        isAl,
+        alMintedByMe,
+        publicMintedByMe,
+        net
+      ] = await Promise.all([
+        contract.MAX_SUPPLY(),
+        contract.totalMinted(),
+        contract.alSaleActive(),
+        contract.publicSaleActive(),
+        contract.alPrice(),
+        contract.publicPrice(),
+        contract.AL_MAX_PER_WALLET(),
+        contract.PUBLIC_MAX_PER_WALLET(),
+        contract.isAllowListed(currentAccount),
+        contract.alMintedByWallet(currentAccount),
+        contract.publicMintedByWallet(currentAccount),
+        provider.getNetwork()
+      ]);
 
-      if (raw.includes("Internal JSON-RPC error")) {
-        return "RPCノード側の内部エラーです。数分待つか、他のRPCに切り替えてください。";
-      }
-      return raw;
-    }
+      alPriceWei = alPriceRaw;
+      publicPriceWei = publicPriceRaw;
+      alMaxPerWallet = alMaxRaw;
+      publicMaxPerWallet = publicMaxRaw;
 
-    async function initWeb3(readOnly = false) {
-      if (web3 && contract) return;
-      if (window.ethereum) {
-        web3 = new Web3(window.ethereum);
+      // 全体表示
+      setText("supply-status",
+        `Supply: ${totalMinted.toString()} / ${maxSupply.toString()}`
+      );
+
+      const alPriceStr = formatPOL(alPriceRaw);
+      const publicPriceStr = formatPOL(publicPriceRaw);
+      setText("price-info",
+        `AL: ${alPriceStr} POL / Public: ${publicPriceStr} POL`
+      );
+      setText("limit-info",
+        `AL 上限: ${alMaxRaw.toString()} / Public 上限: ${publicMaxRaw.toString()}`
+      );
+
+      setText("wallet-extra",
+        `ネットワーク: Polygon (chainId ${net.chainId}) / AL: ${isAl ? "対象" : "対象外"}`
+      );
+
+      // AL / Public セールタグ
+      const globalTag = document.getElementById("global-sale-tag");
+      const alTag = document.getElementById("al-sale-tag");
+      const publicTag = document.getElementById("public-sale-tag");
+
+      if (alActive || publicActive) {
+        globalTag.textContent = `SALE: AL ${alActive ? "ON" : "OFF"} / Public ${publicActive ? "ON" : "OFF"}`;
+        globalTag.classList.remove("tag-error");
+        globalTag.classList.add("tag-live");
       } else {
-        if (readOnly) {
-          // 読み取り専用：公共RPC（万一 MetaMask 以外のブラウザからの閲覧でも表示だけは出す）
-          web3 = new Web3("https://polygon-rpc.com");
-        } else {
-          alert("MetaMask 対応ブラウザでアクセスしてください（MetaMask モバイル推奨）");
-          throw new Error("no ethereum provider");
-        }
+        globalTag.textContent = "SALE: すべて停止中";
+        globalTag.classList.remove("tag-live");
+        globalTag.classList.add("tag-paused");
       }
-      contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+
+      alTag.textContent = `AL: ${alActive ? "販売中" : "停止中"}`;
+      publicTag.textContent = `Public: ${publicActive ? "販売中" : "停止中"}`;
+
+      if (alActive) {
+        alTag.classList.remove("tag-paused");
+        alTag.classList.add("tag-live");
+      } else {
+        alTag.classList.remove("tag-live");
+        alTag.classList.add("tag-paused");
+      }
+
+      if (publicActive) {
+        publicTag.classList.remove("tag-paused");
+        publicTag.classList.add("tag-live");
+      } else {
+        publicTag.classList.remove("tag-live");
+        publicTag.classList.add("tag-paused");
+      }
+
+      // 合計金額表示更新
+      updateAlTotal();
+      updatePublicTotal();
+
+      // すでに Public ミント済みならボタンを無効化
+      if (publicMintedByMe && publicMintedByMe.toString() !== "0") {
+        const btn = document.getElementById("public-mint-btn");
+        btn.disabled = true;
+        btn.textContent = "Publicは既にミント済み";
+      }
+
+    } catch (e) {
+      console.error("refreshAllInfo error", e);
+      const msg = parseError(e);
+      const raw = e && (e.data?.message || e.error?.message || e.message || JSON.stringify(e));
+      setStatusError("al-status", "ステータス取得エラー: " + msg);
+      setDebug("al-debug", raw);
+      const globalTag = document.getElementById("global-sale-tag");
+      globalTag.textContent = "SALE: エラー";
+      globalTag.classList.add("tag-error");
+    }
+  }
+
+  /*************************************************
+   *  AL ミント
+   *************************************************/
+
+  function updateAlTotal() {
+    const qtyInput = document.getElementById("al-quantity");
+    const qty = parseInt(qtyInput.value, 10) || 0;
+
+    if (!alPriceWei || qty <= 0) {
+      setText("al-total", "合計: - POL");
+      return;
     }
 
-    function formatTime(ts) {
-      if (!ts || ts === "0") return "未設定";
-      const d = new Date(parseInt(ts, 10) * 1000);
-      const y = d.getFullYear();
-      const m = ("0" + (d.getMonth() + 1)).slice(-2);
-      const day = ("0" + d.getDate()).slice(-2);
-      const hh = ("0" + d.getHours()).slice(-2);
-      const mm = ("0" + d.getMinutes()).slice(-2);
-      return `${y}/${m}/${day} ${hh}:${mm} JST`;
+    const total = alPriceWei.mul(qty);
+    setText("al-total", "合計: " + formatPOL(total) + " POL");
+  }
+
+  async function handleAlMint() {
+    setStatusError("al-status", "");
+    setDebug("al-debug", "");
+
+    if (!contract || !currentAccount) {
+      setStatusError("al-status", "ALミント送信エラー: ウォレット未接続です。");
+      return;
     }
 
-    async function checkChain() {
-      if (!window.ethereum) return;
-      try {
-        const chainId = await window.ethereum.request({ method: "eth_chainId" });
-        if (chainId !== "0x89") {
-          appendDebug("⚠ 現在のネットワークは Polygon PoS (0x89) ではありません。MetaMask でネットワークを Polygon に切り替えてください。");
-        }
-      } catch (e) {
-        appendDebug("ネットワーク確認エラー: " + extractRawError(e));
-      }
+    const qtyInput = document.getElementById("al-quantity");
+    const qty = parseInt(qtyInput.value, 10);
+
+    if (!qty || qty <= 0) {
+      setStatusError("al-status", "ALミント送信エラー: 数量を1以上で入力してください。");
+      return;
     }
 
-    async function loadStatus() {
-      try {
-        await initWeb3(true);
-
-        const [
-          maxSupply,
-          totalMinted,
-          alPriceWei,
-          publicPriceWei,
-          alStart,
-          publicStart,
-          alActive,
-          publicActive,
-          alMinted,
-          publicMinted,
-          maxAlMint,
-          maxPublicMint
-        ] = await Promise.all([
-          contract.methods.MAX_SUPPLY().call(),
-          contract.methods.totalMinted().call(),
-          contract.methods.alPrice().call(),
-          contract.methods.publicPrice().call(),
-          contract.methods.alStartTime().call(),
-          contract.methods.publicStartTime().call(),
-          contract.methods.alSaleActive().call(),
-          contract.methods.publicSaleActive().call(),
-          contract.methods.alMinted().call(),
-          contract.methods.publicMinted().call(),
-          contract.methods.MAX_AL_MINT().call(),
-          contract.methods.MAX_PUBLIC_MINT().call()
-        ]);
-
-        cachedAlPriceWei = alPriceWei;
-        cachedPublicPriceWei = publicPriceWei;
-
-        elSupply.textContent = `Supply: ${totalMinted} / ${maxSupply}`;
-
-        const alStartTxt = formatTime(alStart);
-        const pubStartTxt = formatTime(publicStart);
-
-        elAlInfo.textContent = `AL: ${alActive ? "販売中" : "停止中"}（開始: ${alStartTxt}）`;
-        elPublicInfo.textContent = `Public: ${publicActive ? "販売中" : "停止中"}（開始: ${pubStartTxt}）`;
-
-        const alPriceMatic = web3.utils.fromWei(alPriceWei, "ether");
-        const publicPriceMatic = web3.utils.fromWei(publicPriceWei, "ether");
-        elPriceInfo.textContent = `AL: ${alPriceMatic} MATIC / NFT, Public: ${publicPriceMatic} MATIC / NFT`;
-        elAlPriceLabel.textContent = `AL価格: ${alPriceMatic} MATIC`;
-        elPublicPriceLabel.textContent = `Public価格: ${publicPriceMatic} MATIC`;
-
-        elContractAddressLink.textContent = CONTRACT_ADDRESS;
-        elContractAddressLink.href = `https://polygonscan.com/address/${CONTRACT_ADDRESS}`;
-        if (elContractAddressText) elContractAddressText.textContent = CONTRACT_ADDRESS;
-
-        setDebug("debug: 読み込み完了。必要に応じてウォレットを接続し、AL / Public ミントをテストしてください。");
-      } catch (e) {
-        setDebug("ステータス読み込みエラー: " + extractRawError(e));
-      }
+    if (!alPriceWei) {
+      setStatusError("al-status", "ALミント送信エラー: 価格情報を取得できていません。ページを再読み込みしてください。");
+      return;
     }
 
-    async function connectWallet() {
-      try {
-        if (!window.ethereum) {
-          alert("MetaMask対応ブラウザでアクセスしてください（MetaMaskモバイル推奨）");
-          return;
-        }
-        await initWeb3(false);
-        const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-        currentAccount = accounts[0];
-        elWalletStatus.textContent = `接続中: ${currentAccount.slice(0, 6)}...${currentAccount.slice(-4)}`;
-        elWalletBtn.textContent = "接続済み";
-        elWalletBtn.disabled = true;
+    try {
+      const totalValue = alPriceWei.mul(qty);
 
-        setDebug("ウォレット接続完了。AL / Public のミントを実行できます。");
-        await checkChain();
+      const btn = document.getElementById("al-mint-btn");
+      btn.disabled = true;
+      btn.textContent = "送信中...";
 
-        // Allowlist 判定も軽く表示
-        try {
-          const allowed = await contract.methods.isAllowListed(currentAccount).call();
-          appendDebug(`Allowlist 状態: ${allowed ? "登録されています ✅" : "未登録 ❌"}`);
-        } catch (_) {}
-      } catch (e) {
-        setDebug("ウォレット接続エラー: " + extractRawError(e));
+      const tx = await contract.mintAllowlist(qty, {
+        value: totalValue
+      });
+
+      setStatusOK("al-status", "ALミント送信成功: トランザクション送信中です。TxHash: " + tx.hash);
+      setDebug("al-debug", "");
+
+      const receipt = await tx.wait();
+      if (receipt.status === 1) {
+        setStatusOK("al-status", "ALミント完了: TxHash " + tx.hash);
+      } else {
+        setStatusError("al-status", "ALミント送信エラー: トランザクションが失敗しました。TxHash: " + tx.hash);
       }
+
+      await refreshAllInfo();
+    } catch (e) {
+      console.error("AL mint error", e);
+      const msg = parseError(e);
+      const raw = e && (e.data?.message || e.error?.message || e.message || JSON.stringify(e));
+      setStatusError("al-status", "ALミント送信エラー: " + msg);
+      setDebug("al-debug", raw);
+    } finally {
+      const btn = document.getElementById("al-mint-btn");
+      btn.disabled = false;
+      btn.textContent = "ALミント実行";
+    }
+  }
+
+  /*************************************************
+   *  Public ミント
+   *************************************************/
+
+  function updatePublicTotal() {
+    if (!publicPriceWei) {
+      setText("public-total", "合計: - POL");
+      return;
+    }
+    setText("public-total", "合計: " + formatPOL(publicPriceWei) + " POL");
+  }
+
+  async function handlePublicMint() {
+    setStatusError("public-status", "");
+    setDebug("public-debug", "");
+
+    if (!contract || !currentAccount) {
+      setStatusError("public-status", "Publicミント送信エラー: ウォレット未接続です。");
+      return;
     }
 
-    async function handleAlMint() {
-      if (!currentAccount) {
-        alert("まずウォレットを接続してください。");
-        return;
-      }
-      try {
-        await initWeb3(false);
-      } catch (e) {
-        setDebug("web3初期化エラー: " + extractRawError(e));
-        return;
-      }
-
-      let qty = parseInt(elAlQty.value, 10);
-      if (!qty || qty <= 0) qty = 1;
-      if (qty > 6) qty = 6;
-      elAlQty.value = qty;
-
-      if (!cachedAlPriceWei) {
-        try {
-          cachedAlPriceWei = await contract.methods.alPrice().call();
-        } catch (e) {
-          setDebug("AL価格取得エラー: " + extractRawError(e));
-          return;
-        }
-      }
-
-      const valueWei = web3.utils.toBN(cachedAlPriceWei).mul(web3.utils.toBN(qty));
-
-      // --- 事前 call() チェック ---
-      try {
-        setDebug(`ALミント事前チェック中... quantity=${qty}, value=${web3.utils.fromWei(valueWei, "ether")} MATIC`);
-        await contract.methods.mintAllowlist(qty).call({
-          from: currentAccount,
-          value: valueWei.toString()
-        });
-        appendDebug("事前チェックOK。トランザクション送信準備中...");
-      } catch (e) {
-        const msg = parseRevertMessage(e);
-        setDebug("事前チェックでエラー（AL）: " + msg + "\nraw: " + extractRawError(e));
-        return;
-      }
-
-      // --- 実トランザクション送信（ガス上限を明示指定） ---
-      try {
-        appendDebug("ALミント送信中... MetaMask の確認画面で承認してください。");
-        const tx = await contract.methods.mintAllowlist(qty).send({
-          from: currentAccount,
-          value: valueWei.toString(),
-          gas: 300000   // JSON-RPC の見積もり問題を避けるため、ガス上限を手動指定
-        });
-        const txHash = tx.transactionHash || "(hash不明)";
-        setDebug(`ALミント完了 ✅\nTx: ${txHash}\nhttps://polygonscan.com/tx/${txHash}`);
-        await loadStatus();
-      } catch (e) {
-        const msg = parseRevertMessage(e);
-        setDebug("ALミント送信エラー: " + msg + "\n\ndebug: raw error: " + extractRawError(e));
-      }
+    if (!publicPriceWei) {
+      setStatusError("public-status", "Publicミント送信エラー: 価格情報を取得できていません。ページを再読み込みしてください。");
+      return;
     }
 
-    async function handlePublicMint() {
-      if (!currentAccount) {
-        alert("まずウォレットを接続してください。");
-        return;
-      }
-      try {
-        await initWeb3(false);
-      } catch (e) {
-        setDebug("web3初期化エラー: " + extractRawError(e));
-        return;
+    try {
+      const btn = document.getElementById("public-mint-btn");
+      btn.disabled = true;
+      btn.textContent = "送信中...";
+
+      const tx = await contract.mintPublic({
+        value: publicPriceWei
+      });
+
+      setStatusOK("public-status", "Publicミント送信成功: トランザクション送信中です。TxHash: " + tx.hash);
+      setDebug("public-debug", "");
+
+      const receipt = await tx.wait();
+      if (receipt.status === 1) {
+        setStatusOK("public-status", "Publicミント完了: TxHash " + tx.hash);
+      } else {
+        setStatusError("public-status", "Publicミント送信エラー: トランザクションが失敗しました。TxHash: " + tx.hash);
       }
 
-      if (!cachedPublicPriceWei) {
-        try {
-          cachedPublicPriceWei = await contract.methods.publicPrice().call();
-        } catch (e) {
-          setDebug("Public価格取得エラー: " + extractRawError(e));
-          return;
-        }
-      }
+      await refreshAllInfo();
+    } catch (e) {
+      console.error("Public mint error", e);
+      const msg = parseError(e);
+      const raw = e && (e.data?.message || e.error?.message || e.message || JSON.stringify(e));
+      setStatusError("public-status", "Publicミント送信エラー: " + msg);
+      setDebug("public-debug", raw);
+    } finally {
+      const btn = document.getElementById("public-mint-btn");
+      // 失敗した場合だけ再度押せるようにする
+      if (!btn.disabled) return;
+      btn.disabled = false;
+      btn.textContent = "Publicミント実行";
+    }
+  }
 
-      const valueWei = cachedPublicPriceWei;
+  /*************************************************
+   *  イベント設定
+   *************************************************/
 
-      // --- 事前 call() チェック ---
-      try {
-        setDebug(`Publicミント事前チェック中... quantity=1, value=${web3.utils.fromWei(valueWei, "ether")} MATIC`);
-        await contract.methods.mintPublic().call({
-          from: currentAccount,
-          value: valueWei
-        });
-        appendDebug("事前チェックOK。トランザクション送信準備中...");
-      } catch (e) {
-        const msg = parseRevertMessage(e);
-        setDebug("事前チェックでエラー（Public）: " + msg + "\nraw: " + extractRawError(e));
-        return;
-      }
+  window.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("contract-address").textContent = CONTRACT_ADDRESS;
 
-      // --- 実トランザクション送信（ガス上限を明示指定） ---
-      try {
-        appendDebug("Publicミント送信中... MetaMask の確認画面で承認してください。");
-        const tx = await contract.methods.mintPublic().send({
-          from: currentAccount,
-          value: valueWei,
-          gas: 300000
-        });
-        const txHash = tx.transactionHash || "(hash不明)";
-        setDebug(`Publicミント完了 ✅\nTx: ${txHash}\nhttps://polygonscan.com/tx/${txHash}`);
-        await loadStatus();
-      } catch (e) {
-        const msg = parseRevertMessage(e);
-        setDebug("Publicミント送信エラー: " + msg + "\n\ndebug: raw error: " + extractRawError(e));
-      }
+    const providerCandidate = getInjectedProvider();
+    if (!providerCandidate) {
+      setStatusError("al-status", "EVM対応ウォレットが見つかりません。MetaMask などのウォレットアプリ内ブラウザから開いてください。");
     }
 
-    // ====== DOM 準備 ======
-    document.addEventListener("DOMContentLoaded", () => {
-      // コントラクトアドレスのテキスト反映
-      if (elContractAddressText) elContractAddressText.textContent = CONTRACT_ADDRESS;
-      if (elContractAddressLink) {
-        elContractAddressLink.textContent = CONTRACT_ADDRESS;
-        elContractAddressLink.href = `https://polygonscan.com/address/${CONTRACT_ADDRESS}`;
-      }
-
-      if (elWalletBtn) {
-        elWalletBtn.addEventListener("click", connectWallet);
-      }
-      if (elAlMintBtn) {
-        elAlMintBtn.addEventListener("click", handleAlMint);
-      }
-      if (elPublicMintBtn) {
-        elPublicMintBtn.addEventListener("click", handlePublicMint);
-      }
-
-      loadStatus();
-    });
-  </script>
+    document.getElementById("connect-btn").addEventListener("click", connectWallet);
+    document.getElementById("al-mint-btn").addEventListener("click", handleAlMint);
+    document.getElementById("public-mint-btn").addEventListener("click", handlePublicMint);
+    document.getElementById("al-quantity").addEventListener("input", updateAlTotal);
+  });
+</script>
 </body>
 </html>
