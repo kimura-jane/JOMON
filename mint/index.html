@@ -58,12 +58,6 @@
       justify-content:space-between;
       gap:12px;
     }
-    header h1{
-      margin:0;
-      font-size:18px;
-      font-family:"Space Grotesk",system-ui,sans-serif;
-      letter-spacing:.04em;
-    }
     header a.logo{
       display:flex;
       align-items:center;
@@ -222,7 +216,7 @@
     }
   </style>
 
-  <!-- ethers.js（シンプル版：SRI等なし） -->
+  <!-- ethers.js（SRIなしのシンプル読み込み） -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.2/ethers.umd.min.js"></script>
 </head>
 <body>
@@ -373,6 +367,11 @@
       "function mintPublic() payable"
     ];
 
+    // ethers は必ず window.ethers 経由で扱う
+    const E = (typeof window !== "undefined" && window.ethers) ? window.ethers
+            : (typeof globalThis !== "undefined" && globalThis.ethers) ? globalThis.ethers
+            : undefined;
+
     let provider;
     let signer;
     let contract;
@@ -393,7 +392,7 @@
         "EVMウォレット";
       debugText = "検出したウォレット: " + type;
     }
-    const hasEthers = typeof window.ethers !== "undefined";
+    const hasEthers = !!E;
     debugText += hasEthers ? " / ethers.js: OK" : " / ethers.js: 読み込みエラー";
     debugEl.textContent = debugText;
 
@@ -427,7 +426,7 @@
         return;
       }
       if (!hasEthers) {
-        connectMessage.textContent = "ethers.js が読み込めていません。時間をおいて再読み込みしてください。";
+        connectMessage.textContent = "ethers.js が読み込めていません。ページを再読み込みしても改善しない場合は、時間をおいて再度お試しください。";
         return;
       }
 
@@ -438,7 +437,7 @@
           return;
         }
 
-        currentAccount = ethers.getAddress(accounts[0]);
+        currentAccount = E.getAddress(accounts[0]);
         walletInfo.textContent = currentAccount;
 
         const chainId = await window.ethereum.request({ method: 'eth_chainId' });
@@ -449,9 +448,9 @@
           networkInfo.textContent = "ネットワーク: Polygon mainnet";
         }
 
-        provider = new ethers.BrowserProvider(window.ethereum);
+        provider = new E.BrowserProvider(window.ethereum);
         signer = await provider.getSigner();
-        contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
+        contract = new E.Contract(CONTRACT_ADDRESS, ABI, signer);
 
         await refreshAll();
         setupListeners();
@@ -539,8 +538,8 @@
 
         alPriceWei = await contract.alPrice();
         publicPriceWei = await contract.publicPrice();
-        alPriceSpan.textContent = ethers.formatEther(alPriceWei);
-        publicPriceSpan.textContent = ethers.formatEther(publicPriceWei);
+        alPriceSpan.textContent = E.formatEther(alPriceWei);
+        publicPriceSpan.textContent = E.formatEther(publicPriceWei);
         updateAlTotalPrice();
 
         const [ isAL, alMintedByYou, publicMintedByYou ] = await Promise.all([
@@ -565,7 +564,7 @@
       const qty = parseInt(alQtyInput.value || "1", 10);
       if (!alPriceWei) return;
       const total = alPriceWei * BigInt(qty);
-      alTotalPriceSpan.textContent = ethers.formatEther(total);
+      alTotalPriceSpan.textContent = E.formatEther(total);
     }
 
     async function handleAlMint() {
@@ -627,7 +626,6 @@
       } catch (err) {
         console.error(err);
         publicMessage.textContent = parseRevertMessage(err);
-        publicMessage.classList.add("error");
       } finally {
         publicMintButton.disabled = false;
       }
@@ -667,7 +665,7 @@
   })();
 </script>
 
-<!-- Cloudflare Web Analytics（トップと同じトークン） -->
+<!-- Cloudflare Web Analytics -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
   data-cf-beacon='{"token": "2f3d2bda0c1f4f3ca76298c8feab2eaa"}'>
 </script>
