@@ -118,7 +118,6 @@
       margin-bottom:4px;
     }
     .badge-test{color:#facc15}
-    .badge-main{color:#6ee7b7}
 
     .status-row{
       display:flex;
@@ -133,30 +132,11 @@
       border:1px solid var(--line);
       background:#0f172a;
     }
-    .status-pill strong{margin-right:4px;font-weight:600}
 
     .mint-summary{
       font-size:13px;
       color:var(--muted);
       margin-bottom:12px;
-    }
-
-    .section{
-      margin-top:14px;
-      padding-top:12px;
-      border-top:1px solid var(--line);
-    }
-    .section-title{
-      font-size:14px;
-      font-weight:700;
-      margin:0 0 6px;
-      font-family:"Space Grotesk",system-ui,sans-serif;
-      letter-spacing:.03em;
-    }
-    .section-caption{
-      font-size:11px;
-      color:#9ca3af;
-      margin-bottom:8px;
     }
 
     .field-row{
@@ -241,14 +221,24 @@
       font-size:12px;
     }
     .msg-error{color:var(--danger);}
-      .msg-success{color:var(--success);}
+    .msg-success{color:var(--success);}
 
-    footer{
+    .section{
+      margin-top:14px;
+      padding-top:12px;
       border-top:1px solid var(--line);
-      padding:16px 6vw;
+    }
+    .section-title{
+      font-size:14px;
+      font-weight:700;
+      margin:0 0 6px;
+      font-family:"Space Grotesk",system-ui,sans-serif;
+      letter-spacing:.03em;
+    }
+    .section-caption{
       font-size:11px;
       color:#9ca3af;
-      text-align:center;
+      margin-bottom:8px;
     }
 
     @media (min-width:720px){
@@ -263,6 +253,14 @@
         flex:1;
       }
     }
+
+    footer{
+      border-top:1px solid var(--line);
+      padding:16px 6vw;
+      font-size:11px;
+      color:#9ca3af;
+      text-align:center;
+    }
   </style>
 
   <!-- web3.js (MetaMaskモバイル対応) -->
@@ -271,9 +269,7 @@
 <body>
 <div class="page">
   <header>
-    <div>
-      <div class="brand">JOMON COLLECTION <span>tdt TEST</span></div>
-    </div>
+    <div class="brand">JOMON COLLECTION <span>tdt TEST</span></div>
     <a class="backlink" href="/">← JOMON トップへ戻る</a>
   </header>
 
@@ -286,9 +282,9 @@
 
       <div class="contract-badge">
         <span class="badge-test">TEST CONTRACT</span>
-        <span style="font-size:10px;">Polygon PoS / MATIC</span>
+        <span>Polygon PoS / MATIC</span>
       </div>
-      <div class="contract-line" id="contractAddressLine">
+      <div class="contract-line">
         Contract: <code>0x0195dA0D3e285f7A58582F4A18A12C8a168f5849</code>
       </div>
 
@@ -312,7 +308,7 @@
         <section class="section">
           <h2 class="section-title">Allowlist Mint（AL）</h2>
           <p class="section-caption">
-            1ウォレット <strong>6枚まで</strong>。テスト用に <strong>0.001 MATIC / NFT</strong> に設定。
+            1ウォレット <strong>6枚まで</strong>。価格はコントラクトの <code>alPrice</code> をそのまま表示します。
           </p>
 
           <div class="field-row">
@@ -324,7 +320,7 @@
           <button class="btn btn-primary" id="alMintButton">AL Mint</button>
           <p class="note">
             ※ あなたのウォレットがAL登録されている必要があります。<br>
-            ※ 販売前はトランザクションを送らずにエラー表示だけにしています。
+            ※ まずコントラクトに対して <code>call()</code> で事前チェックを行い、エラー時はガスを使わず理由だけ表示します。
           </p>
         </section>
 
@@ -332,7 +328,7 @@
         <section class="section">
           <h2 class="section-title">Public Mint</h2>
           <p class="section-caption">
-            1ウォレット <strong>1枚まで</strong>。テスト用に <strong>0.001 MATIC / NFT</strong> に設定。
+            1ウォレット <strong>1枚まで</strong>。価格はコントラクトの <code>publicPrice</code> を使用します。
           </p>
 
           <div class="field-row">
@@ -349,14 +345,11 @@
       </div>
 
       <div class="msg" id="message"></div>
-
-      <div class="debug" id="debug">
-        debug: 初期化中...
-      </div>
+      <div class="debug" id="debug">debug: 初期化中...</div>
 
       <p class="note" style="margin-top:8px;">
         テスト用コントラクト: tdt（<strong>0x0195dA0D3e285f7A58582F4A18A12C8a168f5849</strong>）<br>
-        本番のTAF DOGとは別コントラクトです。本番公開前に必ずアドレスを戻してください。
+        本番公開前に <code>CONTRACT_ADDRESS</code> を本番TAF DOGのアドレスに戻してください。
       </p>
     </article>
   </main>
@@ -429,6 +422,8 @@
     if(typeof Web3 === 'undefined' || typeof window.ethereum === 'undefined'){
       setDebug('wallet / web3.js が見つかりません（MetaMaskモバイルアプリのブラウザで開いてください）。');
       connectButton.disabled = true;
+      alMintButton.disabled = true;
+      publicMintButton.disabled = true;
       return;
     }
 
@@ -445,16 +440,23 @@
 
   async function loadContractData(){
     try{
-      const [totalMinted, alPriceWei, publicPriceWei, alStart, publicStart, alActive, publicActive] =
-        await Promise.all([
-          contract.methods.totalMinted().call(),
-          contract.methods.alPrice().call(),
-          contract.methods.publicPrice().call(),
-          contract.methods.alStartTime().call(),
-          contract.methods.publicStartTime().call(),
-          contract.methods.alSaleActive().call(),
-          contract.methods.publicSaleActive().call()
-        ]);
+      const [
+        totalMinted,
+        alPriceWei,
+        publicPriceWei,
+        alStart,
+        publicStart,
+        alActive,
+        publicActive
+      ] = await Promise.all([
+        contract.methods.totalMinted().call(),
+        contract.methods.alPrice().call(),
+        contract.methods.publicPrice().call(),
+        contract.methods.alStartTime().call(),
+        contract.methods.publicStartTime().call(),
+        contract.methods.alSaleActive().call(),
+        contract.methods.publicSaleActive().call()
+      ]);
 
       const minted = parseInt(totalMinted,10);
       supplyStatusEl.textContent = `Supply: ${minted} / ${MAX_SUPPLY}`;
@@ -463,9 +465,7 @@
       const pubPrice = web3.utils.fromWei(publicPriceWei,'ether');
       alPriceLabel.textContent = `AL価格: ${alPrice} MATIC`;
       publicPriceLabel.textContent = `Public価格: ${pubPrice} MATIC`;
-
-      priceInfoEl.textContent =
-        `AL: ${alPrice} MATIC / NFT, Public: ${pubPrice} MATIC / NFT`;
+      priceInfoEl.textContent = `AL: ${alPrice} MATIC / NFT, Public: ${pubPrice} MATIC / NFT`;
 
       const alStartText = toJSTString(alStart);
       const publicStartText = toJSTString(publicStart);
@@ -516,10 +516,10 @@
         if(isAl){
           setMessage('このウォレットは AL 登録されています。','msg-success');
         }else{
-          setMessage('このウォレットは AL 未登録のようです（Public か、別ウォレットでお試しください）。','msg');
+          setMessage('このウォレットは AL 未登録のようです（Public か、別ウォレットでお試しください）。','');
         }
       }catch(e){
-        // isAllowListed が失敗しても致命的ではないので無視
+        // 無視
       }
 
       await loadContractData();
@@ -531,6 +531,35 @@
         setMessage('ウォレット接続エラー: ' + (e && e.message ? e.message : e),'msg-error');
       }
     }
+  }
+
+  function parseRevertMessage(prefix, e){
+    let msg = prefix;
+    if(e && e.message){
+      const m = e.message;
+      if(m.includes('AL sale not started')){
+        msg += 'AL販売はまだ開始されていません。';
+      }else if(m.includes('public sale not started')){
+        msg += 'Public販売はまだ開始されていません。';
+      }else if(m.includes('not allowlisted')){
+        msg += 'このウォレットはALに登録されていません。';
+      }else if(m.includes('wallet AL limit')){
+        msg += 'このウォレットのAL上限枚数を超えています。';
+      }else if(m.includes('AL sold out')){
+        msg += 'AL枠が売り切れています。';
+      }else if(m.includes('public sold out')){
+        msg += 'Public枠が売り切れています。';
+      }else if(m.includes('max supply')){
+        msg += 'コレクションの最大供給数を超えています。';
+      }else if(m.includes('insufficient MATIC')){
+        msg += '送信予定のMATICが不足しています。';
+      }else{
+        msg += m;
+      }
+    }else{
+      msg += e;
+    }
+    return msg;
   }
 
   async function handleAlMint(){
@@ -560,6 +589,20 @@
       const alPriceWei = await contract.methods.alPrice().call();
       const totalValue = web3.utils.toBN(alPriceWei).mul(web3.utils.toBN(quantity));
 
+      // --- 事前シミュレーション（call） ---
+      try{
+        await contract.methods.mintAllowlist(quantity).call({
+          from: currentAccount,
+          value: totalValue.toString()
+        });
+      }catch(e){
+        console.error('AL call error', e);
+        const msg = parseRevertMessage('ALミント事前チェックでエラー: ', e);
+        setMessage(msg, 'msg-error');
+        return; // send まで進まないのでガスは使わない
+      }
+
+      // --- 実際に送信 ---
       alMintButton.disabled = true;
       alMintButton.textContent = '送信中...';
 
@@ -571,28 +614,13 @@
       setMessage('ALミント完了: トランザクション ' + tx.transactionHash,'msg-success');
       await loadContractData();
     }catch(e){
-      console.error(e);
-      let msg = 'ALミントエラー: ';
-      if(e && e.message){
-        if(e.message.includes('AL sale not started')){
-          msg += 'AL販売はまだ開始されていません。';
-        }else if(e.message.includes('not allowlisted')){
-          msg += 'このウォレットはALに登録されていません。';
-        }else if(e.message.includes('wallet AL limit')){
-          msg += 'このウォレットのAL上限枚数を超えています。';
-        }else if(e.message.includes('AL sold out')){
-          msg += 'AL枠が売り切れています。';
-        }else if(e.message.includes('insufficient MATIC')){
-          msg += '送信したMATICが不足しています。';
-        }else if(e.code === 4001){
-          msg += 'トランザクションがキャンセルされました。';
-        }else{
-          msg += e.message;
-        }
+      console.error('AL send error', e);
+      if(e && e.code === 4001){
+        setMessage('トランザクションがキャンセルされました。','msg-error');
       }else{
-        msg += e;
+        const msg = parseRevertMessage('ALミント送信エラー: ', e);
+        setMessage(msg,'msg-error');
       }
-      setMessage(msg,'msg-error');
     }finally{
       alMintButton.disabled = false;
       alMintButton.textContent = 'AL Mint';
@@ -615,6 +643,20 @@
 
       const publicPriceWei = await contract.methods.publicPrice().call();
 
+      // --- 事前シミュレーション（call） ---
+      try{
+        await contract.methods.mintPublic().call({
+          from: currentAccount,
+          value: publicPriceWei.toString()
+        });
+      }catch(e){
+        console.error('Public call error', e);
+        const msg = parseRevertMessage('Publicミント事前チェックでエラー: ', e);
+        setMessage(msg, 'msg-error');
+        return;
+      }
+
+      // --- 実際に送信 ---
       publicMintButton.disabled = true;
       publicMintButton.textContent = '送信中...';
 
@@ -626,26 +668,13 @@
       setMessage('Publicミント完了: トランザクション ' + tx.transactionHash,'msg-success');
       await loadContractData();
     }catch(e){
-      console.error(e);
-      let msg = 'Publicミントエラー: ';
-      if(e && e.message){
-        if(e.message.includes('public sale not started')){
-          msg += 'Public販売はまだ開始されていません。';
-        }else if(e.message.includes('already minted')){
-          msg += 'このウォレットは既にPublicで1枚ミント済みです。';
-        }else if(e.message.includes('public sold out')){
-          msg += 'Public枠が売り切れています。';
-        }else if(e.message.includes('insufficient MATIC')){
-          msg += '送信したMATICが不足しています。';
-        }else if(e.code === 4001){
-          msg += 'トランザクションがキャンセルされました。';
-        }else{
-          msg += e.message;
-        }
+      console.error('Public send error', e);
+      if(e && e.code === 4001){
+        setMessage('トランザクションがキャンセルされました。','msg-error');
       }else{
-        msg += e;
+        const msg = parseRevertMessage('Publicミント送信エラー: ', e);
+        setMessage(msg,'msg-error');
       }
-      setMessage(msg,'msg-error');
     }finally{
       publicMintButton.disabled = false;
       publicMintButton.textContent = 'Public Mint';
