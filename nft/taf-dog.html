@@ -37,7 +37,6 @@
       --accent-strong: #ff7a3c;
       --text: #f5f6ff;
       --text-soft: #a6aecb;
-      --chip-bg: #171a27;
       --shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
     }
 
@@ -78,42 +77,10 @@
       text-decoration: underline;
     }
 
-    /* Hero block */
+    /* Header title */
 
-    .hero-card {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.3fr);
-      gap: 18px;
-      background: linear-gradient(135deg, #17192a, #080910);
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      padding: 14px 14px 16px;
-      margin-bottom: 18px;
-    }
-
-    .hero-image-wrap {
-      border-radius: 16px;
-      overflow: hidden;
-      background: #000;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .hero-image {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-
-    .hero-content {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .title-block {
-      margin-bottom: 4px;
+    .header-block {
+      margin-bottom: 10px;
     }
 
     .title-label {
@@ -128,17 +95,58 @@
       font-size: 26px;
     }
 
-    .hero-sub {
-      margin-top: 6px;
-      font-size: 13px;
+    /* Image */
+
+    .image-card {
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      background: #000;
+      margin-bottom: 18px;
+    }
+
+    .hero-image {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* Generic cards */
+
+    .card {
+      background: var(--bg-soft);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      padding: 14px 14px 16px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-size: 16px;
+    }
+
+    .card-subtitle {
+      font-size: 11px;
       color: var(--text-soft);
     }
 
-    .hero-buttons {
+    /* Buttons card */
+
+    .links-card-inner {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
+      gap: 10px;
+      justify-content: center;
     }
 
     .btn {
@@ -174,33 +182,7 @@
       box-shadow: none;
     }
 
-    /* Cards */
-
-    .card {
-      background: var(--bg-soft);
-      border-radius: 18px;
-      border: 1px solid var(--border);
-      padding: 14px 14px 16px;
-      box-shadow: var(--shadow);
-      margin-bottom: 16px;
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-
-    .card-title {
-      font-size: 16px;
-    }
-
-    .card-subtitle {
-      font-size: 11px;
-      color: var(--text-soft);
-    }
+    /* Info list */
 
     .info-list {
       margin: 0;
@@ -238,20 +220,36 @@
         Consolas, "Liberation Mono", "Courier New", monospace;
     }
 
-    .contract-wrap {
-      display: flex;
-      flex-wrap: nowrap;
-      align-items: center;
-      gap: 6px;
-      justify-content: flex-end;
+    /* Distribution */
+
+    .dist-line {
+      display: block;
+      white-space: nowrap;
     }
 
-    .contract-text {
+    /* Contract address layout */
+
+    .info-row-contract {
+      align-items: flex-start;
+    }
+
+    .contract-block {
+      text-align: left;
+    }
+
+    .contract-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
       font-size: 11px;
-      max-width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      color: var(--text-soft);
+    }
+
+    .contract-address {
+      font-size: 11px;
+      word-break: break-all;
     }
 
     .copy-btn {
@@ -269,7 +267,7 @@
       transform: translateY(1px);
     }
 
-    /* SALE table */
+    /* Sale table */
 
     .sale-table .info-row {
       align-items: flex-start;
@@ -293,91 +291,24 @@
       text-align: right;
       opacity: 0.8;
     }
-
-    @media (max-width: 768px) {
-      .hero-card {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
   </style>
 </head>
 <body>
 <div class="page">
-  <!-- HERO -->
-  <section class="hero-card">
-    <div class="hero-image-wrap">
-      <!-- ここはサーバー側のパスに合わせて ../taf_dog.jpg を置いておく -->
-      <img src="../taf_dog.jpg" alt="TAF DOG NFT メインビジュアル" class="hero-image" />
-    </div>
-    <div class="hero-content">
-      <div class="title-block">
-        <div class="title-label">NFT COLLECTION</div>
-        <h1 class="hero-title">TAF DOG</h1>
-        <p class="hero-sub">
-          Polygon (MATIC) 上で展開される、100体限定の TAF DOG NFT コレクション。
-        </p>
-      </div>
 
-      <div>
-        <div class="hero-buttons">
-          <!-- ★ OpenSea：コレクションページ -->
-          <a
-            class="btn btn-primary"
-            href="https://opensea.io/collection/taf-dog"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            VIEW ON OPENSEA
-          </a>
-          <!-- Mint ページ -->
-          <a class="btn btn-secondary" href="/mint/">
-            MINT ページへ
-          </a>
-        </div>
-      </div>
-    </div>
+  <!-- 1. TAF DOG タイトル -->
+  <section class="header-block">
+    <div class="title-label">NFT COLLECTION</div>
+    <h1 class="hero-title">TAF DOG</h1>
   </section>
 
-  <!-- コントラクト情報だけのカード -->
-  <section class="card">
-    <div class="card-header">
-      <h2 class="card-title">コントラクト情報</h2>
-    </div>
-
-    <ul class="info-list">
-      <li class="info-row">
-        <span class="info-label">NETWORK</span>
-        <span class="info-value">Polygon (MATIC)</span>
-      </li>
-      <li class="info-row">
-        <span class="info-label">STANDARD</span>
-        <span class="info-value">ERC-721A</span>
-      </li>
-      <li class="info-row">
-        <span class="info-label">SUPPLY</span>
-        <span class="info-value">100体</span>
-      </li>
-      <li class="info-row">
-        <span class="info-label">DISTRIBUTION</span>
-        <span class="info-value">
-          初期ミント 32 / AL販売 17 / 一般販売 10 / 運営保有 41
-        </span>
-      </li>
-      <li class="info-row">
-        <span class="info-label">CONTRACT</span>
-        <span class="info-value">
-          <span class="contract-wrap">
-            <span id="contract-address" class="contract-text mono">
-              0xDD8aEA78eebc6b444d960A18D282F453195d55A9
-            </span>
-            <button id="copy-contract" class="copy-btn" type="button">COPY</button>
-          </span>
-        </span>
-      </li>
-    </ul>
+  <!-- 2. 画像 -->
+  <section class="image-card">
+    <!-- ここはサーバー側のパスに合わせて ../taf_dog.jpg を置いておく -->
+    <img src="../taf_dog.jpg" alt="TAF DOG NFT メインビジュアル" class="hero-image" />
   </section>
 
-  <!-- 販売情報（AL / 一般を1ブロックにまとめて表示） -->
+  <!-- 3. 販売情報 -->
   <section class="card">
     <div class="card-header">
       <h2 class="card-title">販売情報</h2>
@@ -415,8 +346,71 @@
 
     <p class="note">
       ※ 決済は Polygon (MATIC) のみ対応しています。<br>
-      ※ ミントの実行は上部「MINT ページへ」ボタンから専用ページにアクセスしてください。
+      ※ ミントの実行は下の「MINT ページへ」ボタンから専用ページにアクセスしてください。
     </p>
+  </section>
+
+  <!-- 4. ミントサイト / OpenSea -->
+  <section class="card">
+    <div class="card-header">
+      <h2 class="card-title">リンク</h2>
+    </div>
+    <div class="links-card-inner">
+      <!-- Mint を先に -->
+      <a class="btn btn-primary" href="/mint/">
+        MINT ページへ
+      </a>
+      <!-- OpenSea コレクション -->
+      <a
+        class="btn btn-secondary"
+        href="https://opensea.io/collection/taf-dog"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        VIEW ON OPENSEA
+      </a>
+    </div>
+  </section>
+
+  <!-- 5. コントラクト条件 -->
+  <section class="card">
+    <div class="card-header">
+      <h2 class="card-title">コントラクト条件</h2>
+    </div>
+
+    <ul class="info-list">
+      <li class="info-row">
+        <span class="info-label">NETWORK</span>
+        <span class="info-value">Polygon (MATIC)</span>
+      </li>
+      <li class="info-row">
+        <span class="info-label">STANDARD</span>
+        <span class="info-value">ERC-721A</span>
+      </li>
+      <li class="info-row">
+        <span class="info-label">SUPPLY</span>
+        <span class="info-value">100体</span>
+      </li>
+      <li class="info-row">
+        <span class="info-label">DISTRIBUTION</span>
+        <span class="info-value">
+          <span class="dist-line">初期ミント 32 / 運営保有 41</span>
+          <span class="dist-line">AL販売 17 / 一般販売 10</span>
+        </span>
+      </li>
+      <li class="info-row info-row-contract">
+        <span class="info-label">CONTRACT</span>
+        <span class="info-value contract-block">
+          <div class="contract-header">
+            <span>コントラクトアドレス</span>
+            <button id="copy-contract" class="copy-btn" type="button">COPY</button>
+          </div>
+          <div id="contract-address" class="contract-address mono">
+            0xDD8aEA78eebc6b444d960A18D282F453195d55A9
+          </div>
+        </span>
+      </li>
+    </ul>
   </section>
 
   <footer>
