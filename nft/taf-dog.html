@@ -2,106 +2,514 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <title>TAF DOG | JOMON Collection</title>
+
+  <title>TAF DOG | JOMON COLLECTION</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="JOMON Collection — TAF DOG">
-  <link rel="icon" href="../icon.png" type="image/png">
+  <meta name="description" content="TAF DOG は、Polygon 上で展開される全100体のNFTコレクション。AL販売・一般販売・運営保有の内訳やミント情報を掲載。">
+
+  <!-- OGP（必要に応じてURLや画像パスは変更してください） -->
+  <meta property="og:title" content="TAF DOG | JOMON COLLECTION">
+  <meta property="og:description" content="Polygon 上で展開される全100体のNFTコレクション『TAF DOG』。AL販売・一般販売・運営保有の内訳やミント情報を掲載。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jomonkusama.com/nft/taf-dog.html">
+  <meta property="og:image" content="https://jomonkusama.com/nft/taf_dog_hero_ogp.jpg">
+  <meta property="og:site_name" content="JOMON COLLECTION">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TAF DOG | JOMON COLLECTION">
+  <meta name="twitter:description" content="Polygon 上で展開される全100体のNFTコレクション『TAF DOG』。AL販売・一般販売・運営保有の内訳やミント情報を掲載。">
+  <meta name="twitter:image" content="https://jomonkusama.com/nft/taf_dog_hero_ogp.jpg">
+
+  <link rel="icon" href="/icon.png" type="image/png">
+
+  <!-- フォント（本サイトと同じ） -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../style.css?v=7">
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    /* 一覧の余白を少しタイトに */
-    .spec.tight{margin-top:8px}
-    .spec.tight li{padding:10px 0}
-    .spec.tight + .cta{margin-top:14px}
-    /* 「販売開始」など複数行の右側 */
-    .spec .stack > span{display:block}
-    .spec .subkey{display:inline-block;width:3.2em}
-    /* 左ラベルを途中で折り返さない */
-    .spec.tight > li > span{white-space:nowrap}
-    /* サブ行インデント（ALの2行目以降に使用） */
-    .spec .indent{
-      display:block;
-      padding-left:3.2em; /* subkeyと揃える */
+    :root{
+      color-scheme: dark;
+      --bg:#050608;
+      --fg:#f5f5f7;
+      --muted:#a8b0d0;
+      --line:#262a3c;
+      --panel:#10121a;
+      --panel-soft:#151826;
+      --accent:#ffb347;
+      --accent-strong:#ff7a3c;
+      --danger:#ff4d6a;
     }
-    /* ALと一般のあいだのスペース */
-    .spec .stack-gap{
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html,body{margin:0;padding:0;background:radial-gradient(circle at 0 0,#191428 0,#050608 55%);color:var(--fg);font-family:"Zen Kaku Gothic New",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .page{max-width:960px;margin:0 auto;padding:18px 16px 40px}
+
+    header.site-header{
+      display:flex;justify-content:space-between;align-items:center;
+      margin-bottom:14px;font-size:13px;color:var(--muted)
+    }
+    .brand{font-family:"Space Grotesk",system-ui,sans-serif;font-weight:600;letter-spacing:.08em;font-size:13px;text-transform:uppercase}
+    .brand a{text-decoration:none}
+    .navlink{font-size:12px;color:var(--muted)}
+    .navlink a{color:var(--muted)}
+
+    /* Hero */
+    .hero{
+      border-radius:20px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      background:#000;
+      margin-bottom:22px;
+      position:relative;
+    }
+    .hero-img-wrap{
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-img-wrap img{
+      width:100%;
+      height:auto;
+      object-fit:cover;
       display:block;
-      height:0.6em;
+    }
+    .hero-content{
+      padding:14px 16px 16px;
+      background:linear-gradient(135deg,#11131e,#080910);
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      align-items:flex-start;
+    }
+    .hero-title{
+      flex:1 1 auto;
+    }
+    .hero-title h1{
+      margin:0 0 4px;
+      font-size:24px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-family:"Space Grotesk",system-ui,sans-serif;
+    }
+    .hero-title .sub{
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.5;
+    }
+    .hero-meta{
+      flex:0 0 220px;
+      max-width:260px;
+      font-size:11px;
+      color:var(--muted);
+      border-radius:12px;
+      background:rgba(8,9,16,.9);
+      border:1px solid rgba(255,255,255,.06);
+      padding:10px 12px;
+    }
+    .hero-meta-row{
+      display:flex;justify-content:space-between;align-items:center;
+      gap:8px;margin-bottom:6px;
+    }
+    .hero-meta-label{
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-family:"Space Grotesk",system-ui,sans-serif;
+      font-size:10px;
+      color:#c4cae9;
+    }
+    .hero-meta-value{
+      font-size:12px;
+    }
+    .mono{
+      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+    }
+
+    .btn-main{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:9px 16px;border-radius:999px;border:none;
+      background:linear-gradient(135deg,var(--accent),var(--accent-strong));
+      color:#111;font-size:12px;font-weight:600;
+      letter-spacing:.08em;text-transform:uppercase;
+      box-shadow:0 10px 24px rgba(255,122,60,0.45);
+      font-family:"Space Grotesk",system-ui,sans-serif;
+      cursor:pointer;
+      text-decoration:none;
+    }
+    .btn-main:hover{text-decoration:none;filter:brightness(1.03)}
+    .btn-sub{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:8px 12px;border-radius:999px;
+      border:1px solid var(--line);
+      font-size:11px;color:var(--muted);
+      background:rgba(5,6,8,.8);
+      font-family:"Space Grotesk",system-ui,sans-serif;
+      text-decoration:none;
+    }
+    .btn-row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+
+    /* Sections */
+    section{margin-bottom:28px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(135deg,#10121a,#070810);padding:16px 16px 18px;}
+    section h2{
+      margin:0 0 10px;
+      font-size:16px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-family:"Space Grotesk",system-ui,sans-serif;
+    }
+    .body-text{
+      font-size:13px;
+      line-height:1.7;
+      color:var(--muted);
+    }
+
+    .split-2{
+      display:grid;
+      grid-template-columns:minmax(0,3fr) minmax(0,2fr);
+      gap:16px;
+    }
+    @media (max-width:720px){
+      .hero-content{flex-direction:column;}
+      .hero-meta{width:100%;max-width:none;}
+      .split-2{grid-template-columns:1fr;}
+    }
+
+    /* Supply table */
+    .supply-table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:12px;
+      margin-top:4px;
+    }
+    .supply-table th,
+    .supply-table td{
+      padding:6px 6px;
+      border-bottom:1px solid rgba(255,255,255,.04);
+      text-align:left;
+    }
+    .supply-table th{
+      font-weight:600;
+      color:#cfd3f0;
+      font-size:11px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-family:"Space Grotesk",system-ui,sans-serif;
+    }
+    .supply-table tfoot td{
+      border-top:1px solid rgba(255,255,255,.08);
+      font-weight:700;
+      color:var(--fg);
+    }
+
+    /* Info list */
+    .info-list{
+      list-style:none;margin:0;padding:0;
+      font-size:12px;color:var(--muted);
+    }
+    .info-list li{margin-bottom:6px;}
+    .info-label{
+      display:block;
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#c4cae9;
+      font-family:"Space Grotesk",system-ui,sans-serif;
+      margin-bottom:2px;
+    }
+
+    /* コントラクトアドレスのコピーUI */
+    .addr-row{
+      display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+    }
+    .addr-box{
+      flex:1 1 auto;
+      padding:6px 8px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(8,9,16,.9);
+      font-size:11px;
+      overflow-x:auto;
+      white-space:nowrap;
+    }
+    .copy-btn{
+      flex:0 0 auto;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:#050608;
+      color:var(--muted);
+      font-size:11px;
+      cursor:pointer;
+      font-family:"Space Grotesk",system-ui,sans-serif;
+    }
+    .copy-btn:active{transform:translateY(1px);}
+    .copy-msg{font-size:11px;color:#6ee7b7;margin-left:2px;}
+
+    footer{
+      margin-top:10px;
+      padding-top:10px;
+      border-top:1px solid var(--line);
+      font-size:11px;
+      color:var(--muted);
+      text-align:right;
     }
   </style>
 </head>
 <body>
-  <header class="nav">
-    <div class="brand">
-      <a href="../index.html"><img src="../icon.png" alt="JOMON" width="24" height="24">JOMON</a>
-    </div>
-    <nav><a href="../index.html">Home</a></nav>
+<div class="page">
+
+  <header class="site-header">
+    <div class="brand"><a href="/">JOMON COLLECTION</a></div>
+    <div class="navlink"><a href="/#collection">← トップに戻る</a></div>
   </header>
 
-  <main>
-    <section class="block">
-      <div class="next-grid">
-        <figure class="card">
-          <img src="../taf_dog.jpg" alt="TAF DOG" loading="eager" decoding="async">
-        </figure>
-
-        <div>
-          <h1 style="margin-top:0">TAF DOG</h1>
-          <p class="muted">Polygon / ERC-721A</p>
-
-          <ul class="spec tight">
-            <li>
-              <span>販売開始</span>
-              <strong class="stack">
-                <span><span class="subkey">AL</span> 2025-12-16 20:00（JST）</span>
-                <span><span class="subkey">一般</span> 1月中旬予定</span>
-              </strong>
-            </li>
-            <li><span>チェーン</span><strong>Polygon</strong></li>
-            <li><span>規格</span><strong>ERC-721A</strong></li>
-            <li><span>総発行数</span><strong>100枚（うちレア20枚）</strong></li>
-
-            <!-- 価格 -->
-            <li>
-              <span>価格</span>
-              <strong class="stack">
-                <span><span class="subkey">AL</span> 1 MATIC（Polygon）</span>
-                <span class="indent">34 JPYC</span>
-                <span class="indent">340 FNCT（予定）</span>
-                <span class="stack-gap"></span>
-                <span><span class="subkey">一般</span> 未定</span>
-              </strong>
-            </li>
-
-            <li><span>決済</span><strong>JPYC / MATIC / FNCT</strong></li>
-
-            <!-- レート基準の行は削除 -->
-
-            <li><span>上限</span><strong>AL / 一般 各決済2枚まで</strong></li>
-
-            <!-- 供給内訳 -->
-            <li>
-              <span>供給内訳</span>
-              <strong class="stack">
-                <span>運営保有40枚 / 初期ミント32枚</span>
-                <span>AL販売18枚 / 一般販売10枚</span>
-              </strong>
-            </li>
-          </ul>
-
-          <div class="cta">
-            <a class="btn primary" aria-disabled="true">Mint（準備中）</a>
-            <a class="btn" href="https://opensea.io/ja/collection/taf-dog" target="_blank" rel="noopener">
-              Marketplace
-            </a>
-          </div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-img-wrap">
+      <!-- ここは既にあるヒーロー画像のパスに差し替えてOK -->
+      <img src="taf_dog_hero.jpg" alt="TAF DOG メインビジュアル">
+    </div>
+    <div class="hero-content">
+      <div class="hero-title">
+        <h1>TAF DOG</h1>
+        <div class="sub">
+          Polygon 上で展開される、全100体の TAF DOG NFT コレクション。<br>
+          Allowlist / Public / 運営保有の内訳や、ミント情報をまとめています。
+        </div>
+        <div class="btn-row">
+          <a href="/mint/" class="btn-main">ミントページへ</a>
+          <a href="https://opensea.io/assets/matic/0xDD8aEA78eebc6b444d960A18D282F453195d55A9/1" target="_blank" rel="noopener" class="btn-sub">
+            OpenSea で見る
+          </a>
         </div>
       </div>
-    </section>
-  </main>
+      <div class="hero-meta">
+        <div class="hero-meta-row">
+          <span class="hero-meta-label">SUPPLY</span>
+          <span class="hero-meta-value">100 TOKENS</span>
+        </div>
+        <div class="hero-meta-row">
+          <span class="hero-meta-label">CHAIN</span>
+          <span class="hero-meta-value">Polygon(MATIC)</span>
+        </div>
+        <div class="hero-meta-row">
+          <span class="hero-meta-label">STANDARD</span>
+          <span class="hero-meta-value">ERC-721A</span>
+        </div>
+        <div class="hero-meta-row">
+          <span class="hero-meta-label">CONTRACT</span>
+          <span class="hero-meta-value mono" style="font-size:10px;">
+            0xDD8aEA78eebc6b444d960A18D282F453195d55A9
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <footer class="footer"><div class="container"></div></footer>
+  <!-- ABOUT / OVERVIEW -->
+  <section>
+    <h2>OVERVIEW</h2>
+    <div class="body-text">
+      <p>
+        TAF DOG は、Polygon(MATIC) 上で発行される全100体のNFTコレクションです。
+        Allowlist 販売 / 一般販売 / 運営保有に分かれており、一部トークンは
+        Cloudflare Workers による動的メタデータで、時間や条件に応じて表情を変えます。
+      </p>
+      <p>
+        本ページでは、枚数の内訳・販売条件・コントラクト情報をまとめています。
+        実際のミントは下記の「ミントページへ」ボタンから行ってください。
+      </p>
+    </div>
+  </section>
+
+  <!-- SUPPLY & DISTRIBUTION -->
+  <section>
+    <h2>SUPPLY &amp; DISTRIBUTION</h2>
+    <div class="split-2">
+      <div class="body-text">
+        <p>
+          TAF DOG の総発行数は <strong>100枚</strong> です。<br>
+          初期配布・Allowlist 販売・一般販売・運営保有の内訳は次の通りです。
+        </p>
+
+        <table class="supply-table">
+          <thead>
+            <tr>
+              <th style="width:40%;">区分</th>
+              <th style="width:20%;">枚数</th>
+              <th>メモ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>初期ミント</td>
+              <td>32枚</td>
+              <td>アーティスト / 運営による初期配布</td>
+            </tr>
+            <tr>
+              <td>AL販売</td>
+              <td>17枚</td>
+              <td>Allowlist 対象者向け</td>
+            </tr>
+            <tr>
+              <td>一般販売</td>
+              <td>10枚</td>
+              <td>Public ミント枠</td>
+            </tr>
+            <tr>
+              <td>運営保有</td>
+              <td>41枚</td>
+              <td>運営保有枠</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>合計</td>
+              <td>100枚</td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div>
+        <ul class="info-list">
+          <li>
+            <span class="info-label">決済</span>
+            <span>Polygon(MATIC) のみ対応</span>
+          </li>
+          <li>
+            <span class="info-label">ネットワーク</span>
+            <span>Polygon Mainnet (chainId 137)</span>
+          </li>
+          <li>
+            <span class="info-label">トークン規格</span>
+            <span>ERC-721A</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SALE INFO -->
+  <section>
+    <h2>SALE INFO</h2>
+    <div class="split-2">
+      <div class="body-text">
+        <p>
+          Allowlist（AL）販売と一般販売（Public）の条件は以下の通りです。
+          日時はすべて <strong>日本時間（JST）</strong> です。
+        </p>
+        <ul class="info-list">
+          <li>
+            <span class="info-label">AL 販売</span>
+            <span>
+              開始：2025年12月16日 20:00（JST）<br>
+              枠数：17枚<br>
+              価格：1枚 1 Polygon(MATIC)<br>
+              上限：1ウォレットあたり最大 6 枚
+            </span>
+          </li>
+          <li>
+            <span class="info-label">一般販売（Public）</span>
+            <span>
+              開始：2026年1月16日 20:00（JST）<br>
+              枠数：10枚<br>
+              価格：未定<br>
+              上限：1ウォレットあたり 1 枚
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div class="body-text">
+        <p>
+          ミントは Polygon(MATIC) 決済のみ対応しています。<br>
+          ウォレット（MetaMask など）を Polygon Mainnet に切り替えたうえで、
+          <strong>ミントページ</strong> からトランザクションを送信してください。
+        </p>
+        <p>
+          ミント時のガス代は、ネットワークの状況により変動します。
+        </p>
+        <p style="margin-top:8px;">
+          <a href="/mint/" class="btn-main">ミントページへ</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTRACT INFO -->
+  <section>
+    <h2>CONTRACT</h2>
+    <div class="body-text">
+      <p>
+        TAF DOG コントラクトは Polygon Mainnet 上にデプロイされている ERC-721A コントラクトです。
+        コントラクトアドレスは以下の通りです。
+      </p>
+
+      <div class="addr-row">
+        <div class="addr-box mono" id="contractAddrBox">
+          0xDD8aEA78eebc6b444d960A18D282F453195d55A9
+        </div>
+        <button class="copy-btn" id="copyAddrBtn" type="button">コピー</button>
+        <span class="copy-msg" id="copyAddrMsg"></span>
+      </div>
+
+      <p style="margin-top:10px;font-size:11px;color:var(--muted);">
+        ※ PolygonScan などのブロックチェーンエクスプローラーで詳細を確認する場合は、
+        上記のコントラクトアドレスをコピーして検索してください。
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <small>© <span id="year"></span> JOMON COLLECTION</small>
+  </footer>
+</div>
+
+<script>
+  // 年号
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // コントラクトアドレス コピー
+  (function(){
+    const btn = document.getElementById("copyAddrBtn");
+    const box = document.getElementById("contractAddrBox");
+    const msg = document.getElementById("copyAddrMsg");
+    const text = box.textContent.trim();
+
+    async function copyText(t){
+      if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(t);
+      }
+      const ta = document.createElement("textarea");
+      ta.value = t;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand("copy");
+      } finally {
+        document.body.removeChild(ta);
+      }
+    }
+
+    btn.addEventListener("click", async () => {
+      try {
+        await copyText(text);
+        msg.textContent = "Copied";
+        setTimeout(()=>{msg.textContent="";}, 1800);
+      } catch(e) {
+        msg.textContent = "Copy failed";
+        setTimeout(()=>{msg.textContent="";}, 1800);
+      }
+    });
+  })();
+</script>
+
 </body>
 </html>
