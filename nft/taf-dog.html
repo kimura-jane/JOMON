@@ -63,7 +63,7 @@
       padding: 20px 16px 40px;
     }
 
-    h1, h2, h3 {
+    h1, h2 {
       margin: 0;
       font-family: "Space Grotesk", "Zen Kaku Gothic New", system-ui, sans-serif;
       letter-spacing: 0.04em;
@@ -134,34 +134,11 @@
       color: var(--text-soft);
     }
 
-    .chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 6px;
-    }
-
-    .chip {
-      font-size: 11px;
-      padding: 4px 9px;
-      border-radius: 999px;
-      background: var(--chip-bg);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      color: var(--text-soft);
-      white-space: nowrap;
-    }
-
-    .chip-strong {
-      background: rgba(255, 122, 60, 0.16);
-      border-color: rgba(255, 122, 60, 0.6);
-      color: #fed7aa;
-    }
-
     .hero-buttons {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 6px;
+      margin-top: 10px;
     }
 
     .btn {
@@ -225,12 +202,6 @@
       color: var(--text-soft);
     }
 
-    .two-column {
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.4fr);
-      gap: 14px;
-    }
-
     .info-list {
       margin: 0;
       padding: 0;
@@ -255,6 +226,7 @@
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.12em;
+      min-width: 3em;
     }
 
     .info-value {
@@ -297,14 +269,15 @@
       transform: translateY(1px);
     }
 
-    /* SALE table (AL / 一般を併記) */
+    /* SALE table */
 
     .sale-table .info-row {
-      align-items: baseline;
+      align-items: flex-start;
     }
 
-    .sale-table .info-label {
-      min-width: 3em;
+    .sale-line {
+      display: block;
+      white-space: nowrap;
     }
 
     .note {
@@ -325,10 +298,6 @@
       .hero-card {
         grid-template-columns: minmax(0, 1fr);
       }
-
-      .two-column {
-        grid-template-columns: minmax(0, 1fr);
-      }
     }
   </style>
 </head>
@@ -347,11 +316,6 @@
         <p class="hero-sub">
           Polygon (MATIC) 上で展開される、100体限定の TAF DOG NFT コレクション。
         </p>
-        <div class="chips">
-          <span class="chip chip-strong">100 NFTs</span>
-          <span class="chip">ERC-721A</span>
-          <span class="chip">Dynamic Metadata</span>
-        </div>
       </div>
 
       <div>
@@ -374,51 +338,43 @@
     </div>
   </section>
 
-  <!-- 概要 & コントラクト情報 -->
-  <section class="card two-column">
-    <div>
-      <div class="card-header">
-        <h2 class="card-title">コレクション概要</h2>
-      </div>
-      <p style="font-size:13px; line-height:1.7; color:var(--text-soft); margin:0;">
-        TAF DOG は、手書きのタフな犬たちをテーマにしたオリジナルNFTコレクションです。
-        Polygon (MATIC) 上で動作し、一部トークンは動的メタデータによって状態が変化します。
-      </p>
+  <!-- コントラクト情報だけのカード -->
+  <section class="card">
+    <div class="card-header">
+      <h2 class="card-title">コントラクト情報</h2>
     </div>
 
-    <div>
-      <ul class="info-list">
-        <li class="info-row">
-          <span class="info-label">NETWORK</span>
-          <span class="info-value">Polygon (MATIC)</span>
-        </li>
-        <li class="info-row">
-          <span class="info-label">STANDARD</span>
-          <span class="info-value">ERC-721A</span>
-        </li>
-        <li class="info-row">
-          <span class="info-label">SUPPLY</span>
-          <span class="info-value">100体</span>
-        </li>
-        <li class="info-row">
-          <span class="info-label">DISTRIBUTION</span>
-          <span class="info-value">
-            初期ミント 32 / AL販売 17 / 一般販売 10 / 運営保有 41
-          </span>
-        </li>
-        <li class="info-row">
-          <span class="info-label">CONTRACT</span>
-          <span class="info-value">
-            <span class="contract-wrap">
-              <span id="contract-address" class="contract-text mono">
-                0xDD8aEA78eebc6b444d960A18D282F453195d55A9
-              </span>
-              <button id="copy-contract" class="copy-btn" type="button">COPY</button>
+    <ul class="info-list">
+      <li class="info-row">
+        <span class="info-label">NETWORK</span>
+        <span class="info-value">Polygon (MATIC)</span>
+      </li>
+      <li class="info-row">
+        <span class="info-label">STANDARD</span>
+        <span class="info-value">ERC-721A</span>
+      </li>
+      <li class="info-row">
+        <span class="info-label">SUPPLY</span>
+        <span class="info-value">100体</span>
+      </li>
+      <li class="info-row">
+        <span class="info-label">DISTRIBUTION</span>
+        <span class="info-value">
+          初期ミント 32 / AL販売 17 / 一般販売 10 / 運営保有 41
+        </span>
+      </li>
+      <li class="info-row">
+        <span class="info-label">CONTRACT</span>
+        <span class="info-value">
+          <span class="contract-wrap">
+            <span id="contract-address" class="contract-text mono">
+              0xDD8aEA78eebc6b444d960A18D282F453195d55A9
             </span>
+            <button id="copy-contract" class="copy-btn" type="button">COPY</button>
           </span>
-        </li>
-      </ul>
-    </div>
+        </span>
+      </li>
+    </ul>
   </section>
 
   <!-- 販売情報（AL / 一般を1ブロックにまとめて表示） -->
@@ -432,7 +388,8 @@
       <li class="info-row">
         <span class="info-label">開始</span>
         <span class="info-value">
-          AL：2025-12-16 20:00（JST） / 一般：2026-01-16 20:00（JST）
+          <span class="sale-line">AL：2025-12-16 20:00（JST）</span>
+          <span class="sale-line">一般：2026-01-16 20:00（JST）</span>
         </span>
       </li>
       <li class="info-row">
@@ -450,7 +407,8 @@
       <li class="info-row">
         <span class="info-label">上限</span>
         <span class="info-value">
-          AL：1ウォレットあたり最大 6 枚 / 一般：1ウォレット 1 枚
+          <span class="sale-line">AL：1ウォレットあたり最大 6 枚</span>
+          <span class="sale-line">一般：1ウォレット 1 枚</span>
         </span>
       </li>
     </ul>
