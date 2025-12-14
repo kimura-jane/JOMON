@@ -2,8 +2,13 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>TAF DOG Mint</title>
+  <title>TAF DOG MINT</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Google Fonts（必要に応じて、前に渡したフォントURLに差し替えてOK） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -11,13 +16,13 @@
       --bg: #050608;
       --panel: #11131a;
       --panel-soft: #161827;
-      --accent: #ff7a3c;
+      --accent: #ffb347;
+      --accent-strong: #ff7a3c;
       --accent-soft: rgba(255, 122, 60, 0.14);
       --danger: #ff4d6a;
       --text: #f6f7ff;
       --text-soft: #a8b0d0;
       --border: #262a3c;
-      --radius: 12px;
       --shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
     }
 
@@ -29,8 +34,9 @@
     body {
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Helvetica Neue", Arial, "Noto Sans JP", sans-serif;
+      font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont,
+        "SF Pro Text", "Helvetica Neue", Arial, "ヒラギノ角ゴ ProN",
+        "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
       background: radial-gradient(circle at 0 0, #191428 0, #050608 55%);
       color: var(--text);
     }
@@ -42,16 +48,17 @@
     }
 
     h1 {
-      margin: 4px 0 12px;
+      margin: 4px 0 6px;
       font-size: 26px;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
     }
 
     .subtitle {
       font-size: 12px;
       color: var(--text-soft);
-      margin-bottom: 20px;
+      margin-bottom: 18px;
+      line-height: 1.6;
     }
 
     .panel {
@@ -78,7 +85,8 @@
       border: 1px solid var(--border);
       color: var(--text-soft);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
     }
 
     .tag-live {
@@ -110,7 +118,7 @@
     .stat {
       padding: 10px 10px 9px;
       border-radius: 12px;
-      background: var(--panel-soft);
+      background: radial-gradient(circle at 0 0, #20223a 0, #121424 60%);
       border: 1px solid rgba(255, 255, 255, 0.04);
       font-size: 11px;
       color: var(--text-soft);
@@ -118,6 +126,8 @@
 
     .stat-label {
       margin-bottom: 4px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
     .stat-value {
@@ -135,11 +145,12 @@
       border: none;
       font-size: 14px;
       font-weight: 600;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.06em;
       cursor: pointer;
-      background: linear-gradient(135deg, #ffb347, #ff7a3c);
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
       color: #111;
       box-shadow: 0 10px 24px rgba(255, 122, 60, 0.45);
+      text-transform: uppercase;
     }
 
     .btn-secondary {
@@ -177,11 +188,12 @@
       font-size: 11px;
       color: var(--text-soft);
       margin-top: 4px;
+      line-height: 1.5;
     }
 
     .total {
       font-size: 13px;
-      color: var(--accent);
+      color: var(--accent-strong);
     }
 
     .status-line {
@@ -217,15 +229,15 @@
     }
   </style>
 
-  <!-- ethers.js v5 UMD (グローバル変数 ethers が定義される) -->
+  <!-- ethers.js v5 UMD（window.ethers を定義）-->
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 </head>
 <body>
 <div class="page">
   <h1>TAF DOG MINT</h1>
   <div class="subtitle small">
-    Polygon / AL &amp; Public ミントサイト（テスト版）<br />
-    ウォレット接続 → AL or Public を選んでミントしてください。
+    Polygon / AL &amp; Public ミントサイト（本番）<br />
+    ウォレット接続 → AL または Public を選んでミントしてください。
   </div>
 
   <!-- ウォレット・全体ステータス -->
@@ -244,14 +256,14 @@
 
     <div class="grid-2">
       <div class="stat">
-        <div class="stat-label">ウォレット</div>
+        <div class="stat-label">WALLET</div>
         <div id="wallet-address" class="stat-value mono">未接続</div>
         <div id="wallet-extra" class="note">
           ネットワーク: - / AL: -
         </div>
       </div>
       <div class="stat">
-        <div class="stat-label">価格 &amp; 上限</div>
+        <div class="stat-label">PRICE &amp; LIMIT</div>
         <div id="price-info" class="stat-value small">
           AL: - / Public: -
         </div>
@@ -279,7 +291,8 @@
       <div class="total" id="al-total">合計: - POL</div>
     </div>
     <div class="note">
-      ※ 価格・上限はコントラクトから自動取得。手入力は不要です。
+      ※ 価格・上限はコントラクトから自動取得されます。<br />
+      &nbsp;&nbsp;手入力での調整は不要です。
     </div>
 
     <button id="al-mint-btn" class="btn" type="button" style="margin-top:10px;">
@@ -320,9 +333,9 @@
 
   <div class="small" style="opacity:0.7; margin-top:10px;">
     コントラクト: <span id="contract-address" class="mono"></span><br />
-    Polygon (ChainId 137) 専用。<br />
+    Polygon (ChainId 137 / POL) 専用。<br />
     エラーが出た場合は、上記「ALミント送信エラー / Publicミント送信エラー」と
-    「debug: raw error」をスクショして開発者に送ってください。
+    「debug: raw error」をスクリーンショットして開発側に共有してください。
   </div>
 </div>
 
@@ -331,9 +344,8 @@
    *  設定
    *************************************************/
 
-  // ★ テスト用コントラクトアドレス
-  // 本番リリース時は、この1行だけ TAF DOG 本番コントラクトに差し替え
-  const CONTRACT_ADDRESS = "0x0195dA0D3e285f7A58582F4A18A12C8a168f5849";
+  // ★ 本番 TAF DOG コントラクト
+  const CONTRACT_ADDRESS = "0xDD8aEA78eebc6b444d960A18D282F453195d55A9";
 
   // 必要な関数だけの最小 ABI
   const CONTRACT_ABI = [
@@ -434,7 +446,6 @@
 
   async function connectWallet() {
     try {
-      // ethers.js ロード確認
       if (typeof ethers === "undefined") {
         alert("ethers.js が読み込まれていません。通信状況を確認して、ページを再読み込みしてください。");
         return;
@@ -457,7 +468,7 @@
       }
       currentAccount = ethers.utils.getAddress(accounts[0]);
 
-      // Polygon に切替
+      // Polygon へ切り替え
       const net = await provider.getNetwork();
       if (net.chainId !== 137) {
         try {
@@ -499,7 +510,7 @@
     try {
       const [
         maxSupply,
-        totalMinted,
+        totalMintedVal,
         alActive,
         publicActive,
         alPriceRaw,
@@ -532,7 +543,7 @@
 
       // Supply
       setText("supply-status",
-        `Supply: ${totalMinted.toString()} / ${maxSupply.toString()}`
+        `Supply: ${totalMintedVal.toString()} / ${maxSupply.toString()}`
       );
 
       // 価格・上限
@@ -658,7 +669,7 @@
       }
 
       await refreshAllInfo();
-      btn.disabled = false;               // AL は複数回ミントできるので再度有効化
+      btn.disabled = false; // ALは複数回ミント可
       btn.textContent = originalLabel;
     } catch (e) {
       console.error("AL mint error", e);
@@ -719,7 +730,7 @@
         setStatusError("public-status", "Publicミント送信エラー: トランザクションが失敗しました。TxHash: " + tx.hash);
       }
 
-      await refreshAllInfo(); // ここで「既にミント済み」ならボタンを無効化
+      await refreshAllInfo(); // ここで既ミントの場合はボタン無効化される
     } catch (e) {
       console.error("Public mint error", e);
       const msg = parseError(e);
@@ -727,7 +738,6 @@
       setStatusError("public-status", "Publicミント送信エラー: " + msg);
       setDebug("public-debug", raw);
 
-      // エラー時だけボタンを再度有効化
       btn.disabled = false;
       btn.textContent = "Publicミント実行";
     }
