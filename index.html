@@ -222,7 +222,6 @@
     <h2>Works</h2>
     <div class="grid">
 
-      <!-- 既存作品 -->
       <div class="card large">
         <img src="sen_no_taiiho.jpg?v=32" alt="線の対位法">
         <div class="meta">
@@ -236,13 +235,12 @@
         </div>
       </div>
 
-      <!-- ✅ 追加作品：モノはいつか壊れる -->
       <div class="card large">
         <img src="https://raw.githubusercontent.com/kimura-jane/JOMON/main/IMG_1398.png" alt="モノはいつか壊れる">
         <div class="meta">
           <h3>モノはいつか壊れる</h3>
           <p>2025・Digital</p>
-          <p class="buy">2025-11-28 クリプトラウンジGOX 展示</p>
+          <p class="buy">2025-11-28 GOX展示</p>
         </div>
       </div>
 
@@ -254,7 +252,6 @@
     <h2>JOMON COIN</h2>
 
     <div class="coin-grid">
-      <!-- Polygon -->
       <div class="card">
         <div class="meta">
           <h3>Polygon</h3>
@@ -273,7 +270,6 @@
         </div>
       </div>
 
-      <!-- Solana -->
       <div class="card">
         <div class="meta">
           <h3>Solana</h3>
@@ -298,7 +294,7 @@
     <ol class="vline">
       <li><span class="date">2025-09-14</span>No Maps2025「線の対位法」展示</li>
       <li><span class="date">2025-10-10</span>JOMON COIN（Polygon）発行</li>
-      <li><span class="date">2025-11-28</span>クリプトラウンジGOX 展示「モノはいつか壊れる」</li>
+      <li><span class="date">2025-11-28</span>GOX展示「モノはいつか壊れる」</li>
       <li><span class="date">2025-12-16</span>TAF DOG（AL）</li>
       <li><span class="date">2026-01 mid</span>TAF DOG（PUBLIC）</li>
       <li><span class="date">2026-01-17</span>JOMON COIN（Solana）発行</li>
@@ -327,7 +323,6 @@
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  // コントラクトアドレス コピー（Polygon）
   (function(){
     const btn = document.getElementById('copyBtn');
     const el = document.getElementById('tokenAddr');
@@ -347,11 +342,8 @@
       document.body.appendChild(ta);
       ta.focus();
       ta.select();
-      try{
-        document.execCommand('copy');
-      } finally{
-        document.body.removeChild(ta);
-      }
+      try{ document.execCommand('copy'); }
+      finally{ document.body.removeChild(ta); }
     }
 
     btn.addEventListener('click', async ()=>{
