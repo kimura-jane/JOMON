@@ -70,13 +70,16 @@
     .hero-line1{font-weight:600;margin-bottom:.3em}
     .hero-line2{font-weight:700}
 
-    /* ===== CTA ===== */
+    /* ===== CTA（行間・余白をもっと詰める） ===== */
     .buy{
-      margin-top:6px;
+      margin-top:2px;     /* 6px → 2px */
       color:#cfcfcf;
       font-size:14px;
-      line-height:1.0;
+      line-height:1;      /* 行間最小 */
     }
+    /* buyが連続する時の余白もゼロに寄せる */
+    .buy + .buy{ margin-top:0; }
+
     .accent{color:#8ec5ff}
     .accent:hover{color:#bfe2ff;text-decoration:underline}
 
@@ -180,9 +183,11 @@
         <div class="meta">
           <h3>TAF DOG</h3>
           <p>Collection #1</p>
+
           <p class="buy">TAF DOGミュージアムは
             <a class="accent" href="https://tafdog-museum.pages.dev/" target="_blank" rel="noopener">こちら</a>
           </p>
+
           <p class="buy">オープンシーで見る：
             <a class="accent" href="https://opensea.io/ja/collection/taf-dog" target="_blank" rel="noopener">OpenSea</a>
           </p>
@@ -191,7 +196,7 @@
     </div>
   </section>
 
-  <!-- Metaverse（TAF DOGの直下へ移動） -->
+  <!-- Metaverse（TAF DOGの直下） -->
   <section class="block" id="metaverse">
     <h2>Metaverse</h2>
     <div class="grid">
@@ -226,12 +231,6 @@
   <!-- JOMON COIN -->
   <section class="block" id="coin">
     <h2>JOMON COIN</h2>
-
-    <p style="margin:0 0 14px 0;color:#b8b8b8;">
-      JOMON COLLECTIONの公式トークン情報はこちら。<br>
-      <span style="color:#cfcfcf;">Polygon</span>：公式コントラクトアドレス（コピーして確認）／
-      <span style="color:#cfcfcf;">Solana</span>：購入ページ／スワップ（すぐ入手したい人向け）
-    </p>
 
     <div class="coin-grid">
       <!-- Polygon -->
@@ -277,10 +276,10 @@
     <h2>Timeline</h2>
     <ol class="vline">
       <li><span class="date">2025-09-14</span>No Maps2025「線の対位法」展示</li>
-      <li><span class="date">2025-10-10</span>JOMON COIN（ソラナ/ポリゴン）発行</li>
+      <li><span class="date">2025-10-10</span>JOMON COIN（Polygon）発行</li>
       <li><span class="date">2025-12-16</span>TAF DOG（AL）</li>
       <li><span class="date">2026-01 mid</span>TAF DOG（PUBLIC）</li>
-      <li><span class="date">2026-01-17</span>JOMON COIN（ソラナ/ポリゴン）発行</li>
+      <li><span class="date">2026-01-17</span>JOMON COIN（Solana）発行</li>
     </ol>
   </section>
 
