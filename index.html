@@ -70,18 +70,20 @@
     .hero-line1{font-weight:600;margin-bottom:.3em}
     .hero-line2{font-weight:700}
 
-    /* ===== CTA（行間・余白をもっと詰める） ===== */
+    /* ===== CTA（行間・余白を詰める） ===== */
     .buy{
-      margin-top:2px;     /* 6px → 2px */
+      margin-top:2px;
       color:#cfcfcf;
       font-size:14px;
-      line-height:1;      /* 行間最小 */
+      line-height:1;
     }
-    /* buyが連続する時の余白もゼロに寄せる */
-    .buy + .buy{ margin-top:0; }
+    .buy + .buy{margin-top:0;}
 
     .accent{color:#8ec5ff}
     .accent:hover{color:#bfe2ff;text-decoration:underline}
+
+    /* 画像リンクっぽさ（任意） */
+    .card a img{cursor:pointer}
 
     /* ===== JOMON COIN ===== */
     #coin .spec{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:14px}
@@ -178,8 +180,13 @@
   <section class="block" id="collection">
     <h2>JOMON Collection</h2>
     <div class="grid">
-      <a class="card large" href="nft/taf-dog.html">
-        <img src="taf_dog.jpg?v=32" alt="TAF DOG">
+
+      <!-- ✅ TAF DOGカード（画像だけ詳細へリンク） -->
+      <div class="card large">
+        <a href="nft/taf-dog.html" aria-label="TAF DOG 詳細ページへ">
+          <img src="taf_dog.jpg?v=32" alt="TAF DOG">
+        </a>
+
         <div class="meta">
           <h3>TAF DOG</h3>
           <p>Collection #1</p>
@@ -192,7 +199,8 @@
             <a class="accent" href="https://opensea.io/ja/collection/taf-dog" target="_blank" rel="noopener">OpenSea</a>
           </p>
         </div>
-      </a>
+      </div>
+
     </div>
   </section>
 
