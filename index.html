@@ -70,8 +70,13 @@
     .hero-line1{font-weight:600;margin-bottom:.3em}
     .hero-line2{font-weight:700}
 
-    /* ===== Works CTA ===== */
-    .buy{margin-top:8px;color:#cfcfcf;font-size:14px}
+    /* ===== CTA ===== */
+    .buy{
+      margin-top:8px;
+      color:#cfcfcf;
+      font-size:14px;
+      line-height:1.25; /* ← TAF DOG/Worksの行間を詰める */
+    }
     .accent{color:#8ec5ff}
     .accent:hover{color:#bfe2ff;text-decoration:underline}
 
@@ -101,6 +106,16 @@
     }
     .copybtn:active{transform:translateY(1px)}
     .copied{font-size:12px;color:#86efac;margin-left:6px}
+
+    /* COIN: 2カラム（スマホは縦積み） */
+    .coin-grid{
+      display:grid;
+      gap:18px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    @media (max-width:760px){
+      .coin-grid{grid-template-columns: 1fr;}
+    }
 
     /* ===== Timeline / About ===== */
     .vline{list-style:none;margin:0;padding:0}
@@ -196,24 +211,50 @@
   <!-- JOMON COIN -->
   <section class="block" id="coin">
     <h2>JOMON COIN</h2>
-    <ul class="spec">
-      <li><strong>シンボル</strong><span>JMC</span></li>
-      <li><strong>総発行数</strong><span>18,000</span></li>
-      <li>
-        <strong>トークンコントラクトアドレス（Polygon）</strong>
-        <div class="addrrow">
-          <span class="addr" id="tokenAddr">0x17d5fc83b6900858617928808b356b7eec78deb2</span>
-          <button class="copybtn" id="copyBtn" aria-label="アドレスをコピー">コピー</button>
-          <span class="copied" id="copiedMsg" aria-live="polite"></span>
+
+    <p style="margin:0 0 14px 0;color:#b8b8b8;">
+      JOMON COLLECTIONの公式トークン情報はこちら。<br>
+      <span style="color:#cfcfcf;">Polygon</span>：公式コントラクトアドレス（コピーして確認）／
+      <span style="color:#cfcfcf;">Solana</span>：購入ページ／スワップ（すぐ入手したい人向け）
+    </p>
+
+    <div class="coin-grid">
+      <!-- Polygon -->
+      <div class="card">
+        <div class="meta">
+          <h3>Polygon</h3>
+          <ul class="spec">
+            <li><strong>シンボル</strong><span>JMC</span></li>
+            <li><strong>総発行数</strong><span>18,000</span></li>
+            <li>
+              <strong>トークンコントラクトアドレス</strong>
+              <div class="addrrow">
+                <span class="addr" id="tokenAddr">0x17d5fc83b6900858617928808b356b7eec78deb2</span>
+                <button class="copybtn" id="copyBtn" aria-label="アドレスをコピー">コピー</button>
+                <span class="copied" id="copiedMsg" aria-live="polite"></span>
+              </div>
+            </li>
+          </ul>
         </div>
-      </li>
-      <li>
-        <strong>Solana（発行ページ）</strong>
-        <a class="accent" href="https://bags.fm/5LsFTneWiAD5guNSmkeF6TxeQzxVjoevWCa3gUpoBAGS" target="_blank" rel="noopener">
-          bags.fm / 5LsFT...BAGS
-        </a>
-      </li>
-    </ul>
+      </div>
+
+      <!-- Solana -->
+      <div class="card">
+        <div class="meta">
+          <h3>Solana</h3>
+          <ul class="spec">
+            <li><strong>シンボル</strong><span>JMC</span></li>
+            <li>
+              <strong>購入・スワップ</strong>
+              <span>
+                <a class="accent" href="https://bags.fm/5LsFTneWiAD5guNSmkeF6TxeQzxVjoevWCa3gUpoBAGS" target="_blank" rel="noopener">Bags（購入）</a><br>
+                <a class="accent" href="https://jup.ag/swap?sell=So11111111111111111111111111111111111111112&buy=5LsFTneWiAD5guNSmkeF6TxeQzxVjoevWCa3gUpoBAGS" target="_blank" rel="noopener">Jupiter（スワップ）</a>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- TIMELINE -->
@@ -225,8 +266,9 @@
       <li><span class="date">2025-12-16</span>TAF DOG（AL）</li>
       <li><span class="date">2026-01 mid</span>TAF DOG（PUBLIC）</li>
       <li><span class="date">2026-01-17</span>JOMON COIN（Solana）発行（
-        <a class="accent" href="https://bags.fm/5LsFTneWiAD5guNSmkeF6TxeQzxVjoevWCa3gUpoBAGS" target="_blank" rel="noopener">bags.fm</a>）
-      </li>
+        <a class="accent" href="https://bags.fm/5LsFTneWiAD5guNSmkeF6TxeQzxVjoevWCa3gUpoBAGS" target="_blank" rel="noopener">Bags</a> /
+        <a class="accent" href="https://jup.ag/swap?sell=So11111111111111111111111111111111111111112&buy=5LsFTneWiAD5guNSmkeF6TxeQzxVjoevWCa3gUpoBAGS" target="_blank" rel="noopener">Jupiter</a>
+      ）</li>
     </ol>
   </section>
 
@@ -265,11 +307,13 @@
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  // コントラクトアドレス コピー
+  // コントラクトアドレス コピー（Polygon）
   (function(){
     const btn = document.getElementById('copyBtn');
     const el = document.getElementById('tokenAddr');
     const msg = document.getElementById('copiedMsg');
+    if(!btn || !el || !msg) return;
+
     const value = el.textContent.trim();
 
     async function copyText(txt){
